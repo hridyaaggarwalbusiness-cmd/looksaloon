@@ -350,6 +350,11 @@
   animation-delay: 1s;
 }
 
+.hero-float-4 {
+  animation: floatY 6.5s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
 .hero-sparkle-1 {
   animation: twinkle 2.4s ease-in-out infinite;
 }

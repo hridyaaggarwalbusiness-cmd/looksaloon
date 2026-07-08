@@ -13,28 +13,38 @@ function AboutArt() {
           <stop offset="0%" stopColor="#c9a15a" />
           <stop offset="100%" stopColor="#e7b6a3" />
         </linearGradient>
+        <radialGradient id="aboutMirrorGlass" cx="35%" cy="28%" r="80%">
+          <stop offset="0%" stopColor="#fdf6ec" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#e7b6a3" stopOpacity="0.45" />
+        </radialGradient>
       </defs>
       <rect x="18" y="18" width="384" height="444" rx="18" fill="url(#aboutPanelGrad)" />
       <rect x="18.5" y="18.5" width="383" height="443" rx="17.5" fill="none" stroke="#c9a15a" strokeOpacity="0.35" />
 
-      <g transform="translate(70 70)">
-        <circle cx="90" cy="90" r="86" fill="none" stroke="url(#aboutGoldLine)" strokeWidth="1.4" opacity="0.6" />
-        <path
-          d="M40 110c8-46 40-78 86-78 12 26 6 56-14 76-24 24-58 26-72 2Z"
-          fill="#e7b6a3"
-          opacity="0.85"
-        />
-        <path
-          d="M50 60c26-30 66-34 96-10-6 30-32 52-64 52-18 0-34-16-32-42Z"
-          fill="#c9a15a"
-        />
-        <circle cx="90" cy="90" r="5" fill="#fbf4ec" />
+      {/* Hand mirror */}
+      <g transform="translate(108 66)">
+        <ellipse cx="102" cy="96" rx="80" ry="86" fill="url(#aboutMirrorGlass)" stroke="url(#aboutGoldLine)" strokeWidth="4.5" />
+        <ellipse cx="102" cy="96" rx="80" ry="86" fill="none" stroke="#fbf4ec" strokeWidth="1" opacity="0.3" />
+        <path d="M68 56c22 20 28 50 20 90" stroke="#fbf4ec" strokeWidth="2.4" strokeLinecap="round" fill="none" opacity="0.4" />
+        <rect x="90" y="174" width="20" height="58" rx="10" fill="url(#aboutGoldLine)" />
+        <ellipse cx="100" cy="238" rx="15" ry="9" fill="url(#aboutGoldLine)" />
+      </g>
+
+      {/* Comb accent */}
+      <g transform="translate(232 330)">
+        <rect x="0" y="0" width="72" height="14" rx="7" fill="url(#aboutGoldLine)" opacity="0.9" />
+        <g stroke="url(#aboutGoldLine)" strokeWidth="2.6" strokeLinecap="round" opacity="0.8">
+          <path d="M8 14v16" />
+          <path d="M20 14v20" />
+          <path d="M32 14v16" />
+          <path d="M44 14v20" />
+          <path d="M56 14v16" />
+        </g>
       </g>
 
       <g transform="translate(60 300)" fill="none" stroke="#c9a15a" strokeWidth="1.2" opacity="0.7">
-        <path d="M0 0h300" />
-        <path d="M0 22h180" opacity="0.5" />
-        <path d="M0 44h220" opacity="0.3" />
+        <path d="M0 30h150" />
+        <path d="M0 52h100" opacity="0.5" />
       </g>
 
       <text x="60" y="410" fill="#f6e3c2" fontFamily="Cormorant Garamond, serif" fontSize="26" fontStyle="italic">
