@@ -1,0 +1,171 @@
+.navbar {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+.brand {
+  font-family: var(--heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero {
+  padding: 96px 0;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: 52px;
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  max-width: 640px;
+  margin: 0 auto 32px;
+  font-size: 19px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  text-align: left;
+}
+
+.service-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.service-card-header h3 {
+  font-size: 20px;
+}
+
+.service-price {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 48px;
+  align-items: center;
+  text-align: left;
+}
+
+.about-inner p + p {
+  margin-top: 16px;
+}
+
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+}
+
+.about-stats dt {
+  font-family: var(--heading);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.about-stats dd {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.contact-inner {
+  text-align: left;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-list a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+@media (max-width: 800px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+}
