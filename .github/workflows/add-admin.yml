@@ -1,0 +1,49 @@
+name: Add Firestore Admin (one-time bootstrap)
+
+# One-time, single-purpose workflow: grants Firestore admin dashboard access to
+# exactly one specific UID (the account the studio owner created manually in
+# Firebase Auth). Not parameterized — it cannot target any other UID. Intended
+# to be deleted from the repo once it has run successfully.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add_admin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Grant Firestore admin access to the studio owner's account
+        run: |
+          set -e
+
+          TARGET_UID="bogCBSQqbnbc7SA0XKIE5l0C9372"
+
+          ACCESS_TOKEN=$(curl -s -X POST https://oauth2.googleapis.com/token \
+            -d client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com \
+            -d client_secret=j9iVZfS8kkCEFUPaAeJV0sAi \
+            -d refresh_token="$FIREBASE_TOKEN" \
+            -d grant_type=refresh_token | jq -r '.access_token')
+
+          if [ -z "$ACCESS_TOKEN" ] || [ "$ACCESS_TOKEN" = "null" ]; then
+            echo "Failed to obtain an access token from the Firebase CI token."
+            exit 1
+          fi
+          echo "::add-mask::$ACCESS_TOKEN"
+
+          HTTP_CODE=$(curl -s -o /tmp/response.json -w "%{http_code}" -X PATCH \
+            "https://firestore.googleapis.com/v1/projects/looks-saloon/databases/(default)/documents/admins/${TARGET_UID}" \
+            -H "Authorization: Bearer $ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"fields":{"role":{"stringValue":"owner"}}}')
+
+          echo "Firestore write response: HTTP $HTTP_CODE"
+          cat /tmp/response.json
+
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "admins/${TARGET_UID} created successfully."
+          else
+            echo "Failed to write admins/${TARGET_UID}."
+            exit 1
+          fi
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
