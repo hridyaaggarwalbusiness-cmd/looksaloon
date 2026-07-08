@@ -29,9 +29,23 @@ function Footer() {
           </div>
           <div>
             <h4>Follow</h4>
-            <a href="#top">Instagram</a>
-            <a href="#top">Facebook</a>
-            <a href="#top">WhatsApp</a>
+            {settings.instagram && (
+              <a href={settings.instagram} target="_blank" rel="noreferrer">
+                Instagram
+              </a>
+            )}
+            {settings.facebook && (
+              <a href={settings.facebook} target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+            )}
+            <a
+              href={`https://wa.me/${settings.phone.replace(/[^0-9]/g, '')}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp
+            </a>
           </div>
         </div>
       </div>

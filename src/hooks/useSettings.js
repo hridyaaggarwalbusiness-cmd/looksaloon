@@ -3,12 +3,12 @@ import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
 
 export const DEFAULT_SETTINGS = {
-  address: '123 Marina Boulevard, Springfield',
-  phone: '+1 (555) 123-4567',
+  address: 'Gaandhi Nagar, Hanumangarh, Rajasthan 335512',
+  phone: '+91 83859 39352',
   email: 'hello@lookssaloon.com',
-  hours: 'Tue–Sun, 9:00 AM – 8:00 PM',
+  hours: 'Daily, 9:00 AM – 8:00 PM',
   instagram: '',
-  facebook: '',
+  facebook: 'https://www.facebook.com/people/Looks-beauty-zone-and-spa/100057492337485/',
   whatsapp: '',
 }
 

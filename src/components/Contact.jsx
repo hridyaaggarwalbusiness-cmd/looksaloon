@@ -117,13 +117,22 @@ function Contact() {
           </ul>
 
           <div className="contact-socials">
-            <a href="#top" aria-label="Instagram">
-              IG
-            </a>
-            <a href="#top" aria-label="Facebook">
-              FB
-            </a>
-            <a href="#top" aria-label="WhatsApp">
+            {settings.instagram && (
+              <a href={settings.instagram} aria-label="Instagram" target="_blank" rel="noreferrer">
+                IG
+              </a>
+            )}
+            {settings.facebook && (
+              <a href={settings.facebook} aria-label="Facebook" target="_blank" rel="noreferrer">
+                FB
+              </a>
+            )}
+            <a
+              href={`https://wa.me/${settings.phone.replace(/[^0-9]/g, '')}`}
+              aria-label="WhatsApp"
+              target="_blank"
+              rel="noreferrer"
+            >
               WA
             </a>
           </div>
