@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import Reveal from './Reveal'
+import { db } from '../firebase'
+import { useSettings } from '../hooks/useSettings'
 
 const SERVICE_OPTIONS = [
   'Haircut & Styling',
@@ -11,11 +14,43 @@ const SERVICE_OPTIONS = [
 ]
 
 function Contact() {
+  const settings = useSettings()
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
+    setError('')
+
+    const form = event.target
+    const data = new FormData(form)
+    const booking = {
+      name: data.get('name'),
+      phone: data.get('phone'),
+      email: data.get('email'),
+      service: data.get('service') || '',
+      date: data.get('date') || '',
+      message: data.get('message') || '',
+      status: 'pending',
+      createdAt: serverTimestamp(),
+    }
+
+    if (!db) {
+      setSubmitted(true)
+      return
+    }
+
+    setSubmitting(true)
+    try {
+      await addDoc(collection(db, 'bookings'), booking)
+      setSubmitted(true)
+      form.reset()
+    } catch {
+      setError('Something went wrong sending your request. Please call or WhatsApp us instead.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -41,7 +76,7 @@ function Contact() {
               </span>
               <div>
                 <strong>Visit the Studio</strong>
-                <span>123 Marina Boulevard, Springfield</span>
+                <span>{settings.address}</span>
               </div>
             </li>
             <li>
@@ -52,7 +87,7 @@ function Contact() {
               </span>
               <div>
                 <strong>Call or WhatsApp</strong>
-                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                <a href={`tel:${settings.phone}`}>{settings.phone}</a>
               </div>
             </li>
             <li>
@@ -64,7 +99,7 @@ function Contact() {
               </span>
               <div>
                 <strong>Email</strong>
-                <a href="mailto:hello@lookssaloon.com">hello@lookssaloon.com</a>
+                <a href={`mailto:${settings.email}`}>{settings.email}</a>
               </div>
             </li>
             <li>
@@ -76,7 +111,7 @@ function Contact() {
               </span>
               <div>
                 <strong>Studio Hours</strong>
-                <span>Tue&ndash;Sun, 9:00 AM &ndash; 8:00 PM</span>
+                <span>{settings.hours}</span>
               </div>
             </li>
           </ul>
@@ -144,8 +179,9 @@ function Contact() {
                 <span>Message (optional)</span>
                 <textarea name="message" rows="3" placeholder="Anything we should know before your visit?" />
               </label>
-              <button type="submit" className="btn btn-primary btn-lg btn-block">
-                Request Appointment
+              {error && <p className="form-error">{error}</p>}
+              <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={submitting}>
+                {submitting ? 'Sending…' : 'Request Appointment'}
               </button>
             </form>
           )}

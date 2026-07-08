@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "looks-saloon"
+  },
+  "targets": {
+    "looks-saloon": {
+      "hosting": {
+        "main": ["looks-saloon"],
+        "admin": ["looks-saloon-admin"]
+      }
+    }
   }
 }

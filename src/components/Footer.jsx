@@ -1,4 +1,8 @@
+import { useSettings } from '../hooks/useSettings'
+
 function Footer() {
+  const settings = useSettings()
+
   return (
     <footer className="footer">
       <div className="container footer-inner">
@@ -20,8 +24,8 @@ function Footer() {
           <div>
             <h4>Studio</h4>
             <a href="#contact">Book Appointment</a>
-            <a href="tel:+15551234567">+1 (555) 123-4567</a>
-            <a href="mailto:hello@lookssaloon.com">hello@lookssaloon.com</a>
+            <a href={`tel:${settings.phone}`}>{settings.phone}</a>
+            <a href={`mailto:${settings.email}`}>{settings.email}</a>
           </div>
           <div>
             <h4>Follow</h4>

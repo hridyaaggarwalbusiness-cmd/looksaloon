@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import { useServices } from '../hooks/useServices'
 
 const ICONS = {
   scissors: (
@@ -63,47 +64,9 @@ const ICONS = {
   ),
 }
 
-const SERVICES = [
-  {
-    icon: 'scissors',
-    name: 'Precision Haircut & Styling',
-    price: 'From ₹899',
-    description: 'A tailored cut and blow-dry finish, shaped to your face and lifestyle.',
-  },
-  {
-    icon: 'color',
-    name: 'Global Color & Balayage',
-    price: 'From ₹2,499',
-    description: 'Dimensional color, balayage, and gloss treatments in low-damage formulas.',
-    popular: true,
-  },
-  {
-    icon: 'sparkle',
-    name: 'Luxe Facials & Skin Therapy',
-    price: 'From ₹1,499',
-    description: 'Deep-cleansing, brightening, and anti-aging facials for every skin type.',
-  },
-  {
-    icon: 'hand',
-    name: 'Manicure & Pedicure',
-    price: 'From ₹999',
-    description: 'Classic, gel, or nail art finishes with restorative hand and foot care.',
-  },
-  {
-    icon: 'crown',
-    name: 'Bridal & Occasion Styling',
-    price: 'From ₹8,999',
-    description: 'Full hair, makeup, and draping with a complimentary trial session.',
-  },
-  {
-    icon: 'leaf',
-    name: 'Spa & Body Rituals',
-    price: 'From ₹1,999',
-    description: 'Signature massages and body treatments designed to melt away stress.',
-  },
-]
-
 function Services() {
+  const { services } = useServices()
+
   return (
     <section id="services" className="section services">
       <div className="container">
@@ -119,15 +82,15 @@ function Services() {
         </Reveal>
 
         <div className="services-grid">
-          {SERVICES.map((service, index) => (
+          {services.map((service, index) => (
             <Reveal
               as="article"
               className={`service-card ${service.popular ? 'service-card-popular' : ''}`}
-              key={service.name}
+              key={service.id}
               delay={index * 70}
             >
               {service.popular && <span className="service-tag">Most Popular</span>}
-              <div className="service-icon">{ICONS[service.icon]}</div>
+              <div className="service-icon">{ICONS[service.icon] || ICONS.sparkle}</div>
               <h3>{service.name}</h3>
               <p>{service.description}</p>
               <div className="service-footer">

@@ -1,32 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import Reveal from './Reveal'
-
-const REVIEWS = [
-  {
-    name: 'Ananya Rao',
-    role: 'Bridal Client',
-    quote:
-      'From the trial to the wedding day, the team understood exactly what I wanted. I felt like the best version of myself walking down the aisle.',
-  },
-  {
-    name: 'Kabir Mehta',
-    role: 'Regular Client, 3 years',
-    quote:
-      'Consistently the best haircut I have had. The attention to detail and the calm atmosphere keep me coming back every month.',
-  },
-  {
-    name: 'Priya Nair',
-    role: 'Color & Skin Client',
-    quote:
-      'My balayage has never looked this natural. The facial afterwards left my skin glowing for weeks. Worth every rupee.',
-  },
-  {
-    name: 'Simran Kaur',
-    role: 'Spa Client',
-    quote:
-      'The spa ritual is pure luxury. Professional therapists, premium products, and a space that instantly melts your stress away.',
-  },
-]
+import { useTestimonials } from '../hooks/useTestimonials'
 
 function Stars() {
   return (
@@ -41,20 +15,26 @@ function Stars() {
 }
 
 function Testimonials() {
+  const testimonials = useTestimonials()
   const [index, setIndex] = useState(0)
 
-  const next = useCallback(() => {
-    setIndex((i) => (i + 1) % REVIEWS.length)
-  }, [])
+  useEffect(() => {
+    if (index >= testimonials.length) setIndex(0)
+  }, [testimonials.length, index])
 
-  const prev = () => setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
+  const next = useCallback(() => {
+    setIndex((i) => (i + 1) % testimonials.length)
+  }, [testimonials.length])
+
+  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length)
 
   useEffect(() => {
     const timer = setInterval(next, 6000)
     return () => clearInterval(timer)
   }, [next])
 
-  const current = REVIEWS[index]
+  const current = testimonials[index]
+  if (!current) return null
 
   return (
     <section id="testimonials" className="section testimonials">
@@ -87,9 +67,9 @@ function Testimonials() {
               </svg>
             </button>
             <div className="testimonial-dots">
-              {REVIEWS.map((review, i) => (
+              {testimonials.map((review, i) => (
                 <button
-                  key={review.name}
+                  key={review.id}
                   type="button"
                   className={i === index ? 'is-active' : ''}
                   aria-label={`Show review from ${review.name}`}

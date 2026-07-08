@@ -987,6 +987,18 @@
   font-family: inherit;
 }
 
+.form-error {
+  font-size: 13.5px;
+  color: var(--rose);
+  font-weight: 600;
+}
+
+.contact-form .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .contact-success {
   text-align: center;
   padding: 40px 10px;
