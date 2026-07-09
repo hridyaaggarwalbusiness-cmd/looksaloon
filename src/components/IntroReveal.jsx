@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 
-const PARTICLES = [
-  { top: '22%', left: '18%', size: 5, delay: '0s', driftX: '14px', driftY: '-18px', duration: '7s' },
-  { top: '68%', left: '24%', size: 3, delay: '0.4s', driftX: '-10px', driftY: '-22px', duration: '8.5s' },
-  { top: '35%', left: '78%', size: 4, delay: '0.8s', driftX: '-16px', driftY: '-14px', duration: '6.5s' },
-  { top: '76%', left: '70%', size: 6, delay: '0.2s', driftX: '12px', driftY: '-20px', duration: '9s' },
-  { top: '48%', left: '10%', size: 3, delay: '1.1s', driftX: '18px', driftY: '-10px', duration: '7.5s' },
-  { top: '15%', left: '55%', size: 4, delay: '0.6s', driftX: '-14px', driftY: '-16px', duration: '8s' },
-  { top: '85%', left: '46%', size: 3, delay: '1.3s', driftX: '10px', driftY: '-24px', duration: '6.8s' },
-  { top: '58%', left: '88%', size: 5, delay: '0.9s', driftX: '-12px', driftY: '-18px', duration: '7.8s' },
+const THREADS = [
+  { angle: -55, dist: 90, size: 4, delay: '0s' },
+  { angle: -20, dist: 120, size: 3, delay: '0.05s' },
+  { angle: 15, dist: 100, size: 4, delay: '0.02s' },
+  { angle: 50, dist: 130, size: 3, delay: '0.08s' },
+  { angle: -80, dist: 70, size: 3, delay: '0.1s' },
+  { angle: 80, dist: 85, size: 4, delay: '0.04s' },
+  { angle: -130, dist: 110, size: 3, delay: '0.12s' },
+  { angle: 130, dist: 95, size: 3, delay: '0.06s' },
+  { angle: 170, dist: 75, size: 4, delay: '0.14s' },
+  { angle: -170, dist: 105, size: 3, delay: '0.09s' },
 ]
 
 function IntroReveal({ onDone }) {
@@ -17,8 +19,8 @@ function IntroReveal({ onDone }) {
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const skip = Boolean(alreadySeen || reduceMotion)
 
-  const igniting = !skip
-  const [parting, setParting] = useState(false)
+  const [cutting, setCutting] = useState(false)
+  const [parted, setParted] = useState(false)
   const [exiting, setExiting] = useState(false)
   const [visible, setVisible] = useState(!skip)
 
@@ -30,19 +32,21 @@ function IntroReveal({ onDone }) {
 
     document.body.classList.add('loading')
 
-    const t1 = setTimeout(() => setParting(true), 900)
-    const t2 = setTimeout(() => {
+    const t1 = setTimeout(() => setCutting(true), 900)
+    const t2 = setTimeout(() => setParted(true), 1300)
+    const t3 = setTimeout(() => {
       setExiting(true)
       document.body.classList.remove('loading')
       sessionStorage.setItem('ls-intro-seen', '1')
       onDone()
-    }, 2000)
-    const t3 = setTimeout(() => setVisible(false), 2650)
+    }, 2050)
+    const t4 = setTimeout(() => setVisible(false), 2700)
 
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
       clearTimeout(t3)
+      clearTimeout(t4)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -51,8 +55,9 @@ function IntroReveal({ onDone }) {
 
   const stageClass = [
     'intro-reveal',
-    igniting ? 'intro-igniting' : '',
-    parting ? 'intro-parting' : '',
+    'intro-presented',
+    cutting ? 'intro-cutting' : '',
+    parted ? 'intro-parted' : '',
     exiting ? 'intro-exiting' : '',
   ]
     .filter(Boolean)
@@ -60,32 +65,45 @@ function IntroReveal({ onDone }) {
 
   return (
     <div className={stageClass} aria-hidden="true">
-      <div className="intro-particles">
-        {PARTICLES.map((p, i) => (
+      <div className="intro-ribbon intro-ribbon-left" />
+      <div className="intro-ribbon intro-ribbon-right" />
+
+      <div className="intro-threads">
+        {THREADS.map((t, i) => (
           <span
             key={i}
-            className="intro-particle"
+            className="intro-thread"
             style={{
-              top: p.top,
-              left: p.left,
-              width: p.size,
-              height: p.size,
-              animationDelay: p.delay,
-              animationDuration: p.duration,
-              '--drift-x': p.driftX,
-              '--drift-y': p.driftY,
+              width: t.size,
+              height: t.size,
+              animationDelay: t.delay,
+              '--tx': `${Math.cos((t.angle * Math.PI) / 180) * t.dist}px`,
+              '--ty': `${Math.sin((t.angle * Math.PI) / 180) * t.dist}px`,
             }}
           />
         ))}
       </div>
 
-      <div className="intro-panel intro-panel-left" />
-      <div className="intro-panel intro-panel-right" />
-      <div className="intro-seam" />
+      <div className="intro-cut-flash" />
+
+      <div className="intro-scissors">
+        <svg viewBox="0 0 140 60" width="126" height="54" fill="none">
+          <g className="scissor-blade scissor-blade-a">
+            <line x1="60" y1="30" x2="6" y2="30" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <line x1="60" y1="30" x2="110" y2="12" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <circle cx="110" cy="12" r="7.5" stroke="currentColor" strokeWidth="2.4" />
+          </g>
+          <g className="scissor-blade scissor-blade-b">
+            <line x1="60" y1="30" x2="6" y2="30" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <line x1="60" y1="30" x2="110" y2="48" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <circle cx="110" cy="48" r="7.5" stroke="currentColor" strokeWidth="2.4" />
+          </g>
+          <circle cx="60" cy="30" r="3" fill="currentColor" />
+        </svg>
+      </div>
 
       <div className="intro-mark">
-        <div className="intro-mark-glow" />
-        <svg viewBox="0 0 48 48" width="56" height="56">
+        <svg viewBox="0 0 48 48" width="44" height="44">
           <path d="M24 4c6 6 6 14 0 20-6-6-6-14 0-20Z" fill="currentColor" />
           <path d="M24 22c0 10-6 16-16 20 4-10 6-16 16-20Z" fill="currentColor" opacity="0.7" />
           <path d="M24 22c0 10 6 16 16 20-4-10-6-16-16-20Z" fill="currentColor" opacity="0.45" />
