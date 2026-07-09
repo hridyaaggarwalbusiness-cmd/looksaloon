@@ -136,6 +136,15 @@ function Contact() {
               WA
             </a>
           </div>
+
+          <div className="contact-map">
+            <iframe
+              title="Looks Saloon location map"
+              src="https://www.google.com/maps?q=29.619166666667,74.289380555556&z=16&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </Reveal>
 
         <Reveal className="contact-form-wrap" delay={120}>
@@ -182,7 +191,7 @@ function Contact() {
               </label>
               <label>
                 <span>Preferred Date</span>
-                <input type="date" name="date" />
+                <input type="date" name="date" min={new Date().toISOString().split('T')[0]} />
               </label>
               <label>
                 <span>Message (optional)</span>

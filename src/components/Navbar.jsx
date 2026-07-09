@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 
 const LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#about', label: 'About' },
-  { href: '#testimonials', label: 'Reviews' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#services', label: 'Services', id: 'services' },
+  { href: '#gallery', label: 'Gallery', id: 'gallery' },
+  { href: '#about', label: 'About', id: 'about' },
+  { href: '#faq', label: 'FAQ', id: 'faq' },
+  { href: '#testimonials', label: 'Reviews', id: 'testimonials' },
+  { href: '#contact', label: 'Contact', id: 'contact' },
 ]
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -24,10 +26,30 @@ function Navbar() {
     return () => document.body.classList.remove('nav-open')
   }, [menuOpen])
 
+  useEffect(() => {
+    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(Boolean)
+    if (sections.length === 0 || typeof IntersectionObserver === 'undefined') return undefined
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   const handleLinkClick = () => setMenuOpen(false)
 
   return (
     <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <div className="container navbar-inner">
         <a className="brand" href="#top" onClick={handleLinkClick}>
           <span className="brand-mark" aria-hidden="true">
@@ -55,7 +77,13 @@ function Navbar() {
 
         <nav className="nav-links" aria-label="Primary">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={handleLinkClick}>
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleLinkClick}
+              className={activeSection === link.id ? 'active' : ''}
+              aria-current={activeSection === link.id ? 'true' : undefined}
+            >
               {link.label}
             </a>
           ))}

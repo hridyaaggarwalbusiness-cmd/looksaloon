@@ -217,12 +217,29 @@
 }
 
 .sidebar-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   font-size: 14.5px;
   font-weight: 600;
   color: rgba(251, 246, 240, 0.65);
   transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--rose);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .sidebar-nav a:hover {
@@ -309,7 +326,7 @@
 
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 18px;
   margin-bottom: 32px;
 }
@@ -516,6 +533,12 @@
   font-size: 12.5px;
   font-weight: 700;
   text-transform: capitalize;
+}
+
+.stars-static {
+  display: flex;
+  gap: 2px;
+  color: var(--gold);
 }
 
 /* ===================== Modal ===================== */

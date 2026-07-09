@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useBookings } from '../hooks/useBookings'
 import { useServices } from '../hooks/useServices'
 import { useTestimonials } from '../hooks/useTestimonials'
+import { useReviewSubmissions } from '../hooks/useReviewSubmissions'
 
 function isToday(timestamp) {
   if (!timestamp?.toDate) return false
@@ -28,6 +29,7 @@ function Overview() {
   const { bookings, loading } = useBookings()
   const { services } = useServices()
   const { testimonials } = useTestimonials()
+  const { submissions } = useReviewSubmissions()
 
   const pending = bookings.filter((b) => b.status === 'pending').length
   const today = bookings.filter((b) => isToday(b.createdAt)).length
@@ -62,6 +64,10 @@ function Overview() {
         <div className="stat-card">
           <span className="stat-label">Published Reviews</span>
           <span className="stat-value">{testimonials.length}</span>
+        </div>
+        <div className="stat-card stat-card-accent">
+          <span className="stat-label">Feedback Awaiting Review</span>
+          <span className="stat-value">{submissions.length}</span>
         </div>
       </div>
 

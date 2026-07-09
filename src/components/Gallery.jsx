@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import Reveal from './Reveal'
-import Photo from './Photo'
+import PhotoFrame from './PhotoFrame'
+import Lightbox from './Lightbox'
 import { SALON_PHOTOS } from '../photos'
 
 const ITEMS = [
@@ -12,6 +14,12 @@ const ITEMS = [
 ]
 
 function Gallery() {
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  const close = () => setActiveIndex(null)
+  const prev = () => setActiveIndex((i) => (i - 1 + ITEMS.length) % ITEMS.length)
+  const next = () => setActiveIndex((i) => (i + 1) % ITEMS.length)
+
   return (
     <section id="gallery" className="section gallery">
       <div className="container">
@@ -31,17 +39,24 @@ function Gallery() {
               className={`gallery-item ${item.variant}`}
               delay={index * 60}
             >
-              <div className="gallery-media">
-                <Photo src={item.src} alt={`Looks Saloon — ${item.title}`} className="gallery-photo" />
-              </div>
-              <figcaption>
-                <span className="gallery-tag">{item.tag}</span>
-                <span className="gallery-title">{item.title}</span>
-              </figcaption>
+              <button
+                type="button"
+                className="gallery-item-button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`View larger photo: ${item.title}`}
+              >
+                <PhotoFrame src={item.src} alt={`Looks Saloon — ${item.title}`} className="gallery-media" />
+                <figcaption>
+                  <span className="gallery-tag">{item.tag}</span>
+                  <span className="gallery-title">{item.title}</span>
+                </figcaption>
+              </button>
             </Reveal>
           ))}
         </div>
       </div>
+
+      <Lightbox item={activeIndex === null ? null : ITEMS[activeIndex]} onClose={close} onPrev={prev} onNext={next} />
     </section>
   )
 }

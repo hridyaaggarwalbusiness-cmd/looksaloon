@@ -1,5 +1,5 @@
 import Reveal from './Reveal'
-import Photo from './Photo'
+import PhotoFrame from './PhotoFrame'
 import { SALON_PHOTOS } from '../photos'
 
 function HeroBackdrop() {
@@ -103,9 +103,11 @@ function Hero() {
 
         <Reveal className="hero-visual" delay={150} as="div">
           <HeroBackdrop />
-          <div className="hero-photo-frame">
-            <Photo src={SALON_PHOTOS.exterior} alt="Looks Saloon storefront, Hanumangarh" className="hero-photo" />
-          </div>
+          <PhotoFrame
+            src={SALON_PHOTOS.exterior}
+            alt="Looks Saloon storefront, Hanumangarh"
+            className="hero-photo-frame"
+          />
           <div className="hero-badge hero-badge-top">
             <span className="hero-badge-stars">★★★★★</span>
             <p>

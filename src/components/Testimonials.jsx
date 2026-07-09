@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import Reveal from './Reveal'
+import ReviewForm from './ReviewForm'
 import { useTestimonials } from '../hooks/useTestimonials'
 
 function Stars() {
@@ -83,6 +84,10 @@ function Testimonials() {
               </svg>
             </button>
           </div>
+        </Reveal>
+
+        <Reveal className="review-cta-wrap" delay={150}>
+          <ReviewForm />
         </Reveal>
       </div>
     </section>

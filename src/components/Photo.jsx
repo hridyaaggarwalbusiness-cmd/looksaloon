@@ -1,17 +1,20 @@
 import { useState } from 'react'
 
-function Photo({ src, alt, className }) {
-  const [failed, setFailed] = useState(false)
+function Photo({ src, alt, className = '' }) {
+  const [status, setStatus] = useState('loading')
 
-  if (failed || !src) return null
+  if (status === 'failed' || !src) return null
 
   return (
     <img
       src={src}
       alt={alt}
-      className={className}
+      className={`photo-img photo-img-${status} ${className}`}
       loading="lazy"
-      onError={() => setFailed(true)}
+      decoding="async"
+      referrerPolicy="no-referrer"
+      onLoad={() => setStatus('loaded')}
+      onError={() => setStatus('failed')}
     />
   )
 }

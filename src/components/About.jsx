@@ -1,6 +1,6 @@
 import Reveal from './Reveal'
 import CountUp from './CountUp'
-import Photo from './Photo'
+import PhotoFrame from './PhotoFrame'
 import { SALON_PHOTOS } from '../photos'
 
 function AboutCombAccent() {
@@ -29,16 +29,15 @@ function About() {
     <section id="about" className="section about">
       <div className="container about-inner">
         <Reveal className="about-visual" as="div">
-          <div className="about-photo-frame">
-            <Photo
-              src={SALON_PHOTOS.interiorMirrors}
-              alt="Looks Saloon styling stations, Hanumangarh"
-              className="about-photo"
-            />
+          <PhotoFrame
+            src={SALON_PHOTOS.interiorMirrors}
+            alt="Looks Saloon styling stations, Hanumangarh"
+            className="about-photo-frame"
+          >
             <div className="about-photo-caption">
               <span>Gaandhi Nagar, Hanumangarh</span>
             </div>
-          </div>
+          </PhotoFrame>
           <AboutCombAccent />
         </Reveal>
 

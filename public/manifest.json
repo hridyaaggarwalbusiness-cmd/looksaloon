@@ -1,0 +1,16 @@
+{
+  "name": "Looks Saloon",
+  "short_name": "Looks Saloon",
+  "description": "Premium hair, skin, and beauty studio in Gaandhi Nagar, Hanumangarh.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf6f0",
+  "theme_color": "#17110d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

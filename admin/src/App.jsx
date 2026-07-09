@@ -7,6 +7,7 @@ import Overview from './pages/Overview'
 import Bookings from './pages/Bookings'
 import Services from './pages/Services'
 import Testimonials from './pages/Testimonials'
+import Feedback from './pages/Feedback'
 import Settings from './pages/Settings'
 
 function Gate() {
@@ -44,6 +45,7 @@ function Gate() {
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/services" element={<Services />} />
         <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/feedback" element={<Feedback />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

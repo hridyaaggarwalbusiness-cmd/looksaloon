@@ -1,16 +1,19 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useReviewSubmissions } from '../hooks/useReviewSubmissions'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Overview', end: true },
   { to: '/bookings', label: 'Bookings' },
   { to: '/services', label: 'Services' },
   { to: '/testimonials', label: 'Testimonials' },
+  { to: '/feedback', label: 'Feedback' },
   { to: '/settings', label: 'Settings' },
 ]
 
 function Layout() {
   const { user, logout } = useAuth()
+  const { submissions } = useReviewSubmissions()
 
   return (
     <div className="dashboard">
@@ -32,6 +35,9 @@ function Layout() {
           {NAV_ITEMS.map((item) => (
             <NavLink key={item.to} to={item.to} end={item.end}>
               {item.label}
+              {item.to === '/feedback' && submissions.length > 0 && (
+                <span className="sidebar-nav-badge">{submissions.length}</span>
+              )}
             </NavLink>
           ))}
         </nav>
