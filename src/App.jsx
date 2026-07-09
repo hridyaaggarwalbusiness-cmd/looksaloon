@@ -13,7 +13,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import QuickActions from './components/QuickActions'
 import CustomCursor from './components/CustomCursor'
-import Preloader from './components/Preloader'
+import IntroReveal from './components/IntroReveal'
 
 function App() {
   const [introDone, setIntroDone] = useState(false)
@@ -21,12 +21,12 @@ function App() {
 
   return (
     <>
-      <Preloader onDone={handleIntroDone} />
+      <IntroReveal onDone={handleIntroDone} />
       <div className="grain" aria-hidden="true" />
       <CustomCursor />
       <Navbar />
       <main id="main" className={introDone ? 'is-revealed' : ''}>
-        <Hero />
+        <Hero revealed={introDone} />
         <Marquee />
         <Services />
         <About />
