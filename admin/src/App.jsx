@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Overview from './pages/Overview'
 import Bookings from './pages/Bookings'
+import Categories from './pages/Categories'
 import Services from './pages/Services'
 import Testimonials from './pages/Testimonials'
 import Feedback from './pages/Feedback'
@@ -45,6 +46,7 @@ function Gate() {
       <Route element={<Layout />}>
         <Route path="/" element={<Overview />} />
         <Route path="/bookings" element={<Bookings />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="/services" element={<Services />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/photos" element={<Media />} />

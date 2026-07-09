@@ -5,6 +5,7 @@ import { useReviewSubmissions } from '../hooks/useReviewSubmissions'
 const NAV_ITEMS = [
   { to: '/', label: 'Overview', end: true },
   { to: '/bookings', label: 'Bookings' },
+  { to: '/categories', label: 'Categories' },
   { to: '/services', label: 'Services' },
   { to: '/testimonials', label: 'Testimonials' },
   { to: '/photos', label: 'Photos' },
