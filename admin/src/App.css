@@ -818,3 +818,166 @@
     justify-self: start;
   }
 }
+
+/* ===================== Drag reorder ===================== */
+
+.drag-handle-cell {
+  width: 32px;
+  padding: 0 !important;
+}
+
+.drag-handle {
+  cursor: grab;
+  color: var(--text-soft);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.data-table tr.is-dragging {
+  background: var(--cream-soft);
+}
+
+/* ===================== Image upload field ===================== */
+
+.image-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image-upload-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  display: block;
+}
+
+.image-upload-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.image-upload-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+.image-upload-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-upload-empty {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--text-soft);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.image-upload-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.image-upload-trigger {
+  cursor: pointer;
+}
+
+/* ===================== Gallery editor ===================== */
+
+.gallery-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gallery-editor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gallery-editor-item {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.gallery-editor-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-editor-item .icon-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  background: rgba(23, 17, 13, 0.7);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.gallery-editor-add {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+/* ===================== Badge checkboxes ===================== */
+
+.badge-checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.badge-checkbox-row .checkbox-label {
+  padding-top: 0;
+}
+
+.table-strike {
+  text-decoration: line-through;
+  color: var(--text-soft);
+  margin-right: 4px;
+}
+
+.modal-lg {
+  width: 720px;
+}

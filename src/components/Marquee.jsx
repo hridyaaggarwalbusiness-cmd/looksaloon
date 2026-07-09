@@ -1,18 +1,9 @@
-const ITEMS = [
-  'Haircuts',
-  'Global Color',
-  'Bridal Styling',
-  'Spa Rituals',
-  'Manicure & Pedicure',
-  'Facials',
-  "Men's Grooming",
-  'Balayage',
-]
+import { useContent } from '../hooks/useContent'
 
-function MarqueeTrack() {
+function MarqueeTrack({ items }) {
   return (
     <div className="marquee-track">
-      {ITEMS.map((item) => (
+      {items.map((item) => (
         <span className="marquee-item" key={item}>
           {item}
           <span className="marquee-dot" aria-hidden="true">
@@ -25,10 +16,12 @@ function MarqueeTrack() {
 }
 
 function Marquee() {
+  const { marqueeItems } = useContent()
+
   return (
     <div className="marquee" aria-hidden="true">
-      <MarqueeTrack />
-      <MarqueeTrack />
+      <MarqueeTrack items={marqueeItems} />
+      <MarqueeTrack items={marqueeItems} />
     </div>
   )
 }
