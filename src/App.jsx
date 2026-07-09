@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -17,10 +17,11 @@ import Preloader from './components/Preloader'
 
 function App() {
   const [introDone, setIntroDone] = useState(false)
+  const handleIntroDone = useCallback(() => setIntroDone(true), [])
 
   return (
     <>
-      <Preloader onDone={() => setIntroDone(true)} />
+      <Preloader onDone={handleIntroDone} />
       <div className="grain" aria-hidden="true" />
       <CustomCursor />
       <Navbar />

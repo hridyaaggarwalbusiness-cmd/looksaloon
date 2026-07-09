@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 
 function Lightbox({ item, onClose, onPrev, onNext }) {
   useEffect(() => {
+    if (!item) return undefined
+
     const handleKey = (event) => {
       if (event.key === 'Escape') onClose()
       if (event.key === 'ArrowLeft') onPrev()
@@ -13,7 +15,7 @@ function Lightbox({ item, onClose, onPrev, onNext }) {
       window.removeEventListener('keydown', handleKey)
       document.body.style.overflow = ''
     }
-  }, [onClose, onPrev, onNext])
+  }, [item, onClose, onPrev, onNext])
 
   if (!item) return null
 

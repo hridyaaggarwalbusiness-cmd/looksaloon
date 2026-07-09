@@ -149,8 +149,8 @@ function Hero() {
         >
           <div ref={photoRef} className="hero-photo-layer">
             <PhotoFrame
-              src={SALON_PHOTOS.exterior}
-              alt="Looks Saloon storefront, Hanumangarh"
+              src={SALON_PHOTOS.interiorLounge}
+              alt="Looks Saloon guest lounge, Hanumangarh"
               className="hero-photo-frame"
               data-cursor="View"
             />
