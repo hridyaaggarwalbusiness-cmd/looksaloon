@@ -1,9 +1,7 @@
 import { useSettings } from '../hooks/useSettings'
-import { useContent } from '../hooks/useContent'
 
 function Footer() {
   const settings = useSettings()
-  const { footerLinks } = useContent()
 
   return (
     <footer className="footer">
@@ -18,11 +16,10 @@ function Footer() {
         <div className="footer-links">
           <div>
             <h4>Explore</h4>
-            {footerLinks.map((link) => (
-              <a key={link.href} href={link.href}>
-                {link.label}
-              </a>
-            ))}
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#about">About Us</a>
+            <a href="#testimonials">Reviews</a>
           </div>
           <div>
             <h4>Studio</h4>

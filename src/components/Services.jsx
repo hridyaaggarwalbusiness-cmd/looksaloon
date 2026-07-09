@@ -1,9 +1,6 @@
-import { useMemo, useState } from 'react'
 import Reveal from './Reveal'
 import TiltCard from './TiltCard'
 import { useServices } from '../hooks/useServices'
-import { useCategories } from '../hooks/useCategories'
-import { formatDuration, formatPrice, GENDER_LABELS } from '../lib/format'
 
 const ICONS = {
   scissors: (
@@ -68,65 +65,8 @@ const ICONS = {
   ),
 }
 
-function ServiceCard({ service, index }) {
-  const price = formatPrice(service.originalPrice, service.discountedPrice)
-  const duration = formatDuration(service.durationMinutes)
-  const genderLabel = service.gender && service.gender !== 'unisex' ? GENDER_LABELS[service.gender] : null
-
-  return (
-    <Reveal className="card-wrap" variant="3d" delay={index * 70}>
-      <TiltCard as="article" className={`service-card ${service.featured ? 'service-card-popular' : ''}`}>
-        {service.featured && <span className="service-tag">Most Popular</span>}
-        {service.imageUrl ? (
-          <div className="service-image">
-            <img src={service.imageUrl} alt={service.name} loading="lazy" />
-          </div>
-        ) : (
-          <div className="service-icon">{ICONS[service.icon] || ICONS.sparkle}</div>
-        )}
-        {Array.isArray(service.badges) && service.badges.length > 0 && (
-          <div className="service-badges">
-            {service.badges.map((badge) => (
-              <span className="service-badge" key={badge}>
-                {badge}
-              </span>
-            ))}
-          </div>
-        )}
-        <h3>{service.name}</h3>
-        <p>{service.shortDescription || service.description}</p>
-        <div className="service-meta">
-          {duration && <span>{duration}</span>}
-          {genderLabel && <span>{genderLabel}</span>}
-        </div>
-        <div className="service-footer">
-          <span className="service-price">
-            {price.original && <span className="service-price-original">₹{price.original}</span>}
-            From ₹{price.current}
-          </span>
-          <a href="#contact" className="service-link">
-            Book
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-        </div>
-      </TiltCard>
-    </Reveal>
-  )
-}
-
 function Services() {
   const { services } = useServices()
-  const { categories } = useCategories()
-  const [activeCategory, setActiveCategory] = useState('all')
-
-  const visibleCategories = useMemo(() => categories.filter((c) => c.visible !== false), [categories])
-
-  const filteredServices = useMemo(() => {
-    if (activeCategory === 'all') return services
-    return services.filter((service) => service.categoryId === activeCategory)
-  }, [services, activeCategory])
 
   return (
     <section id="services" className="section services">
@@ -142,31 +82,33 @@ function Services() {
           </p>
         </Reveal>
 
-        {visibleCategories.length > 0 && (
-          <div className="services-filter" role="tablist" aria-label="Filter services by category">
-            <button
-              type="button"
-              className={`services-filter-pill ${activeCategory === 'all' ? 'is-active' : ''}`}
-              onClick={() => setActiveCategory('all')}
-            >
-              All
-            </button>
-            {visibleCategories.map((category) => (
-              <button
-                key={category.id}
-                type="button"
-                className={`services-filter-pill ${activeCategory === category.id ? 'is-active' : ''}`}
-                onClick={() => setActiveCategory(category.id)}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        )}
-
         <div className="services-grid">
-          {filteredServices.map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} />
+          {services.map((service, index) => (
+            <Reveal
+              key={service.id}
+              className="card-wrap"
+              variant="3d"
+              delay={index * 70}
+            >
+              <TiltCard
+                as="article"
+                className={`service-card ${service.popular ? 'service-card-popular' : ''}`}
+              >
+                {service.popular && <span className="service-tag">Most Popular</span>}
+                <div className="service-icon">{ICONS[service.icon] || ICONS.sparkle}</div>
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <div className="service-footer">
+                  <span className="service-price">{service.price}</span>
+                  <a href="#contact" className="service-link">
+                    Book
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </TiltCard>
+            </Reveal>
           ))}
         </div>
       </div>

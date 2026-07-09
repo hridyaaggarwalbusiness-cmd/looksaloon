@@ -12,17 +12,5 @@ service firebase.storage {
       allow write: if isAdmin() && request.resource.size < 15 * 1024 * 1024
         && request.resource.contentType.matches('image/.*');
     }
-
-    match /services/{allPaths=**} {
-      allow read: if true;
-      allow write: if isAdmin() && request.resource.size < 15 * 1024 * 1024
-        && request.resource.contentType.matches('image/.*');
-    }
-
-    match /categories/{allPaths=**} {
-      allow read: if true;
-      allow write: if isAdmin() && request.resource.size < 15 * 1024 * 1024
-        && request.resource.contentType.matches('image/.*');
-    }
   }
 }
