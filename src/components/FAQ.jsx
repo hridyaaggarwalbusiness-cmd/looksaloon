@@ -1,28 +1,6 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
-
-const FAQS = [
-  {
-    q: 'Do I need to book an appointment in advance?',
-    a: 'Walk-ins are welcome whenever a chair is free, but we recommend booking ahead — especially on weekends and for color, bridal, or spa services — so we can hold your preferred time.',
-  },
-  {
-    q: 'How do I confirm or reschedule my appointment?',
-    a: 'Call or WhatsApp us directly and our front desk will confirm, reschedule, or answer any questions about your booking.',
-  },
-  {
-    q: 'What safety and hygiene measures do you follow?',
-    a: 'All tools are sanitized between every client, we use single-use items where applicable, and our stations are cleaned throughout the day.',
-  },
-  {
-    q: 'Do you offer bridal and party packages?',
-    a: 'Yes — our bridal and occasion styling includes a complimentary trial session so we can perfect your look before the big day.',
-  },
-  {
-    q: 'What payment methods do you accept?',
-    a: 'We accept cash, UPI, and all major cards at the studio.',
-  },
-]
+import { useContent } from '../hooks/useContent'
 
 function FAQItem({ item, isOpen, onToggle }) {
   return (
@@ -41,6 +19,7 @@ function FAQItem({ item, isOpen, onToggle }) {
 }
 
 function FAQ() {
+  const { faq } = useContent()
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
@@ -54,7 +33,7 @@ function FAQ() {
         </Reveal>
 
         <Reveal className="faq-list" delay={100}>
-          {FAQS.map((item, index) => (
+          {faq.map((item, index) => (
             <FAQItem
               key={item.q}
               item={item}

@@ -3,13 +3,15 @@ import { motion } from 'framer-motion'
 import PhotoFrame from './PhotoFrame'
 import MagneticButton from './MagneticButton'
 import HeroSceneGate from './HeroSceneGate'
-import { SALON_PHOTOS } from '../photos'
+import { usePhotos } from '../hooks/usePhotos'
+import { useContent } from '../hooks/useContent'
 
 const EASE = [0.16, 1, 0.3, 1]
 
-const HEADLINE = ['Where every visit', 'becomes a', 'signature look.']
-
 function Hero() {
+  const photos = usePhotos()
+  const { hero } = useContent()
+  const headline = [hero.headline1, hero.headline2, hero.headline3]
   const sectionRef = useRef(null)
   const photoRef = useRef(null)
   const badgeTopRef = useRef(null)
@@ -74,14 +76,14 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE }}
           >
-            <span className="eyebrow-line" /> Premium Hair &amp; Beauty Studio
+            <span className="eyebrow-line" /> {hero.eyebrow}
           </motion.p>
 
           <h1 className="hero-headline">
-            {HEADLINE.map((line, i) => (
-              <span className="hero-headline-mask" key={line}>
+            {headline.map((line, i) => (
+              <span className="hero-headline-mask" key={`${i}-${line}`}>
                 <motion.span
-                  className={`hero-headline-line ${i === HEADLINE.length - 1 ? 'text-accent' : ''}`}
+                  className={`hero-headline-line ${i === headline.length - 1 ? 'text-accent' : ''}`}
                   initial={{ y: '110%' }}
                   animate={{ y: 0 }}
                   transition={{ duration: 1.1, delay: 0.2 + i * 0.14, ease: EASE }}
@@ -98,9 +100,7 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7, ease: EASE }}
           >
-            Looks Saloon blends award-winning stylists, luxury skincare rituals, and a
-            calm, elevated space &mdash; so you leave looking, and feeling, like the best
-            version of yourself.
+            {hero.subtext}
           </motion.p>
 
           <motion.div
@@ -149,8 +149,8 @@ function Hero() {
         >
           <div ref={photoRef} className="hero-photo-layer">
             <PhotoFrame
-              src={SALON_PHOTOS.interiorLounge}
-              alt="Looks Saloon guest lounge, Hanumangarh"
+              src={photos.interiorLounge.url}
+              alt={`Looks Saloon ${photos.interiorLounge.title}, Hanumangarh`}
               className="hero-photo-frame"
               data-cursor="View"
             />
@@ -159,14 +159,14 @@ function Hero() {
             <div className="hero-badge glass">
               <span className="hero-badge-stars">★★★★★</span>
               <p>
-                <strong>4.5/5</strong> from 124 reviews
+                <strong>{hero.ratingValue}/5</strong> from {hero.reviewCount} reviews
               </p>
             </div>
           </div>
           <div ref={badgeBottomRef} className="hero-badge-wrap hero-badge-wrap-bottom">
             <div className="hero-badge glass">
-              <p className="hero-badge-title">Now Booking</p>
-              <p className="hero-badge-sub">Bridal &amp; Festive Packages</p>
+              <p className="hero-badge-title">{hero.bookingBadgeTitle}</p>
+              <p className="hero-badge-sub">{hero.bookingBadgeSub}</p>
             </div>
           </div>
         </motion.div>

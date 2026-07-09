@@ -3,23 +3,32 @@ import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
 import TiltCard from './TiltCard'
 import Lightbox from './Lightbox'
-import { SALON_PHOTOS } from '../photos'
+import { usePhotos } from '../hooks/usePhotos'
 
-const ITEMS = [
-  { title: 'Style Bar', tag: 'Styling Chairs', variant: 'v1 tall', src: SALON_PHOTOS.interiorStyling },
-  { title: 'Signature Mirrors', tag: 'Mirror Row', variant: 'v2', src: SALON_PHOTOS.interiorMirrors },
-  { title: 'Wash & Relax', tag: 'Spa Station', variant: 'v3', src: SALON_PHOTOS.interiorWash },
-  { title: 'Guest Lounge', tag: 'Ambience', variant: 'v4 tall', src: SALON_PHOTOS.interiorLounge },
-  { title: 'Our Storefront', tag: 'Exterior', variant: 'v5', src: SALON_PHOTOS.exterior },
-  { title: 'Welcome In', tag: 'Entrance', variant: 'v6', src: SALON_PHOTOS.checkin },
+const SLUG_LAYOUT = [
+  { slug: 'interiorStyling', variant: 'v1 tall' },
+  { slug: 'interiorMirrors', variant: 'v2' },
+  { slug: 'interiorWash', variant: 'v3' },
+  { slug: 'interiorLounge', variant: 'v4 tall' },
+  { slug: 'exterior', variant: 'v5' },
+  { slug: 'checkin', variant: 'v6' },
 ]
 
 function Gallery() {
+  const photos = usePhotos()
   const [activeIndex, setActiveIndex] = useState(null)
 
+  const items = SLUG_LAYOUT.map(({ slug, variant }) => ({
+    slug,
+    variant,
+    title: photos[slug].title,
+    tag: photos[slug].tag,
+    src: photos[slug].url,
+  }))
+
   const close = () => setActiveIndex(null)
-  const prev = () => setActiveIndex((i) => (i - 1 + ITEMS.length) % ITEMS.length)
-  const next = () => setActiveIndex((i) => (i + 1) % ITEMS.length)
+  const prev = () => setActiveIndex((i) => (i - 1 + items.length) % items.length)
+  const next = () => setActiveIndex((i) => (i + 1) % items.length)
 
   return (
     <section id="gallery" className="section gallery">
@@ -33,10 +42,10 @@ function Gallery() {
         </Reveal>
 
         <div className="gallery-grid">
-          {ITEMS.map((item, index) => (
+          {items.map((item, index) => (
             <Reveal
               as="figure"
-              key={item.title}
+              key={item.slug}
               className={`gallery-item ${item.variant}`}
               variant="3d"
               delay={index * 60}
@@ -61,7 +70,7 @@ function Gallery() {
         </div>
       </div>
 
-      <Lightbox item={activeIndex === null ? null : ITEMS[activeIndex]} onClose={close} onPrev={prev} onNext={next} />
+      <Lightbox item={activeIndex === null ? null : items[activeIndex]} onClose={close} onPrev={prev} onNext={next} />
     </section>
   )
 }

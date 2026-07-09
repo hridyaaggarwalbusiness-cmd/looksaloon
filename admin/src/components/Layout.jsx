@@ -7,6 +7,8 @@ const NAV_ITEMS = [
   { to: '/bookings', label: 'Bookings' },
   { to: '/services', label: 'Services' },
   { to: '/testimonials', label: 'Testimonials' },
+  { to: '/photos', label: 'Photos' },
+  { to: '/content', label: 'Site Content' },
   { to: '/feedback', label: 'Feedback' },
   { to: '/settings', label: 'Settings' },
 ]

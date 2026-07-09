@@ -1,7 +1,6 @@
-// Default photos of Looks Saloon (Looks Beauty Zone And Spa), Gaandhi Nagar,
-// Hanumangarh, sourced from the salon's public Justdial listing. Hotlinked
-// directly from Justdial's image CDN rather than self-hosted. These are the
-// fallback values used until an admin replaces them from the dashboard.
+// Mirrors src/photos.js in the main app — kept in sync manually since the two
+// apps are separate Vite projects. These are the fallback values shown until
+// an admin uploads or edits them from this dashboard.
 export const DEFAULT_PHOTOS = {
   exterior: {
     url: 'https://content3.jdmagicbox.com/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6463l1ax3n.jpg',
@@ -36,3 +35,12 @@ export const DEFAULT_PHOTOS = {
 }
 
 export const PHOTO_SLUGS = Object.keys(DEFAULT_PHOTOS)
+
+export const PHOTO_USAGE = {
+  exterior: 'Gallery',
+  interiorStyling: 'Gallery',
+  interiorWash: 'Gallery',
+  interiorMirrors: 'About section, Gallery',
+  interiorLounge: 'Hero section, Gallery',
+  checkin: 'Gallery',
+}

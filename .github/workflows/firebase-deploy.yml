@@ -88,3 +88,10 @@ jobs:
         run: firebase deploy --only hosting:main,hosting:admin,firestore:rules --project looks-saloon --token "$FIREBASE_TOKEN" --non-interactive
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Deploy Storage rules
+        run: |
+          firebase deploy --only storage --project looks-saloon --token "$FIREBASE_TOKEN" --non-interactive || \
+            echo "Storage rules deploy failed (Cloud Storage may not be enabled for this project yet) - continuing."
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

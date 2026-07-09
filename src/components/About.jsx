@@ -1,7 +1,8 @@
 import Reveal from './Reveal'
 import CountUp from './CountUp'
 import PhotoFrame from './PhotoFrame'
-import { SALON_PHOTOS } from '../photos'
+import { usePhotos } from '../hooks/usePhotos'
+import { useContent } from '../hooks/useContent'
 
 function AboutCombAccent() {
   return (
@@ -25,13 +26,16 @@ function AboutCombAccent() {
 }
 
 function About() {
+  const photos = usePhotos()
+  const { about } = useContent()
+
   return (
     <section id="about" className="section about">
       <div className="container about-inner">
         <Reveal className="about-visual" as="div">
           <PhotoFrame
-            src={SALON_PHOTOS.interiorMirrors}
-            alt="Looks Saloon styling stations, Hanumangarh"
+            src={photos.interiorMirrors.url}
+            alt={`Looks Saloon ${photos.interiorMirrors.title}, Hanumangarh`}
             className="about-photo-frame"
           >
             <div className="about-photo-caption">
@@ -43,20 +47,11 @@ function About() {
 
         <Reveal className="about-copy" delay={120}>
           <p className="eyebrow">
-            <span className="eyebrow-line" /> Our Story
+            <span className="eyebrow-line" /> {about.eyebrow}
           </p>
-          <h2 className="section-title">Crafted for confidence, refined by experience.</h2>
-          <p className="about-lead">
-            Looks Saloon is Hanumangarh&rsquo;s trusted destination for hair, skin, and
-            beauty. What began as a small studio is now a full-service atelier &mdash;
-            built on precision technique, premium products, and a genuine love for
-            making people feel extraordinary.
-          </p>
-          <p>
-            Every service starts with a conversation. Our stylists and therapists take the
-            time to understand your features, your lifestyle, and your goals &mdash; then
-            craft a look that&rsquo;s unmistakably yours.
-          </p>
+          <h2 className="section-title">{about.title}</h2>
+          <p className="about-lead">{about.lead}</p>
+          <p>{about.body}</p>
 
           <div className="about-stats">
             <div className="about-stat">
