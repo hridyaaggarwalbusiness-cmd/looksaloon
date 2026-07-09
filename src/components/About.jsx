@@ -27,7 +27,7 @@ function AboutCombAccent() {
 
 function About() {
   const photos = usePhotos()
-  const { about } = useContent()
+  const { about, aboutStats } = useContent()
 
   return (
     <section id="about" className="section about">
@@ -54,22 +54,12 @@ function About() {
           <p>{about.body}</p>
 
           <div className="about-stats">
-            <div className="about-stat">
-              <CountUp end={12} suffix="+" />
-              <span>Years of Excellence</span>
-            </div>
-            <div className="about-stat">
-              <CountUp end={24} />
-              <span>Expert Specialists</span>
-            </div>
-            <div className="about-stat">
-              <CountUp end={18} suffix="k+" />
-              <span>Clients Styled</span>
-            </div>
-            <div className="about-stat">
-              <CountUp end={98} suffix="%" />
-              <span>Client Retention</span>
-            </div>
+            {aboutStats.map((stat) => (
+              <div className="about-stat" key={stat.label}>
+                <CountUp end={Number(stat.value) || 0} suffix={stat.suffix || ''} />
+                <span>{stat.label}</span>
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>
