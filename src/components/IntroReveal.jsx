@@ -24,7 +24,7 @@ function supportsWebGL() {
   }
 }
 
-function IntroReveal({ onDone }) {
+function IntroReveal({ onDone, videoSrc }) {
   const alreadySeen = typeof window !== 'undefined' && sessionStorage.getItem('ls-intro-seen')
   const reduceMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -49,15 +49,15 @@ function IntroReveal({ onDone }) {
 
     document.body.classList.add('loading')
 
-    const t1 = setTimeout(() => setCutting(true), 1150)
-    const t2 = setTimeout(() => setParted(true), 1750)
+    const t1 = setTimeout(() => setCutting(true), 1450)
+    const t2 = setTimeout(() => setParted(true), 2050)
     const t3 = setTimeout(() => {
       setExiting(true)
       document.body.classList.remove('loading')
       sessionStorage.setItem('ls-intro-seen', '1')
       onDone()
-    }, 2900)
-    const t4 = setTimeout(() => setVisible(false), 3650)
+    }, 3150)
+    const t4 = setTimeout(() => setVisible(false), 3900)
 
     return () => {
       clearTimeout(t1)
@@ -91,12 +91,18 @@ function IntroReveal({ onDone }) {
       <div className="intro-ribbon intro-ribbon-left" />
       <div className="intro-ribbon intro-ribbon-right" />
 
-      {use3d && (
+      {videoSrc ? (
         <div className="intro-stage-3d">
-          <Suspense fallback={null}>
-            <IntroScene stage={stage} />
-          </Suspense>
+          <video className="intro-video" src={videoSrc} autoPlay muted playsInline />
         </div>
+      ) : (
+        use3d && (
+          <div className="intro-stage-3d">
+            <Suspense fallback={null}>
+              <IntroScene stage={stage} />
+            </Suspense>
+          </div>
+        )
       )}
 
       <div className="intro-threads">

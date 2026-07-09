@@ -634,10 +634,12 @@ img {
   }
 }
 
-.intro-stage-3d canvas {
+.intro-stage-3d canvas,
+.intro-video {
   display: block;
   width: 100% !important;
   height: 100% !important;
+  object-fit: cover;
 }
 
 .intro-exiting .intro-stage-3d {
