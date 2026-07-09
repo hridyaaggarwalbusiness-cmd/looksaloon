@@ -558,6 +558,7 @@ img {
   top: 50%;
   width: 50%;
   height: 34px;
+  z-index: 2;
   margin-top: -17px;
   background-size: 220% 100%;
   box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.55), inset 0 2px 0 rgba(255, 255, 255, 0.4),
@@ -615,66 +616,16 @@ img {
   opacity: 0;
 }
 
-.intro-scissors {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-51px, -26px);
-  color: var(--gold-bright);
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
-  opacity: 0;
-  animation: scissorsEnter 0.7s var(--ease-lux) 0.15s both;
-  transition: opacity 0.5s ease, transform 0.8s var(--ease-lux);
-}
-
-@keyframes scissorsEnter {
-  from {
-    opacity: 0;
-    transform: translate(15px, -26px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-51px, -26px);
-  }
-}
-
-.scissor-blade {
-  transform-origin: 72px 30px;
-  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.scissor-blade-a {
-  transform: rotate(15deg);
-}
-
-.scissor-blade-b {
-  transform: rotate(-15deg);
-}
-
-.intro-cutting .scissor-blade-a,
-.intro-cutting .scissor-blade-b {
-  transform: rotate(0deg);
-}
-
-.intro-parted .intro-scissors {
-  opacity: 0;
-  transform: translate(38px, -26px);
-}
-
-.intro-hair-strands {
+.intro-stage-3d {
   position: absolute;
   inset: 0;
-  color: rgba(243, 221, 164, 0.4);
+  z-index: 3;
   opacity: 0;
-  animation: hairStrandsIn 1.2s ease 0.1s forwards;
-  transition: opacity 0.6s ease;
+  animation: stage3dIn 1s ease 0.35s forwards;
+  transition: opacity 0.7s ease;
 }
 
-.intro-parted .intro-hair-strands {
-  opacity: 0;
-}
-
-@keyframes hairStrandsIn {
+@keyframes stage3dIn {
   from {
     opacity: 0;
   }
@@ -683,21 +634,52 @@ img {
   }
 }
 
-.hair-strand {
-  fill: none;
-  stroke-dasharray: 420;
-  stroke-dashoffset: 420;
-  animation: hairStrandDraw 2.4s var(--ease-lux) forwards;
+.intro-stage-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.hair-strand-2 {
-  animation-delay: 0.15s;
+.intro-exiting .intro-stage-3d {
+  opacity: 0;
 }
 
-@keyframes hairStrandDraw {
-  to {
-    stroke-dashoffset: 0;
-  }
+.intro-letterbox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: clamp(24px, 6vh, 64px);
+  background: var(--void);
+  z-index: 8;
+  transform: scaleY(0);
+  transition: transform 0.9s var(--ease-lux) 0.05s;
+}
+
+.intro-letterbox-top {
+  top: 0;
+  transform-origin: top;
+}
+
+.intro-letterbox-bottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+.intro-presented .intro-letterbox {
+  transform: scaleY(1);
+}
+
+.intro-exiting .intro-letterbox {
+  transform: scaleY(0);
+  transition-delay: 0s;
+}
+
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 38%, rgba(3, 2, 1, 0.75) 100%);
 }
 
 .intro-cut-flash {
@@ -706,6 +688,7 @@ img {
   left: 50%;
   width: 10px;
   height: 10px;
+  z-index: 5;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
   background: radial-gradient(circle, #fff, var(--gold-bright) 45%, transparent 72%);
@@ -734,6 +717,7 @@ img {
 .intro-threads {
   position: absolute;
   inset: 0;
+  z-index: 4;
 }
 
 .intro-thread {
@@ -768,7 +752,7 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 2;
+  z-index: 7;
   transform: translate(-50%, -50%) scale(0.85);
   display: flex;
   flex-direction: column;

@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
+
+const IntroScene = lazy(() => import('./IntroScene'))
 
 const THREADS = [
   { angle: -55, dist: 90, size: 4, delay: '0s' },
@@ -13,11 +15,26 @@ const THREADS = [
   { angle: -170, dist: 105, size: 3, delay: '0.09s' },
 ]
 
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement('canvas')
+    return Boolean(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')))
+  } catch {
+    return false
+  }
+}
+
 function IntroReveal({ onDone }) {
   const alreadySeen = typeof window !== 'undefined' && sessionStorage.getItem('ls-intro-seen')
   const reduceMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const skip = Boolean(alreadySeen || reduceMotion)
+  const use3d =
+    typeof window !== 'undefined' &&
+    !reduceMotion &&
+    !window.matchMedia('(pointer: coarse)').matches &&
+    window.innerWidth >= 860 &&
+    supportsWebGL()
 
   const [cutting, setCutting] = useState(false)
   const [parted, setParted] = useState(false)
@@ -32,15 +49,15 @@ function IntroReveal({ onDone }) {
 
     document.body.classList.add('loading')
 
-    const t1 = setTimeout(() => setCutting(true), 900)
-    const t2 = setTimeout(() => setParted(true), 1300)
+    const t1 = setTimeout(() => setCutting(true), 1150)
+    const t2 = setTimeout(() => setParted(true), 1750)
     const t3 = setTimeout(() => {
       setExiting(true)
       document.body.classList.remove('loading')
       sessionStorage.setItem('ls-intro-seen', '1')
       onDone()
-    }, 2050)
-    const t4 = setTimeout(() => setVisible(false), 2700)
+    }, 2900)
+    const t4 = setTimeout(() => setVisible(false), 3650)
 
     return () => {
       clearTimeout(t1)
@@ -52,6 +69,8 @@ function IntroReveal({ onDone }) {
   }, [])
 
   if (!visible) return null
+
+  const stage = { cutting, parted, exiting }
 
   const stageClass = [
     'intro-reveal',
@@ -65,8 +84,20 @@ function IntroReveal({ onDone }) {
 
   return (
     <div className={stageClass} aria-hidden="true">
+      <div className="intro-letterbox intro-letterbox-top" />
+      <div className="intro-letterbox intro-letterbox-bottom" />
+      <div className="intro-vignette" />
+
       <div className="intro-ribbon intro-ribbon-left" />
       <div className="intro-ribbon intro-ribbon-right" />
+
+      {use3d && (
+        <div className="intro-stage-3d">
+          <Suspense fallback={null}>
+            <IntroScene stage={stage} />
+          </Suspense>
+        </div>
+      )}
 
       <div className="intro-threads">
         {THREADS.map((t, i) => (
@@ -85,29 +116,6 @@ function IntroReveal({ onDone }) {
       </div>
 
       <div className="intro-cut-flash" />
-
-      <div className="intro-hair-strands" aria-hidden="true">
-        <svg viewBox="0 0 400 200" width="100%" height="100%" preserveAspectRatio="none" fill="none">
-          <path className="hair-strand hair-strand-1" d="M20,40 C120,10 180,70 260,30 C320,5 360,40 390,20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-          <path className="hair-strand hair-strand-2" d="M10,165 C90,190 160,140 240,175 C300,198 350,160 395,180" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-        </svg>
-      </div>
-
-      <div className="intro-scissors">
-        <svg viewBox="0 0 170 60" width="150" height="53" fill="none">
-          <g className="scissor-blade scissor-blade-a">
-            <line x1="72" y1="30" x2="4" y2="30" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-            <line x1="72" y1="30" x2="134" y2="9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <circle cx="134" cy="9" r="7" stroke="currentColor" strokeWidth="2.2" />
-          </g>
-          <g className="scissor-blade scissor-blade-b">
-            <line x1="72" y1="30" x2="4" y2="30" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-            <line x1="72" y1="30" x2="134" y2="51" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <circle cx="134" cy="51" r="7" stroke="currentColor" strokeWidth="2.2" />
-          </g>
-          <circle cx="72" cy="30" r="2.6" fill="currentColor" />
-        </svg>
-      </div>
 
       <div className="intro-mark">
         <svg viewBox="0 0 48 48" width="44" height="44">
