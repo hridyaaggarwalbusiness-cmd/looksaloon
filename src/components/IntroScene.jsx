@@ -278,16 +278,16 @@ function ContentRig({ children }) {
   return <group ref={ref}>{children}</group>
 }
 
-function DustAtmosphere() {
+function DustAtmosphere({ lowPower }) {
   return (
     <>
-      <Sparkles count={22} scale={[5, 3.5, 3]} size={3.2} speed={0.15} color="#f3dda4" opacity={0.35} />
-      <Sparkles count={20} scale={[3.2, 2.2, 2]} size={1.4} speed={0.3} color="#fff3da" opacity={0.5} />
+      <Sparkles count={lowPower ? 12 : 22} scale={[5, 3.5, 3]} size={3.2} speed={0.15} color="#f3dda4" opacity={0.35} />
+      {!lowPower && <Sparkles count={20} scale={[3.2, 2.2, 2]} size={1.4} speed={0.3} color="#fff3da" opacity={0.5} />}
     </>
   )
 }
 
-function Scene({ stage }) {
+function Scene({ stage, lowPower }) {
   return (
     <>
       <fog attach="fog" args={['#0a0704', 8, 15]} />
@@ -323,22 +323,33 @@ function Scene({ stage }) {
             new THREE.Vector3(1.95, -1.05, 0.2),
           ]}
         />
-        <DustAtmosphere />
-        <ContactShadows position={[0, -1.1, 0]} opacity={0.5} scale={6} blur={2.4} far={2} color="#0a0704" resolution={256} frames={1} />
+        <DustAtmosphere lowPower={lowPower} />
+        <ContactShadows
+          position={[0, -1.1, 0]}
+          opacity={0.5}
+          scale={6}
+          blur={2.4}
+          far={2}
+          color="#0a0704"
+          resolution={lowPower ? 128 : 256}
+          frames={1}
+        />
       </ContentRig>
     </>
   )
 }
 
 function IntroScene({ stage }) {
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+
   return (
     <Canvas
-      dpr={[1, 1.5]}
-      shadows
+      dpr={isTouch ? 1 : [1, 1.5]}
+      shadows={!isTouch}
       camera={{ position: [0, 0.9, 9], fov: 20 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', toneMappingExposure: 1.1 }}
+      gl={{ antialias: !isTouch, alpha: true, powerPreference: 'high-performance', toneMappingExposure: 1.1 }}
     >
-      <Scene stage={stage} />
+      <Scene stage={stage} lowPower={isTouch} />
     </Canvas>
   )
 }

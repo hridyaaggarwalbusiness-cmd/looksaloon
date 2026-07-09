@@ -115,7 +115,7 @@ function ResponsiveCamera() {
   return null
 }
 
-function Scene() {
+function Scene({ lowPower }) {
   const groupRef = useRef(null)
   const scrollRef = useRef(0)
   const scale = useRef(1)
@@ -153,21 +153,39 @@ function Scene() {
       <GlassOrb position={[1.35, -1.1, -1]} scale={0.4} />
       <GoldSliver position={[1.3, -0.85, 0.4]} rotation={[0.4, 0.3, 1.1]} scale={0.9} />
       <GoldRibbon />
-      <Sparkles count={55} scale={[4.4, 4, 2.4]} size={2.2} speed={0.3} color="#f3dda4" opacity={0.65} />
-      <ContactShadows position={[0, -1.35, 0]} opacity={0.45} scale={7} blur={2.6} far={2.2} color="#0d0a07" />
+      <Sparkles
+        count={lowPower ? 26 : 55}
+        scale={[4.4, 4, 2.4]}
+        size={2.2}
+        speed={0.3}
+        color="#f3dda4"
+        opacity={0.65}
+      />
+      <ContactShadows
+        position={[0, -1.35, 0]}
+        opacity={0.45}
+        scale={7}
+        blur={2.6}
+        far={2.2}
+        color="#0d0a07"
+        resolution={lowPower ? 128 : 256}
+        frames={lowPower ? 1 : Infinity}
+      />
     </group>
   )
 }
 
 function HeroScene() {
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+
   return (
     <Canvas
-      dpr={[1, 1.5]}
+      dpr={isTouch ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 4.6], fov: 42 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: !isTouch, alpha: true, powerPreference: 'high-performance' }}
     >
       <ResponsiveCamera />
-      <Scene />
+      <Scene lowPower={isTouch} />
     </Canvas>
   )
 }

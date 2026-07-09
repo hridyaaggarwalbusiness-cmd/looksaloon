@@ -49,6 +49,7 @@ function IntroReveal({ onDone, videoSrc }) {
     const t3 = setTimeout(() => {
       setExiting(true)
       document.body.classList.remove('loading')
+      window.scrollTo(0, 0)
       sessionStorage.setItem('ls-intro-seen', '1')
       onDone()
     }, 3150)
