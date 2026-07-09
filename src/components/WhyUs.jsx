@@ -49,7 +49,7 @@ function WhyUs() {
       <div className="container why-us-inner">
         <Reveal className="why-us-heading" as="div">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> The Looks Saloon Difference
+            <span className="eyebrow-line" /> The Looks Saloon Difference
           </p>
           <h2 className="section-title">Little details. Bigger confidence.</h2>
           <p className="section-sub">

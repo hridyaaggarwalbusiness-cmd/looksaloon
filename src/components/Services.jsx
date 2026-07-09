@@ -73,7 +73,7 @@ function Services() {
       <div className="container">
         <Reveal className="section-head">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> What We Offer
+            <span className="eyebrow-line" /> What We Offer
           </p>
           <h2 className="section-title">Services, priced with total transparency.</h2>
           <p className="section-sub">

@@ -58,7 +58,7 @@ function Contact() {
       <div className="container contact-inner">
         <Reveal className="contact-info" as="div">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> Get In Touch
+            <span className="eyebrow-line" /> Get In Touch
           </p>
           <h2 className="section-title">Reserve your chair today.</h2>
           <p className="section-sub">

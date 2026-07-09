@@ -43,7 +43,7 @@ function About() {
 
         <Reveal className="about-copy" delay={120}>
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> Our Story
+            <span className="eyebrow-line" /> Our Story
           </p>
           <h2 className="section-title">Crafted for confidence, refined by experience.</h2>
           <p className="about-lead">

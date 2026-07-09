@@ -26,7 +26,7 @@ function Gallery() {
       <div className="container">
         <Reveal className="section-head">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> Take a Look Inside
+            <span className="eyebrow-line" /> Take a Look Inside
           </p>
           <h2 className="section-title">A glimpse into our studio.</h2>
           <p className="section-sub">Real photos from the Looks Saloon studio in Hanumangarh.</p>

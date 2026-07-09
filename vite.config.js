@@ -10,7 +10,8 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('firebase')) return 'firebase'
-            if (id.includes('react')) return 'react'
+            if (id.includes('three') || id.includes('@react-three')) return undefined
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react'
             return 'vendor'
           }
         },

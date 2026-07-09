@@ -1,64 +1,16 @@
 import { useEffect, useRef } from 'react'
-import Reveal from './Reveal'
+import { motion } from 'framer-motion'
 import PhotoFrame from './PhotoFrame'
 import MagneticButton from './MagneticButton'
+import HeroSceneGate from './HeroSceneGate'
 import { SALON_PHOTOS } from '../photos'
 
-function HeroBackdrop() {
-  return (
-    <svg viewBox="0 0 520 560" className="hero-backdrop" role="presentation" aria-hidden="true">
-      <defs>
-        <linearGradient id="heroGoldGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#f1d59d" />
-          <stop offset="100%" stopColor="#b9863f" />
-        </linearGradient>
-        <radialGradient id="heroGlow" cx="50%" cy="35%" r="65%">
-          <stop offset="0%" stopColor="#f6e3c2" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#f6e3c2" stopOpacity="0" />
-        </radialGradient>
-      </defs>
+const EASE = [0.16, 1, 0.3, 1]
 
-      <circle cx="270" cy="230" r="230" fill="url(#heroGlow)" />
-      <circle cx="270" cy="230" r="168" fill="none" stroke="url(#heroGoldGrad)" strokeWidth="1.5" opacity="0.55" />
-      <circle cx="270" cy="230" r="132" fill="none" stroke="#b4694f" strokeWidth="1" opacity="0.3" />
-
-      <g className="hero-orbit-slow">
-        <ellipse cx="270" cy="230" rx="210" ry="210" fill="none" stroke="#c9a15a" strokeWidth="0.6" strokeDasharray="2 10" opacity="0.5" />
-      </g>
-
-      {/* Comb accent */}
-      <g transform="translate(30 400)" className="hero-float-3">
-        <rect x="0" y="0" width="90" height="16" rx="8" fill="#1c1512" />
-        <g stroke="#1c1512" strokeWidth="3.4" strokeLinecap="round">
-          <path d="M8 16v20" />
-          <path d="M22 16v26" />
-          <path d="M36 16v20" />
-          <path d="M50 16v26" />
-          <path d="M64 16v20" />
-          <path d="M78 16v26" />
-        </g>
-      </g>
-
-      {/* Scissors accent */}
-      <g transform="translate(430 40)" className="hero-float-4">
-        <circle cx="10" cy="42" r="9" fill="none" stroke="url(#heroGoldGrad)" strokeWidth="3.4" />
-        <circle cx="10" cy="10" r="9" fill="none" stroke="url(#heroGoldGrad)" strokeWidth="3.4" />
-        <path d="M17 17 55 50M17 35 55 3" stroke="url(#heroGoldGrad)" strokeWidth="3.4" strokeLinecap="round" />
-      </g>
-
-      <g className="hero-sparkle-1">
-        <path d="M60 90l4 12 12 4-12 4-4 12-4-12-12-4 12-4Z" fill="#e7b6a3" />
-      </g>
-      <g className="hero-sparkle-2">
-        <path d="M440 380l5 14 14 5-14 5-5 14-5-14-14-5 14-5Z" fill="#c9a15a" />
-      </g>
-    </svg>
-  )
-}
+const HEADLINE = ['Where every visit', 'becomes a', 'signature look.']
 
 function Hero() {
   const sectionRef = useRef(null)
-  const backdropRef = useRef(null)
   const photoRef = useRef(null)
   const badgeTopRef = useRef(null)
   const badgeBottomRef = useRef(null)
@@ -80,9 +32,6 @@ function Hero() {
 
       if (frame) cancelAnimationFrame(frame)
       frame = requestAnimationFrame(() => {
-        if (backdropRef.current) {
-          backdropRef.current.style.transform = `translate3d(${px * -14}px, ${py * -14}px, 0)`
-        }
         if (photoRef.current) {
           photoRef.current.style.transform = `perspective(1200px) rotateY(${px * 8}deg) rotateX(${py * -8}deg) translate3d(${px * 6}px, ${py * 6}px, 0)`
         }
@@ -97,7 +46,7 @@ function Hero() {
 
     const handleLeave = () => {
       if (frame) cancelAnimationFrame(frame)
-      ;[backdropRef, photoRef, badgeTopRef, badgeBottomRef].forEach((ref) => {
+      ;[photoRef, badgeTopRef, badgeBottomRef].forEach((ref) => {
         if (ref.current) ref.current.style.transform = ''
       })
     }
@@ -115,34 +64,68 @@ function Hero() {
   return (
     <section id="top" className="hero" ref={sectionRef}>
       <div className="hero-bg" aria-hidden="true" />
+      <HeroSceneGate />
+
       <div className="container hero-inner">
-        <Reveal className="hero-copy" delay={0}>
-          <p className="eyebrow">
-            <span className="eyebrow-dot" /> Premium Hair &amp; Beauty Studio
-          </p>
-          <h1>
-            Where every visit
-            <br />
-            becomes a <span className="text-accent">signature look.</span>
+        <div className="hero-copy">
+          <motion.p
+            className="eyebrow"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: EASE }}
+          >
+            <span className="eyebrow-line" /> Premium Hair &amp; Beauty Studio
+          </motion.p>
+
+          <h1 className="hero-headline">
+            {HEADLINE.map((line, i) => (
+              <span className="hero-headline-mask" key={line}>
+                <motion.span
+                  className={`hero-headline-line ${i === HEADLINE.length - 1 ? 'text-accent' : ''}`}
+                  initial={{ y: '110%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1.1, delay: 0.2 + i * 0.14, ease: EASE }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
           </h1>
-          <p className="hero-sub">
+
+          <motion.p
+            className="hero-sub"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: EASE }}
+          >
             Looks Saloon blends award-winning stylists, luxury skincare rituals, and a
             calm, elevated space &mdash; so you leave looking, and feeling, like the best
             version of yourself.
-          </p>
-          <div className="hero-actions">
-            <MagneticButton className="btn btn-primary btn-lg" href="#contact">
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.85, ease: EASE }}
+          >
+            <MagneticButton className="btn btn-primary btn-lg" href="#contact" data-cursor="Book">
               Book an Appointment
             </MagneticButton>
-            <MagneticButton className="btn btn-ghost btn-lg" href="#services">
+            <MagneticButton className="btn btn-ghost btn-lg" href="#services" data-cursor="View">
               Explore Services
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </MagneticButton>
-          </div>
+          </motion.div>
 
-          <div className="hero-stats">
+          <motion.div
+            className="hero-stats"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.1, ease: EASE }}
+          >
             <div>
               <strong>12+</strong>
               <span>Years of craft</span>
@@ -155,22 +138,25 @@ function Hero() {
               <strong>18k+</strong>
               <span>Happy clients</span>
             </div>
-          </div>
-        </Reveal>
+          </motion.div>
+        </div>
 
-        <Reveal className="hero-visual" delay={150} as="div">
-          <div ref={backdropRef} className="hero-backdrop-layer">
-            <HeroBackdrop />
-          </div>
+        <motion.div
+          className="hero-visual"
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
+        >
           <div ref={photoRef} className="hero-photo-layer">
             <PhotoFrame
               src={SALON_PHOTOS.exterior}
               alt="Looks Saloon storefront, Hanumangarh"
               className="hero-photo-frame"
+              data-cursor="View"
             />
           </div>
           <div ref={badgeTopRef} className="hero-badge-wrap hero-badge-wrap-top">
-            <div className="hero-badge">
+            <div className="hero-badge glass">
               <span className="hero-badge-stars">★★★★★</span>
               <p>
                 <strong>4.5/5</strong> from 124 reviews
@@ -178,12 +164,12 @@ function Hero() {
             </div>
           </div>
           <div ref={badgeBottomRef} className="hero-badge-wrap hero-badge-wrap-bottom">
-            <div className="hero-badge">
+            <div className="hero-badge glass">
               <p className="hero-badge-title">Now Booking</p>
               <p className="hero-badge-sub">Bridal &amp; Festive Packages</p>
             </div>
           </div>
-        </Reveal>
+        </motion.div>
       </div>
 
       <a className="scroll-cue" href="#services" aria-label="Scroll to services">

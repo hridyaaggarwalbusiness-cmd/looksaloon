@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -11,14 +12,19 @@ import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import QuickActions from './components/QuickActions'
-import CursorGlow from './components/CursorGlow'
+import CustomCursor from './components/CustomCursor'
+import Preloader from './components/Preloader'
 
 function App() {
+  const [introDone, setIntroDone] = useState(false)
+
   return (
     <>
-      <CursorGlow />
+      <Preloader onDone={() => setIntroDone(true)} />
+      <div className="grain" aria-hidden="true" />
+      <CustomCursor />
       <Navbar />
-      <main id="main">
+      <main id="main" className={introDone ? 'is-revealed' : ''}>
         <Hero />
         <Marquee />
         <Services />

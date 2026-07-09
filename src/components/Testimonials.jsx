@@ -42,7 +42,7 @@ function Testimonials() {
       <div className="container">
         <Reveal className="section-head">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> Client Love
+            <span className="eyebrow-line" /> Client Love
           </p>
           <h2 className="section-title">Don&rsquo;t just take our word for it.</h2>
         </Reveal>

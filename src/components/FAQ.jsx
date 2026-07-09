@@ -48,7 +48,7 @@ function FAQ() {
       <div className="container faq-inner">
         <Reveal className="section-head" as="div">
           <p className="eyebrow">
-            <span className="eyebrow-dot" /> Good to Know
+            <span className="eyebrow-line" /> Good to Know
           </p>
           <h2 className="section-title">Frequently asked questions.</h2>
         </Reveal>

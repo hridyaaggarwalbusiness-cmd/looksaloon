@@ -10,9 +10,9 @@ function BrandMark() {
   )
 }
 
-function PhotoFrame({ src, alt, className = '', photoClassName = '', children }) {
+function PhotoFrame({ src, alt, className = '', photoClassName = '', children, ...rest }) {
   return (
-    <div className={`photo-frame ${className}`}>
+    <div className={`photo-frame ${className}`} {...rest}>
       <BrandMark />
       <Photo src={src} alt={alt} className={`photo-frame-img ${photoClassName}`} />
       {children}
