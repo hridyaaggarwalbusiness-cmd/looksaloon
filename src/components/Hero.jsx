@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import PhotoFrame from './PhotoFrame'
 import MagneticButton from './MagneticButton'
 import HeroSceneGate from './HeroSceneGate'
-import { usePhotos } from '../hooks/usePhotos'
 import { useContent } from '../hooks/useContent'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -21,13 +19,12 @@ const DUST = [
 ]
 
 function Hero({ revealed }) {
-  const photos = usePhotos()
   const { hero } = useContent()
   const headline = [hero.headline1, hero.headline2, hero.headline3]
   const sectionRef = useRef(null)
   const copyRef = useRef(null)
   const copyInnerRef = useRef(null)
-  const photoRef = useRef(null)
+  const orbRef = useRef(null)
   const badgeTopRef = useRef(null)
   const badgeBottomRef = useRef(null)
 
@@ -51,8 +48,8 @@ function Hero({ revealed }) {
         if (copyInnerRef.current) {
           copyInnerRef.current.style.transform = `translate3d(${px * 4}px, ${py * 3}px, 0)`
         }
-        if (photoRef.current) {
-          photoRef.current.style.transform = `perspective(1200px) rotateY(${px * 8}deg) rotateX(${py * -8}deg) translate3d(${px * 6}px, ${py * 6}px, 0)`
+        if (orbRef.current) {
+          orbRef.current.style.transform = `translate3d(${px * 22}px, ${py * 16}px, 0) scale(1.02)`
         }
         if (badgeTopRef.current) {
           badgeTopRef.current.style.transform = `translate3d(${px * 18}px, ${py * 18}px, 0)`
@@ -65,7 +62,7 @@ function Hero({ revealed }) {
 
     const handleLeave = () => {
       if (frame) cancelAnimationFrame(frame)
-      ;[copyInnerRef, photoRef, badgeTopRef, badgeBottomRef].forEach((ref) => {
+      ;[copyInnerRef, orbRef, badgeTopRef, badgeBottomRef].forEach((ref) => {
         if (ref.current) ref.current.style.transform = ''
       })
     }
@@ -204,13 +201,11 @@ function Hero({ revealed }) {
           animate={revealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.94 }}
           transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
         >
-          <div ref={photoRef} className="hero-photo-layer">
-            <PhotoFrame
-              src={photos.interiorLounge.url}
-              alt={`Looks Saloon ${photos.interiorLounge.title}, Hanumangarh`}
-              className="hero-photo-frame"
-              data-cursor="View"
-            />
+          <div ref={orbRef} className="hero-visual-orb" aria-hidden="true">
+            <span className="hero-orb hero-orb-1" />
+            <span className="hero-orb hero-orb-2" />
+            <span className="hero-orb hero-orb-3" />
+            <span className="hero-orb-ring" />
           </div>
           <div ref={badgeTopRef} className="hero-badge-wrap hero-badge-wrap-top">
             <div className="hero-badge glass">

@@ -54,11 +54,13 @@ function Testimonials() {
               fill="currentColor"
             />
           </svg>
-          <Stars />
-          <p className="testimonial-quote">&ldquo;{current.quote}&rdquo;</p>
-          <div className="testimonial-author">
-            <span className="testimonial-name">{current.name}</span>
-            <span className="testimonial-role">{current.role}</span>
+          <div className="testimonial-content" key={current.id}>
+            <Stars />
+            <p className="testimonial-quote">&ldquo;{current.quote}&rdquo;</p>
+            <div className="testimonial-author">
+              <span className="testimonial-name">{current.name}</span>
+              <span className="testimonial-role">{current.role}</span>
+            </div>
           </div>
 
           <div className="testimonial-controls">

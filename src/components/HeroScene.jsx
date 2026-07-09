@@ -1,15 +1,16 @@
 import { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Float, Lightformer, MeshTransmissionMaterial, Sparkles } from '@react-three/drei'
+import { ContactShadows, Environment, Float, Lightformer, MeshTransmissionMaterial, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 
 function StudioLighting() {
   return (
     <Environment resolution={256}>
       <group>
-        <Lightformer intensity={2.2} color="#f3dda4" position={[4, 3, 2]} scale={[4, 4, 1]} form="rect" />
-        <Lightformer intensity={1.1} color="#e7bfae" position={[-4, -1, 2]} scale={[3, 3, 1]} form="rect" />
-        <Lightformer intensity={0.7} color="#f8f3ea" position={[0, 4, -3]} scale={[6, 2, 1]} form="rect" />
+        <Lightformer intensity={2.4} color="#f3dda4" position={[4, 3, 2]} scale={[4, 4, 1]} form="rect" />
+        <Lightformer intensity={1.2} color="#e7bfae" position={[-4, -1, 2]} scale={[3, 3, 1]} form="rect" />
+        <Lightformer intensity={0.8} color="#f8f3ea" position={[0, 4, -3]} scale={[6, 2, 1]} form="rect" />
+        <Lightformer intensity={1.4} color="#c9a15a" position={[-3, 2, -2]} scale={[2, 4, 1]} form="rect" />
       </group>
     </Environment>
   )
@@ -31,9 +32,9 @@ function GoldRing({ position, scale = 1, speed = 1 }) {
         <meshPhysicalMaterial
           color="#c9a15a"
           metalness={1}
-          roughness={0.22}
+          roughness={0.2}
           clearcoat={1}
-          clearcoatRoughness={0.15}
+          clearcoatRoughness={0.12}
           reflectivity={1}
         />
       </mesh>
@@ -51,7 +52,7 @@ function GlassOrb({ position, scale = 1 }) {
           roughness={0.05}
           transmission={1}
           ior={1.4}
-          chromaticAberration={0.04}
+          chromaticAberration={0.045}
           backside
           color="#f8f3ea"
         />
@@ -65,7 +66,36 @@ function GoldSliver({ position, rotation, scale = 1 }) {
     <Float speed={1.6} rotationIntensity={0.5} floatIntensity={0.6}>
       <mesh position={position} rotation={rotation} scale={scale}>
         <capsuleGeometry args={[0.05, 1.6, 8, 16]} />
-        <meshPhysicalMaterial color="#f3dda4" metalness={1} roughness={0.18} clearcoat={1} />
+        <meshPhysicalMaterial color="#f3dda4" metalness={1} roughness={0.16} clearcoat={1} />
+      </mesh>
+    </Float>
+  )
+}
+
+function GoldRibbon() {
+  const ref = useRef(null)
+
+  const geometry = useMemo(() => {
+    const points = [
+      new THREE.Vector3(-1.6, 1.15, -0.6),
+      new THREE.Vector3(-0.7, 0.6, 0.3),
+      new THREE.Vector3(0.1, 1.1, -0.2),
+      new THREE.Vector3(0.9, 0.4, 0.5),
+      new THREE.Vector3(1.7, 0.95, -0.3),
+    ]
+    const curve = new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.6)
+    return new THREE.TubeGeometry(curve, 120, 0.028, 12, false)
+  }, [])
+
+  useFrame((state) => {
+    if (!ref.current) return
+    ref.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.18) * 0.06
+  })
+
+  return (
+    <Float speed={0.9} rotationIntensity={0.15} floatIntensity={0.5}>
+      <mesh ref={ref} geometry={geometry}>
+        <meshPhysicalMaterial color="#f3dda4" metalness={1} roughness={0.15} clearcoat={1} clearcoatRoughness={0.1} />
       </mesh>
     </Float>
   )
@@ -99,10 +129,13 @@ function Scene() {
     <group ref={groupRef}>
       <StudioLighting />
       <ambientLight intensity={0.35} />
-      <GoldRing position={[0.6, 0.4, 0]} scale={1.15} />
-      <GlassOrb position={[-1.1, -0.5, -0.6]} scale={0.85} />
-      <GoldSliver position={[1.3, -0.9, 0.4]} rotation={[0.4, 0.3, 1.1]} scale={0.9} />
-      <Sparkles count={40} scale={[4, 4, 2]} size={2} speed={0.3} color="#f3dda4" opacity={0.6} />
+      <GoldRing position={[0.6, 0.5, 0]} scale={1.2} />
+      <GlassOrb position={[-1.15, -0.55, -0.6]} scale={0.85} />
+      <GlassOrb position={[1.35, -1.1, -1]} scale={0.4} />
+      <GoldSliver position={[1.3, -0.85, 0.4]} rotation={[0.4, 0.3, 1.1]} scale={0.9} />
+      <GoldRibbon />
+      <Sparkles count={55} scale={[4.4, 4, 2.4]} size={2.2} speed={0.3} color="#f3dda4" opacity={0.65} />
+      <ContactShadows position={[0, -1.35, 0]} opacity={0.45} scale={7} blur={2.6} far={2.2} color="#0d0a07" />
     </group>
   )
 }
