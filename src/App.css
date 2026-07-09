@@ -630,6 +630,50 @@
   color: var(--text-on-dark-soft);
 }
 
+.hero-badge-wrap-side {
+  top: 42%;
+  left: -2%;
+}
+
+.hero-badge-craft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+}
+
+.hero-badge-craft-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(243, 221, 164, 0.4);
+  color: var(--gold-bright);
+}
+
+.hero-badge-craft-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.hero-badge-craft-text {
+  margin: 0 !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--ivory);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .hero-badge-wrap-side {
+    display: none;
+  }
+}
+
 .scroll-cue {
   position: absolute;
   bottom: 36px;
@@ -2072,5 +2116,115 @@
     flex-direction: column;
     gap: 6px;
     text-align: center;
+  }
+}
+
+/* ===================== Craft strip (tools of the trade) ===================== */
+
+.craft {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background: linear-gradient(180deg, rgba(201, 161, 90, 0.05) 0%, transparent 60%);
+}
+
+.craft-heading {
+  max-width: 640px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+.craft-heading .eyebrow {
+  justify-content: center;
+}
+
+.craft-heading .section-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.craft-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.craft-strip::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ivory-line) 15%, var(--ivory-line) 85%, transparent);
+  z-index: 0;
+}
+
+.craft-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.craft-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 1px solid var(--ivory-line);
+  box-shadow: var(--shadow-sm);
+  color: var(--gold-deep);
+  transition: transform 0.4s var(--ease-lux), color 0.3s ease, border-color 0.3s ease;
+}
+
+.craft-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.craft-item:hover .craft-icon {
+  transform: translateY(-6px);
+  color: var(--rose);
+  border-color: var(--gold-bright);
+}
+
+.craft-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text-soft);
+}
+
+@media (max-width: 900px) {
+  .craft-strip {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 40px;
+  }
+
+  .craft-strip::before {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .craft-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .craft-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .craft-icon svg {
+    width: 24px;
+    height: 24px;
   }
 }

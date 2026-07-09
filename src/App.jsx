@@ -3,6 +3,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
+import Craft from './components/Craft'
 import About from './components/About'
 import Services from './components/Services'
 import Gallery from './components/Gallery'
@@ -28,6 +29,7 @@ function App() {
       <main id="main" className={introDone ? 'is-revealed' : ''}>
         <Hero revealed={introDone} />
         <Marquee />
+        <Craft />
         <Services />
         <About />
         <Gallery />

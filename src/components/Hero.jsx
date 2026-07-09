@@ -221,6 +221,18 @@ function Hero({ revealed }) {
               <p className="hero-badge-sub">{hero.bookingBadgeSub}</p>
             </div>
           </div>
+          <div className="hero-badge-wrap hero-badge-wrap-side">
+            <div className="hero-badge glass hero-badge-craft">
+              <span className="hero-badge-craft-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="6" cy="6" r="2.6" stroke="currentColor" strokeWidth="1.6" />
+                  <circle cx="6" cy="18" r="2.6" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="M8.5 7.5 20 18M8.5 16.5 20 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+              </span>
+              <p className="hero-badge-craft-text">Hair &bull; Skin &bull; Bridal Studio</p>
+            </div>
+          </div>
         </motion.div>
       </div>
 
