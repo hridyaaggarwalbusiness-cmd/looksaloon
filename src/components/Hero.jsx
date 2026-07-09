@@ -19,7 +19,7 @@ const DUST = [
 ]
 
 function Hero({ revealed }) {
-  const { hero, heroStats } = useContent()
+  const { hero } = useContent()
   const headline = [hero.headline1, hero.headline2, hero.headline3]
   const sectionRef = useRef(null)
   const copyRef = useRef(null)
@@ -179,12 +179,18 @@ function Hero({ revealed }) {
               animate={{ opacity: revealed ? 1 : 0 }}
               transition={{ duration: 1, delay: 1.1, ease: EASE }}
             >
-              {heroStats.map((stat) => (
-                <div key={stat.label}>
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
+              <div>
+                <strong>12+</strong>
+                <span>Years of craft</span>
+              </div>
+              <div>
+                <strong>4.5</strong>
+                <span>Average rating</span>
+              </div>
+              <div>
+                <strong>18k+</strong>
+                <span>Happy clients</span>
+              </div>
             </motion.div>
           </div>
         </div>
