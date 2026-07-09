@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import TiltCard from './TiltCard'
 import { useServices } from '../hooks/useServices'
 
 const ICONS = {
@@ -84,24 +85,29 @@ function Services() {
         <div className="services-grid">
           {services.map((service, index) => (
             <Reveal
-              as="article"
-              className={`service-card ${service.popular ? 'service-card-popular' : ''}`}
               key={service.id}
+              className="card-wrap"
+              variant="3d"
               delay={index * 70}
             >
-              {service.popular && <span className="service-tag">Most Popular</span>}
-              <div className="service-icon">{ICONS[service.icon] || ICONS.sparkle}</div>
-              <h3>{service.name}</h3>
-              <p>{service.description}</p>
-              <div className="service-footer">
-                <span className="service-price">{service.price}</span>
-                <a href="#contact" className="service-link">
-                  Book
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
+              <TiltCard
+                as="article"
+                className={`service-card ${service.popular ? 'service-card-popular' : ''}`}
+              >
+                {service.popular && <span className="service-tag">Most Popular</span>}
+                <div className="service-icon">{ICONS[service.icon] || ICONS.sparkle}</div>
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <div className="service-footer">
+                  <span className="service-price">{service.price}</span>
+                  <a href="#contact" className="service-link">
+                    Book
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

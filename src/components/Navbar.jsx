@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MagneticButton from './MagneticButton'
 
 const LINKS = [
   { href: '#services', label: 'Services', id: 'services' },
@@ -90,9 +91,9 @@ function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <a className="btn btn-primary btn-sm" href="#contact">
+          <MagneticButton className="btn btn-primary btn-sm" href="#contact" strength={0.25}>
             Book Appointment
-          </a>
+          </MagneticButton>
           <button
             type="button"
             className={`nav-toggle ${menuOpen ? 'is-open' : ''}`}

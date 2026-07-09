@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
+import TiltCard from './TiltCard'
 import Lightbox from './Lightbox'
 import { SALON_PHOTOS } from '../photos'
 
@@ -37,11 +38,15 @@ function Gallery() {
               as="figure"
               key={item.title}
               className={`gallery-item ${item.variant}`}
+              variant="3d"
               delay={index * 60}
             >
-              <button
+              <TiltCard
+                as="button"
                 type="button"
                 className="gallery-item-button"
+                tiltMax={7}
+                tiltScale={1.03}
                 onClick={() => setActiveIndex(index)}
                 aria-label={`View larger photo: ${item.title}`}
               >
@@ -50,7 +55,7 @@ function Gallery() {
                   <span className="gallery-tag">{item.tag}</span>
                   <span className="gallery-title">{item.title}</span>
                 </figcaption>
-              </button>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import TiltCard from './TiltCard'
 
 const FEATURES = [
   {
@@ -59,10 +60,12 @@ function WhyUs() {
 
         <div className="why-us-grid">
           {FEATURES.map((feature, index) => (
-            <Reveal as="div" className="why-us-card" key={feature.title} delay={index * 80}>
-              <div className="why-us-icon">{feature.icon}</div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
+            <Reveal className="card-wrap" variant="3d" key={feature.title} delay={index * 80}>
+              <TiltCard className="why-us-card" tiltMax={8}>
+                <div className="why-us-icon">{feature.icon}</div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

@@ -1,5 +1,7 @@
+import { useEffect, useRef } from 'react'
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
+import MagneticButton from './MagneticButton'
 import { SALON_PHOTOS } from '../photos'
 
 function HeroBackdrop() {
@@ -55,8 +57,63 @@ function HeroBackdrop() {
 }
 
 function Hero() {
+  const sectionRef = useRef(null)
+  const backdropRef = useRef(null)
+  const photoRef = useRef(null)
+  const badgeTopRef = useRef(null)
+  const badgeBottomRef = useRef(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return undefined
+
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (isTouch || reduceMotion) return undefined
+
+    let frame = null
+
+    const handleMove = (event) => {
+      const rect = section.getBoundingClientRect()
+      const px = (event.clientX - rect.left) / rect.width - 0.5
+      const py = (event.clientY - rect.top) / rect.height - 0.5
+
+      if (frame) cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        if (backdropRef.current) {
+          backdropRef.current.style.transform = `translate3d(${px * -14}px, ${py * -14}px, 0)`
+        }
+        if (photoRef.current) {
+          photoRef.current.style.transform = `perspective(1200px) rotateY(${px * 8}deg) rotateX(${py * -8}deg) translate3d(${px * 6}px, ${py * 6}px, 0)`
+        }
+        if (badgeTopRef.current) {
+          badgeTopRef.current.style.transform = `translate3d(${px * 18}px, ${py * 18}px, 0)`
+        }
+        if (badgeBottomRef.current) {
+          badgeBottomRef.current.style.transform = `translate3d(${px * -16}px, ${py * -16}px, 0)`
+        }
+      })
+    }
+
+    const handleLeave = () => {
+      if (frame) cancelAnimationFrame(frame)
+      ;[backdropRef, photoRef, badgeTopRef, badgeBottomRef].forEach((ref) => {
+        if (ref.current) ref.current.style.transform = ''
+      })
+    }
+
+    section.addEventListener('mousemove', handleMove)
+    section.addEventListener('mouseleave', handleLeave)
+
+    return () => {
+      section.removeEventListener('mousemove', handleMove)
+      section.removeEventListener('mouseleave', handleLeave)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
+
   return (
-    <section id="top" className="hero">
+    <section id="top" className="hero" ref={sectionRef}>
       <div className="hero-bg" aria-hidden="true" />
       <div className="container hero-inner">
         <Reveal className="hero-copy" delay={0}>
@@ -74,15 +131,15 @@ function Hero() {
             version of yourself.
           </p>
           <div className="hero-actions">
-            <a className="btn btn-primary btn-lg" href="#contact">
+            <MagneticButton className="btn btn-primary btn-lg" href="#contact">
               Book an Appointment
-            </a>
-            <a className="btn btn-ghost btn-lg" href="#services">
+            </MagneticButton>
+            <MagneticButton className="btn btn-ghost btn-lg" href="#services">
               Explore Services
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </MagneticButton>
           </div>
 
           <div className="hero-stats">
@@ -102,21 +159,29 @@ function Hero() {
         </Reveal>
 
         <Reveal className="hero-visual" delay={150} as="div">
-          <HeroBackdrop />
-          <PhotoFrame
-            src={SALON_PHOTOS.exterior}
-            alt="Looks Saloon storefront, Hanumangarh"
-            className="hero-photo-frame"
-          />
-          <div className="hero-badge hero-badge-top">
-            <span className="hero-badge-stars">★★★★★</span>
-            <p>
-              <strong>4.5/5</strong> from 124 reviews
-            </p>
+          <div ref={backdropRef} className="hero-backdrop-layer">
+            <HeroBackdrop />
           </div>
-          <div className="hero-badge hero-badge-bottom">
-            <p className="hero-badge-title">Now Booking</p>
-            <p className="hero-badge-sub">Bridal &amp; Festive Packages</p>
+          <div ref={photoRef} className="hero-photo-layer">
+            <PhotoFrame
+              src={SALON_PHOTOS.exterior}
+              alt="Looks Saloon storefront, Hanumangarh"
+              className="hero-photo-frame"
+            />
+          </div>
+          <div ref={badgeTopRef} className="hero-badge-wrap hero-badge-wrap-top">
+            <div className="hero-badge">
+              <span className="hero-badge-stars">★★★★★</span>
+              <p>
+                <strong>4.5/5</strong> from 124 reviews
+              </p>
+            </div>
+          </div>
+          <div ref={badgeBottomRef} className="hero-badge-wrap hero-badge-wrap-bottom">
+            <div className="hero-badge">
+              <p className="hero-badge-title">Now Booking</p>
+              <p className="hero-badge-sub">Bridal &amp; Festive Packages</p>
+            </div>
           </div>
         </Reveal>
       </div>
