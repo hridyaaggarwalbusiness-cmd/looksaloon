@@ -29,12 +29,7 @@ function IntroReveal({ onDone, videoSrc }) {
   const reduceMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const skip = Boolean(alreadySeen || reduceMotion)
-  const use3d =
-    typeof window !== 'undefined' &&
-    !reduceMotion &&
-    !window.matchMedia('(pointer: coarse)').matches &&
-    window.innerWidth >= 860 &&
-    supportsWebGL()
+  const use3d = typeof window !== 'undefined' && !reduceMotion && supportsWebGL()
 
   const [cutting, setCutting] = useState(false)
   const [parted, setParted] = useState(false)

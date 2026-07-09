@@ -1,5 +1,5 @@
-import { useMemo, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useEffect, useMemo, useRef } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, Environment, Float, Lightformer, MeshTransmissionMaterial, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -101,9 +101,24 @@ function GoldRibbon() {
   )
 }
 
+function ResponsiveCamera() {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    const aspect = size.width / size.height
+    const extraFov = aspect < 1 ? THREE.MathUtils.clamp((1 - aspect) * 16, 0, 18) : 0
+    camera.fov = 42 + extraFov
+    camera.position.z = aspect < 1 ? 4.6 * THREE.MathUtils.clamp(1 / aspect, 1, 1.35) : 4.6
+    camera.updateProjectionMatrix()
+  }, [camera, size])
+
+  return null
+}
+
 function Scene() {
   const groupRef = useRef(null)
   const scrollRef = useRef(0)
+  const scale = useRef(1)
 
   useMemo(() => {
     const onScroll = () => {
@@ -115,7 +130,11 @@ function Scene() {
 
   useFrame((state) => {
     if (!groupRef.current) return
-    const { pointer } = state
+    const { pointer, size } = state
+    const aspect = size.width / size.height
+    const targetScale = THREE.MathUtils.clamp(aspect / 1.5, 0.68, 1)
+    scale.current = THREE.MathUtils.lerp(scale.current, targetScale, 0.05)
+    groupRef.current.scale.setScalar(scale.current)
     groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, pointer.x * 0.35, 0.04)
     groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, -pointer.y * 0.2, 0.04)
     groupRef.current.position.y = THREE.MathUtils.lerp(
@@ -147,6 +166,7 @@ function HeroScene() {
       camera={{ position: [0, 0, 4.6], fov: 42 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
     >
+      <ResponsiveCamera />
       <Scene />
     </Canvas>
   )

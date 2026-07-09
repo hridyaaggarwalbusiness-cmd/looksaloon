@@ -15,11 +15,9 @@ function HeroSceneGate() {
   const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    const isTouch = window.matchMedia('(pointer: coarse)').matches
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const isNarrow = window.innerWidth < 860
 
-    if (isTouch || reduceMotion || isNarrow || !supportsWebGL()) return
+    if (reduceMotion || !supportsWebGL()) return
 
     setEnabled(true)
   }, [])

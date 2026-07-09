@@ -57,11 +57,14 @@ function CameraRig({ stage }) {
     const anticipation = Math.min(1, sceneTime.current / 1.35)
     const eased = 1 - Math.pow(1 - anticipation, 3)
 
+    const aspect = state.size.width / state.size.height
+    const extraFov = aspect < 1 ? THREE.MathUtils.clamp((1 - aspect) * 14, 0, 16) : 0
+
     const establishedZ = stage.exiting ? 3.85 : stage.parted ? 4.15 : 5.6
     const establishedY = stage.parted ? 0.05 : 0.35
     const targetZ = THREE.MathUtils.lerp(9, establishedZ, eased)
     const targetY = THREE.MathUtils.lerp(0.9, establishedY, eased)
-    const targetFov = THREE.MathUtils.lerp(20, 34, eased)
+    const targetFov = THREE.MathUtils.lerp(20, 34, eased) + extraFov
 
     z.current = THREE.MathUtils.damp(z.current, targetZ, 2, delta)
     y.current = THREE.MathUtils.damp(y.current, targetY, 2, delta)
@@ -261,6 +264,20 @@ function HairStrand({ curvePoints, color, delay, stage }) {
   )
 }
 
+function ContentRig({ children }) {
+  const ref = useRef(null)
+  const scale = useRef(1)
+
+  useFrame((state, delta) => {
+    const aspect = state.size.width / state.size.height
+    const target = THREE.MathUtils.clamp(aspect / 1.55, 0.62, 1)
+    scale.current = THREE.MathUtils.damp(scale.current, target, 3, delta)
+    if (ref.current) ref.current.scale.setScalar(scale.current)
+  })
+
+  return <group ref={ref}>{children}</group>
+}
+
 function DustAtmosphere() {
   return (
     <>
@@ -278,35 +295,37 @@ function Scene({ stage }) {
       <ambientLight intensity={0.3} />
       <pointLight position={[1.6, 2.1, 3.2]} intensity={2} color="#fff3da" />
       <CameraRig stage={stage} />
-      <Shears stage={stage} />
-      <RibbonHalf side={-1} stage={stage} />
-      <RibbonHalf side={1} stage={stage} />
-      <HairStrand
-        stage={stage}
-        delay={0.15}
-        color="#f3dda4"
-        curvePoints={[
-          new THREE.Vector3(-1.8, 0.9, -0.5),
-          new THREE.Vector3(-0.8, 1.3, 0.2),
-          new THREE.Vector3(0, 0.95, -0.3),
-          new THREE.Vector3(0.9, 1.35, 0.3),
-          new THREE.Vector3(1.9, 1, -0.2),
-        ]}
-      />
-      <HairStrand
-        stage={stage}
-        delay={0.32}
-        color="#e7bfae"
-        curvePoints={[
-          new THREE.Vector3(-1.9, -1, 0.3),
-          new THREE.Vector3(-0.9, -1.4, -0.2),
-          new THREE.Vector3(0.1, -1.05, 0.25),
-          new THREE.Vector3(1, -1.45, -0.15),
-          new THREE.Vector3(1.95, -1.05, 0.2),
-        ]}
-      />
-      <DustAtmosphere />
-      <ContactShadows position={[0, -1.1, 0]} opacity={0.5} scale={6} blur={2.4} far={2} color="#0a0704" resolution={256} frames={1} />
+      <ContentRig>
+        <Shears stage={stage} />
+        <RibbonHalf side={-1} stage={stage} />
+        <RibbonHalf side={1} stage={stage} />
+        <HairStrand
+          stage={stage}
+          delay={0.15}
+          color="#f3dda4"
+          curvePoints={[
+            new THREE.Vector3(-1.8, 0.9, -0.5),
+            new THREE.Vector3(-0.8, 1.3, 0.2),
+            new THREE.Vector3(0, 0.95, -0.3),
+            new THREE.Vector3(0.9, 1.35, 0.3),
+            new THREE.Vector3(1.9, 1, -0.2),
+          ]}
+        />
+        <HairStrand
+          stage={stage}
+          delay={0.32}
+          color="#e7bfae"
+          curvePoints={[
+            new THREE.Vector3(-1.9, -1, 0.3),
+            new THREE.Vector3(-0.9, -1.4, -0.2),
+            new THREE.Vector3(0.1, -1.05, 0.25),
+            new THREE.Vector3(1, -1.45, -0.15),
+            new THREE.Vector3(1.95, -1.05, 0.2),
+          ]}
+        />
+        <DustAtmosphere />
+        <ContactShadows position={[0, -1.1, 0]} opacity={0.5} scale={6} blur={2.4} far={2} color="#0a0704" resolution={256} frames={1} />
+      </ContentRig>
     </>
   )
 }
