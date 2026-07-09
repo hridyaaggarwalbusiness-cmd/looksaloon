@@ -42,6 +42,11 @@ function About() {
               <span>Gaandhi Nagar, Hanumangarh</span>
             </div>
           </PhotoFrame>
+          <PhotoFrame
+            src={photos.interiorLounge.url}
+            alt={`Looks Saloon ${photos.interiorLounge.title}, Hanumangarh`}
+            className="about-photo-frame-accent"
+          />
           <AboutCombAccent />
         </Reveal>
 
