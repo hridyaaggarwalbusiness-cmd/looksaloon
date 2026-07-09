@@ -86,19 +86,26 @@ function IntroReveal({ onDone }) {
 
       <div className="intro-cut-flash" />
 
+      <div className="intro-hair-strands" aria-hidden="true">
+        <svg viewBox="0 0 400 200" width="100%" height="100%" preserveAspectRatio="none" fill="none">
+          <path className="hair-strand hair-strand-1" d="M20,40 C120,10 180,70 260,30 C320,5 360,40 390,20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path className="hair-strand hair-strand-2" d="M10,165 C90,190 160,140 240,175 C300,198 350,160 395,180" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        </svg>
+      </div>
+
       <div className="intro-scissors">
-        <svg viewBox="0 0 140 60" width="126" height="54" fill="none">
+        <svg viewBox="0 0 170 60" width="150" height="53" fill="none">
           <g className="scissor-blade scissor-blade-a">
-            <line x1="60" y1="30" x2="6" y2="30" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <line x1="60" y1="30" x2="110" y2="12" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <circle cx="110" cy="12" r="7.5" stroke="currentColor" strokeWidth="2.4" />
+            <line x1="72" y1="30" x2="4" y2="30" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+            <line x1="72" y1="30" x2="134" y2="9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <circle cx="134" cy="9" r="7" stroke="currentColor" strokeWidth="2.2" />
           </g>
           <g className="scissor-blade scissor-blade-b">
-            <line x1="60" y1="30" x2="6" y2="30" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <line x1="60" y1="30" x2="110" y2="48" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <circle cx="110" cy="48" r="7.5" stroke="currentColor" strokeWidth="2.4" />
+            <line x1="72" y1="30" x2="4" y2="30" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+            <line x1="72" y1="30" x2="134" y2="51" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+            <circle cx="134" cy="51" r="7" stroke="currentColor" strokeWidth="2.2" />
           </g>
-          <circle cx="60" cy="30" r="3" fill="currentColor" />
+          <circle cx="72" cy="30" r="2.6" fill="currentColor" />
         </svg>
       </div>
 

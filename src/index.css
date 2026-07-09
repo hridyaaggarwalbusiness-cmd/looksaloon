@@ -619,7 +619,7 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-42px, -30px);
+  transform: translate(-51px, -26px);
   color: var(--gold-bright);
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
   opacity: 0;
@@ -630,16 +630,16 @@ img {
 @keyframes scissorsEnter {
   from {
     opacity: 0;
-    transform: translate(6px, -30px);
+    transform: translate(15px, -26px);
   }
   to {
     opacity: 1;
-    transform: translate(-42px, -30px);
+    transform: translate(-51px, -26px);
   }
 }
 
 .scissor-blade {
-  transform-origin: 60px 30px;
+  transform-origin: 72px 30px;
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -658,7 +658,46 @@ img {
 
 .intro-parted .intro-scissors {
   opacity: 0;
-  transform: translate(30px, -30px);
+  transform: translate(38px, -26px);
+}
+
+.intro-hair-strands {
+  position: absolute;
+  inset: 0;
+  color: rgba(243, 221, 164, 0.4);
+  opacity: 0;
+  animation: hairStrandsIn 1.2s ease 0.1s forwards;
+  transition: opacity 0.6s ease;
+}
+
+.intro-parted .intro-hair-strands {
+  opacity: 0;
+}
+
+@keyframes hairStrandsIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hair-strand {
+  fill: none;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: hairStrandDraw 2.4s var(--ease-lux) forwards;
+}
+
+.hair-strand-2 {
+  animation-delay: 0.15s;
+}
+
+@keyframes hairStrandDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .intro-cut-flash {
