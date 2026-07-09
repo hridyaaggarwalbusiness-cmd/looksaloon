@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react'
 import MagneticButton from './MagneticButton'
-import { useContent } from '../hooks/useContent'
+
+const LINKS = [
+  { href: '#services', label: 'Services', id: 'services' },
+  { href: '#gallery', label: 'Gallery', id: 'gallery' },
+  { href: '#about', label: 'About', id: 'about' },
+  { href: '#faq', label: 'FAQ', id: 'faq' },
+  { href: '#testimonials', label: 'Reviews', id: 'testimonials' },
+  { href: '#contact', label: 'Contact', id: 'contact' },
+]
 
 function Navbar() {
-  const { navLinks } = useContent()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -21,7 +28,7 @@ function Navbar() {
   }, [menuOpen])
 
   useEffect(() => {
-    const sections = navLinks.map((link) => document.getElementById(link.id)).filter(Boolean)
+    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(Boolean)
     if (sections.length === 0 || typeof IntersectionObserver === 'undefined') return undefined
 
     const observer = new IntersectionObserver(
@@ -35,7 +42,7 @@ function Navbar() {
 
     sections.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [navLinks])
+  }, [])
 
   const handleLinkClick = () => setMenuOpen(false)
 
@@ -70,7 +77,7 @@ function Navbar() {
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          {navLinks.map((link) => (
+          {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -102,7 +109,7 @@ function Navbar() {
       </div>
 
       <div className={`nav-drawer ${menuOpen ? 'is-open' : ''}`}>
-        {navLinks.map((link) => (
+        {LINKS.map((link) => (
           <a key={link.href} href={link.href} onClick={handleLinkClick}>
             {link.label}
           </a>

@@ -3,11 +3,18 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import Reveal from './Reveal'
 import { db } from '../firebase'
 import { useSettings } from '../hooks/useSettings'
-import { useServices } from '../hooks/useServices'
+
+const SERVICE_OPTIONS = [
+  'Haircut & Styling',
+  'Color & Balayage',
+  'Facial & Skin Therapy',
+  'Manicure & Pedicure',
+  'Bridal & Occasion',
+  'Spa & Body Ritual',
+]
 
 function Contact() {
   const settings = useSettings()
-  const { services } = useServices()
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -175,9 +182,9 @@ function Contact() {
                   <option value="" disabled>
                     Select a service
                   </option>
-                  {services.map((service) => (
-                    <option key={service.id} value={service.name}>
-                      {service.name}
+                  {SERVICE_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
                     </option>
                   ))}
                 </select>
