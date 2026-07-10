@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { saveContent, useContent } from '../hooks/useContent'
+import { DEFAULT_CONTENT } from '../content'
 
 function Content() {
   const { content, loading } = useContent()
@@ -57,6 +58,19 @@ function Content() {
 
   const removeShowcaseSection = (sectionIndex) => {
     setForm({ ...form, showcase: form.showcase.filter((_, si) => si !== sectionIndex) })
+    setSaved(false)
+  }
+
+  const resetShowcaseToDefaults = () => {
+    if (!window.confirm('Replace all showcase sections with the latest built-in defaults? This overwrites any custom titles, descriptions, and image links you\'ve set here.')) {
+      return
+    }
+    setForm({
+      ...form,
+      showcase: DEFAULT_CONTENT.showcase.map((section) => ({
+        items: section.items.map((item) => ({ ...item })),
+      })),
+    })
     setSaved(false)
   }
 
@@ -174,9 +188,14 @@ function Content() {
         <div className="panel">
           <div className="panel-header">
             <h2>Scrolling Showcase Sections</h2>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcaseSection}>
-              + Add Section
-            </button>
+            <div className="panel-header-actions">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={resetShowcaseToDefaults}>
+                Reset to Latest Defaults
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcaseSection}>
+                + Add Section
+              </button>
+            </div>
           </div>
           <p className="table-sub">
             Full-width sections shown between Services and About on the home page, alternating

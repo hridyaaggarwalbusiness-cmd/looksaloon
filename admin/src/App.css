@@ -383,6 +383,12 @@
   font-size: 20px;
 }
 
+.panel-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .empty-state {
   text-align: center;
   padding: 48px 20px;
