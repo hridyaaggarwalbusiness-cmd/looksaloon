@@ -16,14 +16,14 @@ function Footer() {
         <div className="footer-links">
           <div>
             <h4>Explore</h4>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#about">About Us</a>
-            <a href="#testimonials">Reviews</a>
+            <a href="/#services">Services</a>
+            <a href="/#gallery">Gallery</a>
+            <a href="/#about">About Us</a>
+            <a href="/#testimonials">Reviews</a>
           </div>
           <div>
             <h4>Studio</h4>
-            <a href="#contact">Book Appointment</a>
+            <a href="/#contact">Book Appointment</a>
             <a href={`tel:${settings.phone}`}>{settings.phone}</a>
             <a href={`mailto:${settings.email}`}>{settings.email}</a>
           </div>

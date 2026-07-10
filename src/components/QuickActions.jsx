@@ -55,7 +55,7 @@ function QuickActions() {
           <WhatsAppIcon />
           WhatsApp
         </a>
-        <a href="#contact" className="mobile-action-item mobile-action-primary">
+        <a href="/#contact" className="mobile-action-item mobile-action-primary">
           Book Now
         </a>
       </nav>

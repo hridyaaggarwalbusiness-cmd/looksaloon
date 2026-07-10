@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import MagneticButton from './MagneticButton'
 
 const LINKS = [
-  { href: '#services', label: 'Services', id: 'services' },
-  { href: '#gallery', label: 'Gallery', id: 'gallery' },
-  { href: '#about', label: 'About', id: 'about' },
-  { href: '#faq', label: 'FAQ', id: 'faq' },
-  { href: '#testimonials', label: 'Reviews', id: 'testimonials' },
-  { href: '#contact', label: 'Contact', id: 'contact' },
+  { href: '/#services', label: 'Services', id: 'services' },
+  { href: '/#gallery', label: 'Gallery', id: 'gallery' },
+  { href: '/#about', label: 'About', id: 'about' },
+  { href: '/#faq', label: 'FAQ', id: 'faq' },
+  { href: '/#testimonials', label: 'Reviews', id: 'testimonials' },
+  { href: '/#contact', label: 'Contact', id: 'contact' },
 ]
 
 function Navbar() {
@@ -52,7 +52,7 @@ function Navbar() {
         Skip to content
       </a>
       <div className="container navbar-inner">
-        <a className="brand" href="#top" onClick={handleLinkClick}>
+        <a className="brand" href="/#top" onClick={handleLinkClick}>
           <span className="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 48 48" width="30" height="30">
               <path
@@ -91,7 +91,7 @@ function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <MagneticButton className="btn btn-primary btn-sm" href="#contact" strength={0.25}>
+          <MagneticButton className="btn btn-primary btn-sm" href="/#contact" strength={0.25}>
             Book Appointment
           </MagneticButton>
           <button
@@ -114,7 +114,7 @@ function Navbar() {
             {link.label}
           </a>
         ))}
-        <a className="btn btn-primary" href="#contact" onClick={handleLinkClick}>
+        <a className="btn btn-primary" href="/#contact" onClick={handleLinkClick}>
           Book Appointment
         </a>
       </div>

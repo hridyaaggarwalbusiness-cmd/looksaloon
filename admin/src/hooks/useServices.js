@@ -18,6 +18,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹899',
     description: 'A tailored cut and blow-dry finish, shaped to your face and lifestyle.',
     popular: false,
+    imageUrl: '',
     order: 0,
   },
   {
@@ -26,6 +27,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹2,499',
     description: 'Dimensional color, balayage, and gloss treatments in low-damage formulas.',
     popular: true,
+    imageUrl: '',
     order: 1,
   },
   {
@@ -34,6 +36,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹1,499',
     description: 'Deep-cleansing, brightening, and anti-aging facials for every skin type.',
     popular: false,
+    imageUrl: '',
     order: 2,
   },
   {
@@ -42,6 +45,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹999',
     description: 'Classic, gel, or nail art finishes with restorative hand and foot care.',
     popular: false,
+    imageUrl: '',
     order: 3,
   },
   {
@@ -50,6 +54,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹8,999',
     description: 'Full hair, makeup, and draping with a complimentary trial session.',
     popular: false,
+    imageUrl: '',
     order: 4,
   },
   {
@@ -58,6 +63,7 @@ export const DEFAULT_SERVICES = [
     price: 'From ₹1,999',
     description: 'Signature massages and body treatments designed to melt away stress.',
     popular: false,
+    imageUrl: '',
     order: 5,
   },
 ]

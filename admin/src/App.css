@@ -596,6 +596,13 @@
   color: var(--ink);
 }
 
+.field-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-soft);
+  margin-top: -2px;
+}
+
 .modal-form input:focus,
 .modal-form select:focus,
 .modal-form textarea:focus {

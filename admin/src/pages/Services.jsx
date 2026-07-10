@@ -8,7 +8,7 @@ import {
   useServices,
 } from '../hooks/useServices'
 
-const EMPTY_FORM = { name: '', price: '', description: '', icon: 'scissors', popular: false, order: 0 }
+const EMPTY_FORM = { name: '', price: '', description: '', icon: 'scissors', popular: false, imageUrl: '', order: 0 }
 
 function ServiceModal({ initial, onClose, onSave }) {
   const [form, setForm] = useState(initial)
@@ -69,6 +69,19 @@ function ServiceModal({ initial, onClose, onSave }) {
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
             />
+          </label>
+          <label>
+            <span>Image URL (optional)</span>
+            <input
+              type="url"
+              placeholder="https://example.com/photo.jpg"
+              value={form.imageUrl}
+              onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+            />
+            <span className="field-hint">
+              Paste a direct image link. Shown on this service&rsquo;s own details page &mdash; leave
+              blank to show a placeholder.
+            </span>
           </label>
           <div className="form-row">
             <label>
@@ -161,6 +174,7 @@ function Services() {
                 <th>Service</th>
                 <th>Price</th>
                 <th>Popular</th>
+                <th>Image</th>
                 <th></th>
               </tr>
             </thead>
@@ -174,8 +188,9 @@ function Services() {
                   </td>
                   <td>{service.price}</td>
                   <td>{service.popular ? 'Yes' : '—'}</td>
+                  <td>{service.imageUrl ? 'Yes' : '—'}</td>
                   <td className="table-actions">
-                    <button type="button" className="icon-btn" aria-label="Edit" onClick={() => setModalState(service)}>
+                    <button type="button" className="icon-btn" aria-label="Edit" onClick={() => setModalState({ imageUrl: '', ...service })}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                         <path d="M4 20l1-4.5L16 4.5a1.5 1.5 0 0 1 2 0l1.5 1.5a1.5 1.5 0 0 1 0 2L8.5 19 4 20Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
                       </svg>
