@@ -815,6 +815,27 @@
   justify-content: flex-end;
 }
 
+.showcase-editor-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.showcase-editor-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.showcase-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @media (max-width: 720px) {
   .faq-editor-row {
     grid-template-columns: 1fr;

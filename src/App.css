@@ -2425,3 +2425,61 @@
     margin: 0 auto;
   }
 }
+
+/* ===================== Showcase (scrolling category sections) ===================== */
+
+.showcase-row {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.showcase-row + .showcase-row {
+  margin-top: 140px;
+}
+
+.showcase-row-reverse {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.showcase-row-reverse .showcase-visual {
+  order: 2;
+}
+
+.showcase-frame {
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-lg);
+  border: 6px solid var(--white);
+}
+
+.showcase-description {
+  margin-top: 22px;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text-soft);
+  font-weight: 300;
+  max-width: 480px;
+}
+
+@media (max-width: 900px) {
+  .showcase-row,
+  .showcase-row-reverse {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .showcase-row-reverse .showcase-visual {
+    order: 0;
+  }
+
+  .showcase-frame {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .showcase-row + .showcase-row {
+    margin-top: 70px;
+  }
+}

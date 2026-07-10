@@ -19,6 +19,32 @@ export const DEFAULT_CONTENT = {
     body:
       "Every service starts with a conversation. Our stylists and therapists take the time to understand your features, your lifestyle, and your goals — then craft a look that's unmistakably yours.",
   },
+  showcase: [
+    {
+      title: 'Hair That Tells Your Story',
+      description:
+        'From precision cuts to dimensional color and keratin smoothing, our stylists craft looks that move with you — not just for a day, but for the season ahead.',
+      imageUrl: '',
+    },
+    {
+      title: 'Skin That Glows From Within',
+      description:
+        'Deep-cleansing facials, brightening treatments, and anti-aging rituals tailored to your skin type, performed with premium, dermat-grade formulas.',
+      imageUrl: '',
+    },
+    {
+      title: 'Nails, Perfected',
+      description:
+        'Classic manicures, gel finishes, and hand-painted nail art — with restorative hand and foot care that leaves you polished from every angle.',
+      imageUrl: '',
+    },
+    {
+      title: 'Bridal & Occasion Glam',
+      description:
+        'Full hair, makeup, and draping for your big day, with a complimentary trial session so your look is exactly right before you walk in.',
+      imageUrl: '',
+    },
+  ],
   faq: [
     {
       q: 'Do I need to book an appointment in advance?',

@@ -15,6 +15,7 @@ export function useContent() {
         hero: { ...DEFAULT_CONTENT.hero, ...(data.hero || {}) },
         about: { ...DEFAULT_CONTENT.about, ...(data.about || {}) },
         faq: Array.isArray(data.faq) && data.faq.length > 0 ? data.faq : DEFAULT_CONTENT.faq,
+        showcase: Array.isArray(data.showcase) && data.showcase.length > 0 ? data.showcase : DEFAULT_CONTENT.showcase,
       })
     })
 

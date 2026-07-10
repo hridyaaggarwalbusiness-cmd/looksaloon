@@ -22,6 +22,22 @@ function Content() {
     setSaved(false)
   }
 
+  const updateShowcase = (index, field) => (event) => {
+    const showcase = form.showcase.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
+    setForm({ ...form, showcase })
+    setSaved(false)
+  }
+
+  const addShowcase = () => {
+    setForm({ ...form, showcase: [...form.showcase, { title: '', description: '', imageUrl: '' }] })
+    setSaved(false)
+  }
+
+  const removeShowcase = (index) => {
+    setForm({ ...form, showcase: form.showcase.filter((_, i) => i !== index) })
+    setSaved(false)
+  }
+
   const updateFaq = (index, field) => (event) => {
     const faq = form.faq.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
     setForm({ ...form, faq })
@@ -130,6 +146,49 @@ function Content() {
               <span>Body Paragraph</span>
               <textarea rows="3" value={form.about.body} onChange={updateAbout('body')} required />
             </label>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="panel-header">
+            <h2>Scrolling Showcase Sections</h2>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcase}>
+              + Add Section
+            </button>
+          </div>
+          <p className="table-sub">
+            Full-width sections shown between Services and About on the home page, each pairing a
+            headline and description with an image (alternating sides as the visitor scrolls).
+          </p>
+          <div className="modal-form">
+            {form.showcase.map((item, index) => (
+              <div className="showcase-editor-item" key={index}>
+                <div className="showcase-editor-header">
+                  <strong>Section {index + 1}</strong>
+                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => removeShowcase(index)}>
+                    Remove
+                  </button>
+                </div>
+                <label>
+                  <span>Title</span>
+                  <input type="text" value={item.title} onChange={updateShowcase(index, 'title')} required />
+                </label>
+                <label>
+                  <span>Description</span>
+                  <textarea rows="3" value={item.description} onChange={updateShowcase(index, 'description')} required />
+                </label>
+                <label>
+                  <span>Image URL (optional)</span>
+                  <input
+                    type="url"
+                    placeholder="https://example.com/photo.jpg"
+                    value={item.imageUrl}
+                    onChange={updateShowcase(index, 'imageUrl')}
+                  />
+                  <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
 
