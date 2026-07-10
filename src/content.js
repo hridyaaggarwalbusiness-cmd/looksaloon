@@ -39,6 +39,18 @@ export const DEFAULT_CONTENT = {
           description: 'Frizz-free, silky strands that last for months, without weighing your hair down.',
           imageUrl: '',
         },
+        {
+          title: 'Precision Bob Cuts',
+          description:
+            'Sharp, face-framing bobs cut to fall perfectly, whether you want blunt and bold or soft and layered.',
+          imageUrl: '',
+        },
+        {
+          title: 'Deep Conditioning Therapy',
+          description:
+            'Intensive moisture treatments that repair damage and restore shine, leaving hair soft from root to tip.',
+          imageUrl: '',
+        },
       ],
     },
     {
@@ -57,6 +69,17 @@ export const DEFAULT_CONTENT = {
         {
           title: 'Anti-Aging Rituals',
           description: "Collagen-boosting treatments that firm, smooth, and restore your skin's natural glow.",
+          imageUrl: '',
+        },
+        {
+          title: 'Hydra Facials',
+          description: "Deep hydration infused into every layer of skin, for a plump, dewy finish that lasts.",
+          imageUrl: '',
+        },
+        {
+          title: 'Acne & Blemish Control',
+          description:
+            "Targeted treatments that calm breakouts and even out texture, without stripping your skin's natural balance.",
           imageUrl: '',
         },
       ],
@@ -79,6 +102,17 @@ export const DEFAULT_CONTENT = {
           description: 'Intricate, one-of-a-kind nail art designed to match your mood or your outfit.',
           imageUrl: '',
         },
+        {
+          title: 'Classic Manicure & Pedicure',
+          description:
+            'Timeless nail care with cuticle treatment, shaping, and a polish finish that always looks put-together.',
+          imageUrl: '',
+        },
+        {
+          title: 'Nail Repair & Strengthening',
+          description: "Restorative treatments for brittle or damaged nails, building strength back in with every visit.",
+          imageUrl: '',
+        },
       ],
     },
     {
@@ -98,6 +132,18 @@ export const DEFAULT_CONTENT = {
         {
           title: 'Party & Festive Glam',
           description: 'Bold, camera-ready looks for weddings, festivals, and every celebration in between.',
+          imageUrl: '',
+        },
+        {
+          title: 'Destination Wedding Packages',
+          description:
+            "Full styling coverage for multi-day celebrations, so you look flawless at every event, wherever it's held.",
+          imageUrl: '',
+        },
+        {
+          title: 'Mehendi & Sangeet Looks',
+          description:
+            'Vibrant, festive styling for your pre-wedding functions, tailored to match every outfit change.',
           imageUrl: '',
         },
       ],
