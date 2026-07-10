@@ -16,6 +16,7 @@ export function useContent() {
         about: { ...DEFAULT_CONTENT.about, ...(data.about || {}) },
         faq: Array.isArray(data.faq) && data.faq.length > 0 ? data.faq : DEFAULT_CONTENT.faq,
         showcase: Array.isArray(data.showcase) && data.showcase.length > 0 ? data.showcase : DEFAULT_CONTENT.showcase,
+        carousel: Array.isArray(data.carousel) && data.carousel.length > 0 ? data.carousel : DEFAULT_CONTENT.carousel,
       })
     })
 

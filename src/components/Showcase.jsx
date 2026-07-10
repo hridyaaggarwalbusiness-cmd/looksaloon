@@ -1,5 +1,6 @@
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
+import ShowcaseCarousel from './ShowcaseCarousel'
 import { useContent } from '../hooks/useContent'
 
 function Showcase() {
@@ -24,6 +25,8 @@ function Showcase() {
             </Reveal>
           </div>
         ))}
+
+        <ShowcaseCarousel />
       </div>
     </section>
   )

@@ -45,6 +45,50 @@ export const DEFAULT_CONTENT = {
       imageUrl: '',
     },
   ],
+  carousel: [
+    {
+      title: 'Balayage & Color Melts',
+      description:
+        'Hand-painted, sun-kissed color that grows out beautifully — zero harsh lines, all dimension.',
+      imageUrl: '',
+    },
+    {
+      title: 'Keratin Smoothing',
+      description: 'Frizz-free, silky strands that last for months, without weighing your hair down.',
+      imageUrl: '',
+    },
+    {
+      title: 'Glow Facials',
+      description: 'Brightening, hydrating facials customized to your skin, leaving you radiant for days.',
+      imageUrl: '',
+    },
+    {
+      title: 'Anti-Aging Rituals',
+      description: "Collagen-boosting treatments that firm, smooth, and restore your skin's natural glow.",
+      imageUrl: '',
+    },
+    {
+      title: 'Gel Extensions',
+      description: 'Durable, glossy gel extensions in any shape or length — perfect for every occasion.',
+      imageUrl: '',
+    },
+    {
+      title: 'Hand-Painted Nail Art',
+      description: 'Intricate, one-of-a-kind nail art designed to match your mood or your outfit.',
+      imageUrl: '',
+    },
+    {
+      title: 'Bridal Trial Sessions',
+      description:
+        'A complimentary trial run for your big day, so your bridal look is exactly right before it counts.',
+      imageUrl: '',
+    },
+    {
+      title: 'Party & Festive Glam',
+      description: 'Bold, camera-ready looks for weddings, festivals, and every celebration in between.',
+      imageUrl: '',
+    },
+  ],
   faq: [
     {
       q: 'Do I need to book an appointment in advance?',

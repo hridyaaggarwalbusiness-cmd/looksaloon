@@ -38,6 +38,22 @@ function Content() {
     setSaved(false)
   }
 
+  const updateCarousel = (index, field) => (event) => {
+    const carousel = form.carousel.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
+    setForm({ ...form, carousel })
+    setSaved(false)
+  }
+
+  const addCarousel = () => {
+    setForm({ ...form, carousel: [...form.carousel, { title: '', description: '', imageUrl: '' }] })
+    setSaved(false)
+  }
+
+  const removeCarousel = (index) => {
+    setForm({ ...form, carousel: form.carousel.filter((_, i) => i !== index) })
+    setSaved(false)
+  }
+
   const updateFaq = (index, field) => (event) => {
     const faq = form.faq.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
     setForm({ ...form, faq })
@@ -184,6 +200,49 @@ function Content() {
                     placeholder="https://example.com/photo.jpg"
                     value={item.imageUrl}
                     onChange={updateShowcase(index, 'imageUrl')}
+                  />
+                  <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="panel-header">
+            <h2>Auto-Rotating Carousel</h2>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={addCarousel}>
+              + Add Story
+            </button>
+          </div>
+          <p className="table-sub">
+            Shown below the showcase sections on the home page. A new photo and story fades in
+            automatically every 3 seconds, cycling through all entries.
+          </p>
+          <div className="modal-form">
+            {form.carousel.map((item, index) => (
+              <div className="showcase-editor-item" key={index}>
+                <div className="showcase-editor-header">
+                  <strong>Story {index + 1}</strong>
+                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => removeCarousel(index)}>
+                    Remove
+                  </button>
+                </div>
+                <label>
+                  <span>Title</span>
+                  <input type="text" value={item.title} onChange={updateCarousel(index, 'title')} required />
+                </label>
+                <label>
+                  <span>Description</span>
+                  <textarea rows="3" value={item.description} onChange={updateCarousel(index, 'description')} required />
+                </label>
+                <label>
+                  <span>Image URL (optional)</span>
+                  <input
+                    type="url"
+                    placeholder="https://example.com/photo.jpg"
+                    value={item.imageUrl}
+                    onChange={updateCarousel(index, 'imageUrl')}
                   />
                   <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
                 </label>
