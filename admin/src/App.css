@@ -815,19 +815,35 @@
   justify-content: flex-end;
 }
 
+.showcase-section-editor {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream-soft);
+}
+
+.showcase-section-editor:last-child {
+  margin-bottom: 0;
+}
+
+.showcase-section-editor > .showcase-editor-header {
+  margin-bottom: 16px;
+}
+
 .showcase-editor-item {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--line);
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
 }
 
-.showcase-editor-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
+.showcase-editor-item:last-of-type {
+  margin-bottom: 16px;
 }
 
 .showcase-editor-header {

@@ -21,72 +21,86 @@ export const DEFAULT_CONTENT = {
   },
   showcase: [
     {
-      title: 'Hair That Tells Your Story',
-      description:
-        'From precision cuts to dimensional color and keratin smoothing, our stylists craft looks that move with you — not just for a day, but for the season ahead.',
-      imageUrl: '',
+      items: [
+        {
+          title: 'Hair That Tells Your Story',
+          description:
+            'From precision cuts to dimensional color and keratin smoothing, our stylists craft looks that move with you — not just for a day, but for the season ahead.',
+          imageUrl: '',
+        },
+        {
+          title: 'Balayage & Color Melts',
+          description:
+            'Hand-painted, sun-kissed color that grows out beautifully — zero harsh lines, all dimension.',
+          imageUrl: '',
+        },
+        {
+          title: 'Keratin Smoothing',
+          description: 'Frizz-free, silky strands that last for months, without weighing your hair down.',
+          imageUrl: '',
+        },
+      ],
     },
     {
-      title: 'Skin That Glows From Within',
-      description:
-        'Deep-cleansing facials, brightening treatments, and anti-aging rituals tailored to your skin type, performed with premium, dermat-grade formulas.',
-      imageUrl: '',
+      items: [
+        {
+          title: 'Skin That Glows From Within',
+          description:
+            'Deep-cleansing facials, brightening treatments, and anti-aging rituals tailored to your skin type, performed with premium, dermat-grade formulas.',
+          imageUrl: '',
+        },
+        {
+          title: 'Glow Facials',
+          description: 'Brightening, hydrating facials customized to your skin, leaving you radiant for days.',
+          imageUrl: '',
+        },
+        {
+          title: 'Anti-Aging Rituals',
+          description: "Collagen-boosting treatments that firm, smooth, and restore your skin's natural glow.",
+          imageUrl: '',
+        },
+      ],
     },
     {
-      title: 'Nails, Perfected',
-      description:
-        'Classic manicures, gel finishes, and hand-painted nail art — with restorative hand and foot care that leaves you polished from every angle.',
-      imageUrl: '',
+      items: [
+        {
+          title: 'Nails, Perfected',
+          description:
+            'Classic manicures, gel finishes, and hand-painted nail art — with restorative hand and foot care that leaves you polished from every angle.',
+          imageUrl: '',
+        },
+        {
+          title: 'Gel Extensions',
+          description: 'Durable, glossy gel extensions in any shape or length — perfect for every occasion.',
+          imageUrl: '',
+        },
+        {
+          title: 'Hand-Painted Nail Art',
+          description: 'Intricate, one-of-a-kind nail art designed to match your mood or your outfit.',
+          imageUrl: '',
+        },
+      ],
     },
     {
-      title: 'Bridal & Occasion Glam',
-      description:
-        'Full hair, makeup, and draping for your big day, with a complimentary trial session so your look is exactly right before you walk in.',
-      imageUrl: '',
-    },
-  ],
-  carousel: [
-    {
-      title: 'Balayage & Color Melts',
-      description:
-        'Hand-painted, sun-kissed color that grows out beautifully — zero harsh lines, all dimension.',
-      imageUrl: '',
-    },
-    {
-      title: 'Keratin Smoothing',
-      description: 'Frizz-free, silky strands that last for months, without weighing your hair down.',
-      imageUrl: '',
-    },
-    {
-      title: 'Glow Facials',
-      description: 'Brightening, hydrating facials customized to your skin, leaving you radiant for days.',
-      imageUrl: '',
-    },
-    {
-      title: 'Anti-Aging Rituals',
-      description: "Collagen-boosting treatments that firm, smooth, and restore your skin's natural glow.",
-      imageUrl: '',
-    },
-    {
-      title: 'Gel Extensions',
-      description: 'Durable, glossy gel extensions in any shape or length — perfect for every occasion.',
-      imageUrl: '',
-    },
-    {
-      title: 'Hand-Painted Nail Art',
-      description: 'Intricate, one-of-a-kind nail art designed to match your mood or your outfit.',
-      imageUrl: '',
-    },
-    {
-      title: 'Bridal Trial Sessions',
-      description:
-        'A complimentary trial run for your big day, so your bridal look is exactly right before it counts.',
-      imageUrl: '',
-    },
-    {
-      title: 'Party & Festive Glam',
-      description: 'Bold, camera-ready looks for weddings, festivals, and every celebration in between.',
-      imageUrl: '',
+      items: [
+        {
+          title: 'Bridal & Occasion Glam',
+          description:
+            'Full hair, makeup, and draping for your big day, with a complimentary trial session so your look is exactly right before you walk in.',
+          imageUrl: '',
+        },
+        {
+          title: 'Bridal Trial Sessions',
+          description:
+            'A complimentary trial run for your big day, so your bridal look is exactly right before it counts.',
+          imageUrl: '',
+        },
+        {
+          title: 'Party & Festive Glam',
+          description: 'Bold, camera-ready looks for weddings, festivals, and every celebration in between.',
+          imageUrl: '',
+        },
+      ],
     },
   ],
   faq: [

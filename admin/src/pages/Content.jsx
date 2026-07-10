@@ -22,35 +22,41 @@ function Content() {
     setSaved(false)
   }
 
-  const updateShowcase = (index, field) => (event) => {
-    const showcase = form.showcase.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
+  const updateShowcaseItem = (sectionIndex, itemIndex, field) => (event) => {
+    const showcase = form.showcase.map((section, si) => {
+      if (si !== sectionIndex) return section
+      const items = section.items.map((item, ii) => (ii === itemIndex ? { ...item, [field]: event.target.value } : item))
+      return { ...section, items }
+    })
     setForm({ ...form, showcase })
     setSaved(false)
   }
 
-  const addShowcase = () => {
-    setForm({ ...form, showcase: [...form.showcase, { title: '', description: '', imageUrl: '' }] })
+  const addShowcaseItem = (sectionIndex) => {
+    const showcase = form.showcase.map((section, si) =>
+      si === sectionIndex
+        ? { ...section, items: [...section.items, { title: '', description: '', imageUrl: '' }] }
+        : section,
+    )
+    setForm({ ...form, showcase })
     setSaved(false)
   }
 
-  const removeShowcase = (index) => {
-    setForm({ ...form, showcase: form.showcase.filter((_, i) => i !== index) })
+  const removeShowcaseItem = (sectionIndex, itemIndex) => {
+    const showcase = form.showcase.map((section, si) =>
+      si === sectionIndex ? { ...section, items: section.items.filter((_, ii) => ii !== itemIndex) } : section,
+    )
+    setForm({ ...form, showcase })
     setSaved(false)
   }
 
-  const updateCarousel = (index, field) => (event) => {
-    const carousel = form.carousel.map((item, i) => (i === index ? { ...item, [field]: event.target.value } : item))
-    setForm({ ...form, carousel })
+  const addShowcaseSection = () => {
+    setForm({ ...form, showcase: [...form.showcase, { items: [{ title: '', description: '', imageUrl: '' }] }] })
     setSaved(false)
   }
 
-  const addCarousel = () => {
-    setForm({ ...form, carousel: [...form.carousel, { title: '', description: '', imageUrl: '' }] })
-    setSaved(false)
-  }
-
-  const removeCarousel = (index) => {
-    setForm({ ...form, carousel: form.carousel.filter((_, i) => i !== index) })
+  const removeShowcaseSection = (sectionIndex) => {
+    setForm({ ...form, showcase: form.showcase.filter((_, si) => si !== sectionIndex) })
     setSaved(false)
   }
 
@@ -168,84 +174,75 @@ function Content() {
         <div className="panel">
           <div className="panel-header">
             <h2>Scrolling Showcase Sections</h2>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcase}>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcaseSection}>
               + Add Section
             </button>
           </div>
           <p className="table-sub">
-            Full-width sections shown between Services and About on the home page, each pairing a
-            headline and description with an image (alternating sides as the visitor scrolls).
+            Full-width sections shown between Services and About on the home page, alternating
+            sides as the visitor scrolls. Each section can hold several stories that fade in
+            automatically every 3 seconds.
           </p>
           <div className="modal-form">
-            {form.showcase.map((item, index) => (
-              <div className="showcase-editor-item" key={index}>
+            {form.showcase.map((section, sectionIndex) => (
+              <div className="showcase-section-editor" key={sectionIndex}>
                 <div className="showcase-editor-header">
-                  <strong>Section {index + 1}</strong>
-                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => removeShowcase(index)}>
-                    Remove
+                  <strong>Section {sectionIndex + 1}</strong>
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    onClick={() => removeShowcaseSection(sectionIndex)}
+                  >
+                    Remove Section
                   </button>
                 </div>
-                <label>
-                  <span>Title</span>
-                  <input type="text" value={item.title} onChange={updateShowcase(index, 'title')} required />
-                </label>
-                <label>
-                  <span>Description</span>
-                  <textarea rows="3" value={item.description} onChange={updateShowcase(index, 'description')} required />
-                </label>
-                <label>
-                  <span>Image URL (optional)</span>
-                  <input
-                    type="url"
-                    placeholder="https://example.com/photo.jpg"
-                    value={item.imageUrl}
-                    onChange={updateShowcase(index, 'imageUrl')}
-                  />
-                  <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
-                </label>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="panel">
-          <div className="panel-header">
-            <h2>Auto-Rotating Carousel</h2>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={addCarousel}>
-              + Add Story
-            </button>
-          </div>
-          <p className="table-sub">
-            Shown below the showcase sections on the home page. A new photo and story fades in
-            automatically every 3 seconds, cycling through all entries.
-          </p>
-          <div className="modal-form">
-            {form.carousel.map((item, index) => (
-              <div className="showcase-editor-item" key={index}>
-                <div className="showcase-editor-header">
-                  <strong>Story {index + 1}</strong>
-                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => removeCarousel(index)}>
-                    Remove
-                  </button>
-                </div>
-                <label>
-                  <span>Title</span>
-                  <input type="text" value={item.title} onChange={updateCarousel(index, 'title')} required />
-                </label>
-                <label>
-                  <span>Description</span>
-                  <textarea rows="3" value={item.description} onChange={updateCarousel(index, 'description')} required />
-                </label>
-                <label>
-                  <span>Image URL (optional)</span>
-                  <input
-                    type="url"
-                    placeholder="https://example.com/photo.jpg"
-                    value={item.imageUrl}
-                    onChange={updateCarousel(index, 'imageUrl')}
-                  />
-                  <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
-                </label>
+                {section.items.map((item, itemIndex) => (
+                  <div className="showcase-editor-item" key={itemIndex}>
+                    <div className="showcase-editor-header">
+                      <span className="table-sub">Story {itemIndex + 1}</span>
+                      <button
+                        type="button"
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => removeShowcaseItem(sectionIndex, itemIndex)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <label>
+                      <span>Title</span>
+                      <input
+                        type="text"
+                        value={item.title}
+                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'title')}
+                        required
+                      />
+                    </label>
+                    <label>
+                      <span>Description</span>
+                      <textarea
+                        rows="3"
+                        value={item.description}
+                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'description')}
+                        required
+                      />
+                    </label>
+                    <label>
+                      <span>Image URL (optional)</span>
+                      <input
+                        type="url"
+                        placeholder="https://example.com/photo.jpg"
+                        value={item.imageUrl}
+                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'imageUrl')}
+                      />
+                      <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
+                    </label>
+                  </div>
+                ))}
+
+                <button type="button" className="btn btn-ghost btn-sm" onClick={() => addShowcaseItem(sectionIndex)}>
+                  + Add Story to This Section
+                </button>
               </div>
             ))}
           </div>
