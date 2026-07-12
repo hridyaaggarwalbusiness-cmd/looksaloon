@@ -59,7 +59,7 @@ function VisualEditor() {
         <div className="ve-topbar-left">
           <span className="ve-topbar-badge">Visual Editor</span>
           <span className="ve-topbar-title">Looks Saloon — Live Preview</span>
-          <span className="ve-topbar-hint">Hover any photo and click &ldquo;Change Photo&rdquo; to update it.</span>
+          <span className="ve-topbar-hint">Click &ldquo;Change Photo&rdquo; on any photo to update it.</span>
         </div>
         <Link to="/" className="ve-topbar-exit">
           &larr; Exit to Dashboard

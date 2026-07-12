@@ -21,16 +21,7 @@
   letter-spacing: 0.02em;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-.ve-editable-frame:hover .ve-edit-btn,
-.ve-editable-frame:focus-within .ve-edit-btn,
-.ve-edit-btn:focus-visible {
-  opacity: 1;
-  transform: translateY(0);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .ve-edit-btn:hover {
@@ -38,18 +29,10 @@
   color: #17110d;
 }
 
-.ve-group-label {
-  font-family: var(--font-body, system-ui, sans-serif);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--gold-deep, #8a6428);
-  margin: 0 0 28px;
-}
-
-.ve-showcase-group + .ve-showcase-group {
-  margin-top: 110px;
+.ve-showcase-dot {
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 /* ---------- Modal ---------- */

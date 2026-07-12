@@ -1,4 +1,8 @@
+import Reveal from './Reveal'
+import TiltCard from './TiltCard'
+import CountUp from './CountUp'
 import EditableImage from './EditableImage'
+import ShowcaseGrid from './ShowcaseGrid'
 
 const DUST = [
   { top: '18%', left: '8%', size: 3, delay: '0s', duration: '9s' },
@@ -113,46 +117,22 @@ export function HeroPreview({ hero }) {
 export function ShowcaseSection({ field, heading, subheading, sections, onImageChange }) {
   if (!sections || sections.length === 0) return null
 
+  const handleImageChange = (sectionIndex, itemIndex, url) => onImageChange(field, sectionIndex, itemIndex, url)
+
   return (
     <section className={`section showcase ${field === 'spaceShowcase' ? 'studio-showcase' : ''}`}>
       <div className="container">
         {heading && (
-          <div className="section-head">
+          <Reveal className="section-head">
             <p className="eyebrow">
               <span className="eyebrow-line" /> Step Inside
             </p>
             <h2 className="section-title">{heading}</h2>
             {subheading && <p className="section-sub">{subheading}</p>}
-          </div>
+          </Reveal>
         )}
 
-        {sections.map((section, sectionIndex) => (
-          <div className="ve-showcase-group" key={sectionIndex}>
-            <p className="ve-group-label">Section {sectionIndex + 1}</p>
-            {section.items.map((item, itemIndex) => (
-              <div className={`showcase-row ${itemIndex % 2 === 1 ? 'showcase-row-reverse' : ''}`} key={itemIndex}>
-                <div className="showcase-visual">
-                  <div className="showcase-frame-wrap">
-                    <EditableImage
-                      src={item.imageUrl}
-                      alt={item.title}
-                      label={item.title}
-                      frameClassName="showcase-photo"
-                      onChange={(url) => onImageChange(field, sectionIndex, itemIndex, url)}
-                    />
-                  </div>
-                </div>
-                <div className="showcase-copy">
-                  <p className="eyebrow">
-                    <span className="eyebrow-line" /> {String(sectionIndex + 1).padStart(2, '0')}.{itemIndex + 1}
-                  </p>
-                  <h2 className="section-title">{item.title}</h2>
-                  <p className="showcase-description">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
+        <ShowcaseGrid sections={sections} onImageChange={handleImageChange} />
       </div>
     </section>
   )
@@ -183,7 +163,7 @@ export function AboutPreview({ about, photos, onPhotoChange }) {
   return (
     <section id="about" className="section about">
       <div className="container about-inner">
-        <div className="about-visual">
+        <Reveal className="about-visual" as="div">
           <EditableImage
             src={photos.interiorMirrors.url}
             alt={`Looks Saloon ${photos.interiorMirrors.title}, Hanumangarh`}
@@ -203,9 +183,9 @@ export function AboutPreview({ about, photos, onPhotoChange }) {
             onChange={(url) => onPhotoChange('interiorLounge', url)}
           />
           <AboutCombAccent />
-        </div>
+        </Reveal>
 
-        <div className="about-copy">
+        <Reveal className="about-copy" delay={120}>
           <p className="eyebrow">
             <span className="eyebrow-line" /> {about.eyebrow}
           </p>
@@ -215,23 +195,23 @@ export function AboutPreview({ about, photos, onPhotoChange }) {
 
           <div className="about-stats">
             <div className="about-stat">
-              <span>12+</span>
+              <CountUp end={12} suffix="+" />
               <span>Years of Excellence</span>
             </div>
             <div className="about-stat">
-              <span>24</span>
+              <CountUp end={24} />
               <span>Expert Specialists</span>
             </div>
             <div className="about-stat">
-              <span>18k+</span>
+              <CountUp end={18} suffix="k+" />
               <span>Clients Styled</span>
             </div>
             <div className="about-stat">
-              <span>98%</span>
+              <CountUp end={98} suffix="%" />
               <span>Client Retention</span>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -250,20 +230,20 @@ export function GalleryPreview({ photos, onPhotoChange }) {
   return (
     <section className="section gallery">
       <div className="container">
-        <div className="section-head">
+        <Reveal className="section-head">
           <p className="eyebrow">
             <span className="eyebrow-line" /> Take a Look Inside
           </p>
           <h2 className="section-title">A glimpse into our studio.</h2>
           <p className="section-sub">Real photos from the Looks Saloon studio in Hanumangarh.</p>
-        </div>
+        </Reveal>
 
         <div className="gallery-grid">
-          {GALLERY_LAYOUT.map(({ slug, variant }) => {
+          {GALLERY_LAYOUT.map(({ slug, variant }, index) => {
             const photo = photos[slug]
             return (
-              <figure className={`gallery-item ${variant}`} key={slug}>
-                <div className="gallery-item-button">
+              <Reveal as="figure" key={slug} className={`gallery-item ${variant}`} variant="3d" delay={index * 60}>
+                <TiltCard as="div" className="gallery-item-button" tiltMax={7} tiltScale={1.03}>
                   <EditableImage
                     src={photo.url}
                     alt={`Looks Saloon — ${photo.title}`}
@@ -275,8 +255,8 @@ export function GalleryPreview({ photos, onPhotoChange }) {
                     <span className="gallery-tag">{photo.tag}</span>
                     <span className="gallery-title">{photo.title}</span>
                   </figcaption>
-                </div>
-              </figure>
+                </TiltCard>
+              </Reveal>
             )
           })}
         </div>
