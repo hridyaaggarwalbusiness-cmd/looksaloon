@@ -1,11 +1,39 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
-import TiltCard from './TiltCard'
+import PhotoFrame from './PhotoFrame'
 import { useServices } from '../hooks/useServices'
 import { SERVICE_ICONS } from './serviceIcons'
 
+const EASE = [0.16, 1, 0.3, 1]
+const SLIDE_DURATION = 5000
+
 function Services() {
   const { services } = useServices()
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (active >= services.length) setActive(0)
+  }, [services, active])
+
+  useEffect(() => {
+    if (services.length < 2 || paused) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return undefined
+
+    const timer = setInterval(() => {
+      setActive((current) => (current + 1) % services.length)
+    }, SLIDE_DURATION)
+
+    return () => clearInterval(timer)
+  }, [services, paused])
+
+  const service = services[active]
+
+  if (!service) return null
 
   return (
     <section id="services" className="section services">
@@ -21,20 +49,45 @@ function Services() {
           </p>
         </Reveal>
 
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <Reveal
-              key={service.id}
-              className="card-wrap"
-              variant="3d"
-              delay={index * 70}
-            >
-              <TiltCard
-                as="article"
-                className={`service-card ${service.popular ? 'service-card-popular' : ''}`}
+        <Reveal
+          className="service-showcase"
+          variant="3d"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div className="service-showcase-visual">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={service.id}
+                className="service-showcase-slide"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease: EASE }}
               >
-                {service.popular && <span className="service-tag">Most Popular</span>}
-                <div className="service-icon">{SERVICE_ICONS[service.icon] || SERVICE_ICONS.sparkle}</div>
+                <PhotoFrame
+                  src={service.imageUrl}
+                  alt={service.name}
+                  className="service-showcase-frame"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="service-showcase-copy">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={service.id}
+                className="service-showcase-copy-slide"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease: EASE }}
+              >
+                {service.popular && <span className="service-tag service-showcase-tag">Most Popular</span>}
+                <div className="service-icon service-showcase-icon">
+                  {SERVICE_ICONS[service.icon] || SERVICE_ICONS.sparkle}
+                </div>
                 <h3>{service.name}</h3>
                 <p>{service.description}</p>
                 <div className="service-footer">
@@ -51,10 +104,34 @@ function Services() {
                     </a>
                   </div>
                 </div>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {services.length > 1 && (
+              <div className="service-showcase-dots">
+                {services.map((item, i) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`service-showcase-dot ${i === active ? 'is-active' : ''}`}
+                    aria-label={`Show ${item.name}`}
+                    onClick={() => setActive(i)}
+                  >
+                    {i === active && (
+                      <motion.span
+                        key={`${item.id}-progress`}
+                        className="service-showcase-dot-fill"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: paused ? 0 : 1 }}
+                        transition={{ duration: paused ? 0 : SLIDE_DURATION / 1000, ease: 'linear' }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </Reveal>
       </div>
     </section>
   )
