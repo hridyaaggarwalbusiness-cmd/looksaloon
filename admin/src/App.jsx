@@ -11,6 +11,7 @@ import Feedback from './pages/Feedback'
 import Media from './pages/Media'
 import Content from './pages/Content'
 import Settings from './pages/Settings'
+import VisualEditor from './pages/VisualEditor'
 
 function Gate() {
   const { user, isAdmin, loading } = useAuth()
@@ -42,6 +43,7 @@ function Gate() {
 
   return (
     <Routes>
+      <Route path="/visual-editor" element={<VisualEditor />} />
       <Route element={<Layout />}>
         <Route path="/" element={<Overview />} />
         <Route path="/bookings" element={<Bookings />} />

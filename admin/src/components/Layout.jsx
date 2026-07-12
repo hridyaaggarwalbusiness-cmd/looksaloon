@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { to: '/testimonials', label: 'Testimonials' },
   { to: '/photos', label: 'Photos' },
   { to: '/content', label: 'Site Content' },
+  { to: '/visual-editor', label: 'Visual Editor' },
   { to: '/feedback', label: 'Feedback' },
   { to: '/settings', label: 'Settings' },
 ]

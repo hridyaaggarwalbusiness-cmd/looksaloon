@@ -1,0 +1,289 @@
+.ve-editable-frame {
+  cursor: default;
+}
+
+.ve-edit-btn {
+  position: absolute;
+  z-index: 3;
+  right: 14px;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 243, 234, 0.28);
+  background: rgba(13, 10, 7, 0.72);
+  color: var(--ivory, #f8f3ea);
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.ve-editable-frame:hover .ve-edit-btn,
+.ve-editable-frame:focus-within .ve-edit-btn,
+.ve-edit-btn:focus-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ve-edit-btn:hover {
+  background: rgba(201, 161, 90, 0.92);
+  color: #17110d;
+}
+
+.ve-group-label {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold-deep, #8a6428);
+  margin: 0 0 28px;
+}
+
+.ve-showcase-group + .ve-showcase-group {
+  margin-top: 110px;
+}
+
+/* ---------- Modal ---------- */
+
+.ve-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(7, 5, 4, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.ve-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: min(640px, 86vh);
+  overflow-y: auto;
+  background: var(--ivory, #f8f3ea);
+  border-radius: 20px;
+  box-shadow: 0 40px 90px -30px rgba(5, 4, 3, 0.6);
+  padding: 26px;
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--text, #4d443c);
+}
+
+.ve-modal-header {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.ve-modal-header h3 {
+  font-family: var(--font-display, serif);
+  font-size: 22px;
+  margin: 0;
+  color: var(--ink, #0d0a07);
+}
+
+.ve-modal-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-soft, #8a7c6d);
+}
+
+.ve-modal-close {
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-soft, #8a7c6d);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.ve-modal-close:hover {
+  background: var(--ivory-soft, #efe4d1);
+}
+
+.ve-modal-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  background: var(--ivory-soft, #efe4d1);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.ve-modal-tabs button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 9px 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-soft, #8a7c6d);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ve-modal-tabs button.is-active {
+  background: var(--ink, #0d0a07);
+  color: var(--ivory, #f8f3ea);
+}
+
+.ve-modal-link {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ve-modal-link label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text, #4d443c);
+}
+
+.ve-modal-link input {
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--ivory-line, rgba(20, 15, 10, 0.1));
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--ink, #0d0a07);
+}
+
+.ve-modal-preview {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--ivory-soft, #efe4d1);
+}
+
+.ve-modal-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ve-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.ve-gallery-thumb {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ivory-soft, #efe4d1);
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ve-gallery-thumb.is-current {
+  border-color: var(--gold, #c9a15a);
+}
+
+.ve-gallery-thumb img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.ve-gallery-thumb span {
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text, #4d443c);
+}
+
+/* ---------- Top bar chrome (outside the shadow root) ---------- */
+
+.ve-page {
+  min-height: 100vh;
+  background: #0d0a07;
+}
+
+.ve-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #17110d;
+  border-bottom: 1px solid rgba(248, 243, 234, 0.1);
+  font-family: system-ui, sans-serif;
+}
+
+.ve-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f8f3ea;
+}
+
+.ve-topbar-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(201, 161, 90, 0.18);
+  color: #e7c48a;
+}
+
+.ve-topbar-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ve-topbar-hint {
+  font-size: 12.5px;
+  color: rgba(248, 243, 234, 0.55);
+}
+
+.ve-topbar-exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 243, 234, 0.22);
+  background: transparent;
+  color: #f8f3ea;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.ve-topbar-exit:hover {
+  background: rgba(248, 243, 234, 0.1);
+}
