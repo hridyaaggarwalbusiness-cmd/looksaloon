@@ -156,15 +156,13 @@ export const DEFAULT_CONTENT = {
           title: 'The Style Bar',
           description:
             'Our styling stations are arranged for natural light and easy conversation, so every appointment feels unhurried.',
-          imageUrl:
-            'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6tv8tgr7o0.jpg',
+          imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80',
         },
         {
           title: 'Wash & Relax Ritual',
           description:
             'A dedicated wash station designed for one thing: helping you unwind before the real work begins.',
-          imageUrl:
-            'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-9jbxyirkvn.jpg',
+          imageUrl: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c1?auto=format&fit=crop&w=1200&q=80',
         },
       ],
     },
@@ -174,13 +172,12 @@ export const DEFAULT_CONTENT = {
           title: 'A Warm Welcome',
           description:
             'From the moment you walk in, our front desk team is ready to make you feel like a regular, even on your first visit.',
-          imageUrl: 'https://content2.jdmagicbox.com/checkin/hanumangarh/9999P1552.1552.190404152906.P9X2.jpg',
+          imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=80',
         },
         {
           title: 'Effortless to Find',
           description: 'Right in Gaandhi Nagar, Hanumangarh — easy to spot, easy to reach, easy to visit.',
-          imageUrl:
-            'https://content3.jdmagicbox.com/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6463l1ax3n.jpg',
+          imageUrl: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1200&q=80',
         },
       ],
     },

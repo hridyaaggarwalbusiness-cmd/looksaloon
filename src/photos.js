@@ -1,35 +1,34 @@
-// Default photos of Looks Saloon (Looks Beauty Zone And Spa), Gaandhi Nagar,
-// Hanumangarh, sourced from the salon's public Justdial listing. Hotlinked
-// directly from Justdial's image CDN rather than self-hosted. These are the
-// fallback values used until an admin replaces them from the dashboard.
+// Default photos shown until an admin replaces them from the dashboard.
+// Hotlinked from Unsplash's image CDN, which is built for public embedding
+// (unlike business-directory listing CDNs, which often block hotlinking).
 export const DEFAULT_PHOTOS = {
   exterior: {
-    url: 'https://content3.jdmagicbox.com/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6463l1ax3n.jpg',
+    url: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1200&q=80',
     title: 'Our Storefront',
     tag: 'Exterior',
   },
   interiorStyling: {
-    url: 'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6tv8tgr7o0.jpg',
+    url: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80',
     title: 'Style Bar',
     tag: 'Styling Chairs',
   },
   interiorWash: {
-    url: 'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-9jbxyirkvn.jpg',
+    url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c1?auto=format&fit=crop&w=1200&q=80',
     title: 'Wash & Relax',
     tag: 'Spa Station',
   },
   interiorMirrors: {
-    url: 'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-aio4rawgi6.jpg',
+    url: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=1200&q=80',
     title: 'Signature Mirrors',
     tag: 'Mirror Row',
   },
   interiorLounge: {
-    url: 'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-aufnmz4kbp.jpg',
+    url: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1200&q=80',
     title: 'Guest Lounge',
     tag: 'Ambience',
   },
   checkin: {
-    url: 'https://content2.jdmagicbox.com/checkin/hanumangarh/9999P1552.1552.190404152906.P9X2.jpg',
+    url: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=80',
     title: 'Welcome In',
     tag: 'Entrance',
   },
