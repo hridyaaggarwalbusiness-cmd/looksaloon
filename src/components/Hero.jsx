@@ -2,9 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import MagneticButton from './MagneticButton'
 import HeroSceneGate from './HeroSceneGate'
-import PhotoFrame from './PhotoFrame'
 import { useContent } from '../hooks/useContent'
-import { usePhotos } from '../hooks/usePhotos'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -22,7 +20,6 @@ const DUST = [
 
 function Hero({ revealed }) {
   const { hero } = useContent()
-  const photos = usePhotos()
   const headline = [hero.headline1, hero.headline2, hero.headline3]
   const sectionRef = useRef(null)
   const copyRef = useRef(null)
@@ -209,17 +206,6 @@ function Hero({ revealed }) {
             <span className="hero-orb hero-orb-2" />
             <span className="hero-orb hero-orb-3" />
             <span className="hero-orb-ring" />
-          </div>
-          <div className="hero-photo-peek">
-            <PhotoFrame
-              src={photos.interiorStyling.url}
-              alt={`Looks Saloon ${photos.interiorStyling.title}, Hanumangarh`}
-              className="hero-photo-peek-frame"
-            >
-              <div className="hero-photo-peek-caption">
-                <span>Inside our studio</span>
-              </div>
-            </PhotoFrame>
           </div>
           <div ref={badgeTopRef} className="hero-badge-wrap hero-badge-wrap-top">
             <div className="hero-badge glass">
