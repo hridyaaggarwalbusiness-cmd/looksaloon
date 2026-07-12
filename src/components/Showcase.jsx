@@ -1,4 +1,4 @@
-import ShowcaseRow from './ShowcaseRow'
+import ShowcaseGrid from './ShowcaseGrid'
 import { useContent } from '../hooks/useContent'
 
 function Showcase() {
@@ -9,9 +9,7 @@ function Showcase() {
   return (
     <section className="section showcase" aria-label="What we do">
       <div className="container">
-        {showcase.map((section, index) => (
-          <ShowcaseRow key={index} items={section.items} index={index} reverse={index % 2 === 1} />
-        ))}
+        <ShowcaseGrid sections={showcase} />
       </div>
     </section>
   )

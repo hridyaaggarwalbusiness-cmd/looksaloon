@@ -3,6 +3,7 @@ import Marquee from '../components/Marquee'
 import Craft from '../components/Craft'
 import Services from '../components/Services'
 import Showcase from '../components/Showcase'
+import StudioShowcase from '../components/StudioShowcase'
 import About from '../components/About'
 import Gallery from '../components/Gallery'
 import WhyUs from '../components/WhyUs'
@@ -18,6 +19,7 @@ function Home({ revealed }) {
       <Craft />
       <Services />
       <Showcase />
+      <StudioShowcase />
       <About />
       <Gallery />
       <WhyUs />

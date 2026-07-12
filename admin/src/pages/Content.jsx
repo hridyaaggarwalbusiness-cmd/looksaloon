@@ -23,51 +23,53 @@ function Content() {
     setSaved(false)
   }
 
-  const updateShowcaseItem = (sectionIndex, itemIndex, field) => (event) => {
-    const showcase = form.showcase.map((section, si) => {
+  const updateShowcaseItem = (field, sectionIndex, itemIndex, itemField) => (event) => {
+    const sections = form[field].map((section, si) => {
       if (si !== sectionIndex) return section
-      const items = section.items.map((item, ii) => (ii === itemIndex ? { ...item, [field]: event.target.value } : item))
+      const items = section.items.map((item, ii) =>
+        ii === itemIndex ? { ...item, [itemField]: event.target.value } : item,
+      )
       return { ...section, items }
     })
-    setForm({ ...form, showcase })
+    setForm({ ...form, [field]: sections })
     setSaved(false)
   }
 
-  const addShowcaseItem = (sectionIndex) => {
-    const showcase = form.showcase.map((section, si) =>
+  const addShowcaseItem = (field, sectionIndex) => {
+    const sections = form[field].map((section, si) =>
       si === sectionIndex
         ? { ...section, items: [...section.items, { title: '', description: '', imageUrl: '' }] }
         : section,
     )
-    setForm({ ...form, showcase })
+    setForm({ ...form, [field]: sections })
     setSaved(false)
   }
 
-  const removeShowcaseItem = (sectionIndex, itemIndex) => {
-    const showcase = form.showcase.map((section, si) =>
+  const removeShowcaseItem = (field, sectionIndex, itemIndex) => {
+    const sections = form[field].map((section, si) =>
       si === sectionIndex ? { ...section, items: section.items.filter((_, ii) => ii !== itemIndex) } : section,
     )
-    setForm({ ...form, showcase })
+    setForm({ ...form, [field]: sections })
     setSaved(false)
   }
 
-  const addShowcaseSection = () => {
-    setForm({ ...form, showcase: [...form.showcase, { items: [{ title: '', description: '', imageUrl: '' }] }] })
+  const addShowcaseSection = (field) => {
+    setForm({ ...form, [field]: [...form[field], { items: [{ title: '', description: '', imageUrl: '' }] }] })
     setSaved(false)
   }
 
-  const removeShowcaseSection = (sectionIndex) => {
-    setForm({ ...form, showcase: form.showcase.filter((_, si) => si !== sectionIndex) })
+  const removeShowcaseSection = (field, sectionIndex) => {
+    setForm({ ...form, [field]: form[field].filter((_, si) => si !== sectionIndex) })
     setSaved(false)
   }
 
-  const resetShowcaseToDefaults = () => {
-    if (!window.confirm('Replace all showcase sections with the latest built-in defaults? This overwrites any custom titles, descriptions, and image links you\'ve set here.')) {
+  const resetShowcaseToDefaults = (field) => {
+    if (!window.confirm('Replace all sections with the latest built-in defaults? This overwrites any custom titles, descriptions, and image links you\'ve set here.')) {
       return
     }
     setForm({
       ...form,
-      showcase: DEFAULT_CONTENT.showcase.map((section) => ({
+      [field]: DEFAULT_CONTENT[field].map((section) => ({
         items: section.items.map((item) => ({ ...item })),
       })),
     })
@@ -89,6 +91,90 @@ function Content() {
     setForm({ ...form, faq: form.faq.filter((_, i) => i !== index) })
     setSaved(false)
   }
+
+  const renderShowcasePanel = (field, heading, description) => (
+    <div className="panel">
+      <div className="panel-header">
+        <h2>{heading}</h2>
+        <div className="panel-header-actions">
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => resetShowcaseToDefaults(field)}>
+            Reset to Latest Defaults
+          </button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => addShowcaseSection(field)}>
+            + Add Section
+          </button>
+        </div>
+      </div>
+      <p className="table-sub">{description}</p>
+      <div className="modal-form">
+        {form[field].map((section, sectionIndex) => (
+          <div className="showcase-section-editor" key={sectionIndex}>
+            <div className="showcase-editor-header">
+              <strong>Section {sectionIndex + 1}</strong>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => removeShowcaseSection(field, sectionIndex)}
+              >
+                Remove Section
+              </button>
+            </div>
+
+            {section.items.map((item, itemIndex) => (
+              <div className="showcase-editor-item" key={itemIndex}>
+                <div className="showcase-editor-header">
+                  <span className="table-sub">Story {itemIndex + 1}</span>
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    onClick={() => removeShowcaseItem(field, sectionIndex, itemIndex)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                <label>
+                  <span>Title</span>
+                  <input
+                    type="text"
+                    value={item.title}
+                    onChange={updateShowcaseItem(field, sectionIndex, itemIndex, 'title')}
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Description</span>
+                  <textarea
+                    rows="3"
+                    value={item.description}
+                    onChange={updateShowcaseItem(field, sectionIndex, itemIndex, 'description')}
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Image URL (optional)</span>
+                  <input
+                    type="url"
+                    placeholder="https://example.com/photo.jpg"
+                    value={item.imageUrl}
+                    onChange={updateShowcaseItem(field, sectionIndex, itemIndex, 'imageUrl')}
+                  />
+                  <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
+                </label>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              onClick={() => addShowcaseItem(field, sectionIndex)}
+            >
+              + Add Story to This Section
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -185,87 +271,17 @@ function Content() {
           </div>
         </div>
 
-        <div className="panel">
-          <div className="panel-header">
-            <h2>Scrolling Showcase Sections</h2>
-            <div className="panel-header-actions">
-              <button type="button" className="btn btn-ghost btn-sm" onClick={resetShowcaseToDefaults}>
-                Reset to Latest Defaults
-              </button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={addShowcaseSection}>
-                + Add Section
-              </button>
-            </div>
-          </div>
-          <p className="table-sub">
-            Full-width sections shown between Services and About on the home page, alternating
-            sides as the visitor scrolls. Each section can hold several stories that fade in
-            automatically every 3 seconds.
-          </p>
-          <div className="modal-form">
-            {form.showcase.map((section, sectionIndex) => (
-              <div className="showcase-section-editor" key={sectionIndex}>
-                <div className="showcase-editor-header">
-                  <strong>Section {sectionIndex + 1}</strong>
-                  <button
-                    type="button"
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => removeShowcaseSection(sectionIndex)}
-                  >
-                    Remove Section
-                  </button>
-                </div>
+        {renderShowcasePanel(
+          'showcase',
+          'Scrolling Showcase Sections',
+          'Full-width sections shown between Services and About on the home page, alternating sides as the visitor scrolls. Each section can hold several stories that fade in automatically every 3 seconds.',
+        )}
 
-                {section.items.map((item, itemIndex) => (
-                  <div className="showcase-editor-item" key={itemIndex}>
-                    <div className="showcase-editor-header">
-                      <span className="table-sub">Story {itemIndex + 1}</span>
-                      <button
-                        type="button"
-                        className="btn btn-ghost btn-sm"
-                        onClick={() => removeShowcaseItem(sectionIndex, itemIndex)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    <label>
-                      <span>Title</span>
-                      <input
-                        type="text"
-                        value={item.title}
-                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'title')}
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Description</span>
-                      <textarea
-                        rows="3"
-                        value={item.description}
-                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'description')}
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Image URL (optional)</span>
-                      <input
-                        type="url"
-                        placeholder="https://example.com/photo.jpg"
-                        value={item.imageUrl}
-                        onChange={updateShowcaseItem(sectionIndex, itemIndex, 'imageUrl')}
-                      />
-                      <span className="field-hint">Paste a direct image link. Leave blank to show a placeholder.</span>
-                    </label>
-                  </div>
-                ))}
-
-                <button type="button" className="btn btn-ghost btn-sm" onClick={() => addShowcaseItem(sectionIndex)}>
-                  + Add Story to This Section
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+        {renderShowcasePanel(
+          'spaceShowcase',
+          'Studio Showcase Sections',
+          'Full-width sections shown between the services showcase and About, introducing the physical studio and its ambience. Works exactly like the sections above.',
+        )}
 
         <div className="panel">
           <div className="panel-header">

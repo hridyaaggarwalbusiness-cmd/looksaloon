@@ -24,11 +24,16 @@ export function useContent() {
     const unsubscribe = onSnapshot(doc(db, 'settings', 'content'), (snap) => {
       const data = snap.exists() ? snap.data() : {}
       const rawShowcase = Array.isArray(data.showcase) && data.showcase.length > 0 ? data.showcase : DEFAULT_CONTENT.showcase
+      const rawSpaceShowcase =
+        Array.isArray(data.spaceShowcase) && data.spaceShowcase.length > 0
+          ? data.spaceShowcase
+          : DEFAULT_CONTENT.spaceShowcase
       setContent({
         hero: { ...DEFAULT_CONTENT.hero, ...(data.hero || {}) },
         about: { ...DEFAULT_CONTENT.about, ...(data.about || {}) },
         faq: Array.isArray(data.faq) && data.faq.length > 0 ? data.faq : DEFAULT_CONTENT.faq,
         showcase: normalizeShowcase(rawShowcase),
+        spaceShowcase: normalizeShowcase(rawSpaceShowcase),
       })
       setLoading(false)
     })

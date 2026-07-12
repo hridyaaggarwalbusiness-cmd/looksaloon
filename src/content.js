@@ -149,6 +149,42 @@ export const DEFAULT_CONTENT = {
       ],
     },
   ],
+  spaceShowcase: [
+    {
+      items: [
+        {
+          title: 'The Style Bar',
+          description:
+            'Our styling stations are arranged for natural light and easy conversation, so every appointment feels unhurried.',
+          imageUrl:
+            'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6tv8tgr7o0.jpg',
+        },
+        {
+          title: 'Wash & Relax Ritual',
+          description:
+            'A dedicated wash station designed for one thing: helping you unwind before the real work begins.',
+          imageUrl:
+            'https://content3.jdmagicbox.com/v2/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-9jbxyirkvn.jpg',
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          title: 'A Warm Welcome',
+          description:
+            'From the moment you walk in, our front desk team is ready to make you feel like a regular, even on your first visit.',
+          imageUrl: 'https://content2.jdmagicbox.com/checkin/hanumangarh/9999P1552.1552.190404152906.P9X2.jpg',
+        },
+        {
+          title: 'Effortless to Find',
+          description: 'Right in Gaandhi Nagar, Hanumangarh — easy to spot, easy to reach, easy to visit.',
+          imageUrl:
+            'https://content3.jdmagicbox.com/comp/hanumangarh/x2/9999p1552.1552.190404152906.p9x2/catalogue/looks-beauty-zone-and-spa-gaandhi-nagar-hanumangarh-beauty-parlours-6463l1ax3n.jpg',
+        },
+      ],
+    },
+  ],
   faq: [
     {
       q: 'Do I need to book an appointment in advance?',
