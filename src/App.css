@@ -75,6 +75,14 @@
   transition: color 0.4s ease;
 }
 
+.brand-mark img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .brand-text {
   font-family: var(--font-display);
   font-size: 23px;
@@ -1759,6 +1767,12 @@
   gap: 60px;
   padding-bottom: 56px;
   border-bottom: 1px solid rgba(251, 246, 240, 0.1);
+}
+
+.footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .footer-brand .brand-text {

@@ -765,6 +765,12 @@ img {
   transition: opacity 0.6s ease 0.25s, transform 0.6s var(--ease-lux) 0.25s;
 }
 
+.intro-mark img {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .intro-mark span {
   font-family: var(--font-display);
   font-style: italic;

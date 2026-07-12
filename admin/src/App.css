@@ -203,6 +203,14 @@
   padding: 0 8px;
 }
 
+.brand-mark img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .sidebar-brand .brand-text {
   color: var(--cream);
   font-size: 20px;

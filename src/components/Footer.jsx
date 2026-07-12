@@ -7,9 +7,19 @@ function Footer() {
     <footer className="footer">
       <div className="container footer-inner">
         <div className="footer-brand">
-          <span className="brand-text">
-            Looks <em>Saloon</em>
-          </span>
+          <div className="footer-brand-row">
+            <span className="brand-mark" aria-hidden="true">
+              <img
+                src="https://imagur.org/wp-content/uploads/2026/07/ChatGPT-Image-Jul-12-2026-12_53_01-PM-1.png"
+                alt=""
+                width="34"
+                height="34"
+              />
+            </span>
+            <span className="brand-text">
+              Looks <em>Saloon</em>
+            </span>
+          </div>
           <p>Premium hair, skin, and beauty studio for the modern individual.</p>
         </div>
 
