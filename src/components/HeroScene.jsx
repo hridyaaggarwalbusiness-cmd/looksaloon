@@ -55,6 +55,8 @@ function GlassOrb({ position, scale = 1 }) {
           chromaticAberration={0.045}
           backside
           color="#f8f3ea"
+          resolution={256}
+          samples={6}
         />
       </mesh>
     </Float>
@@ -169,17 +171,18 @@ function Scene({ lowPower }) {
         far={2.2}
         color="#0d0a07"
         resolution={lowPower ? 128 : 256}
-        frames={lowPower ? 1 : Infinity}
+        frames={1}
       />
     </group>
   )
 }
 
-function HeroScene() {
+function HeroScene({ frameloop = 'always' }) {
   const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
 
   return (
     <Canvas
+      frameloop={frameloop}
       dpr={isTouch ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 4.6], fov: 42 }}
       gl={{ antialias: !isTouch, alpha: true, powerPreference: 'high-performance' }}

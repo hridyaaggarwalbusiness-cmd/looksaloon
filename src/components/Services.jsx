@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
 import { useServices } from '../hooks/useServices'
+import { useInView } from '../hooks/useInView'
 import { SERVICE_ICONS } from './serviceIcons'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -13,13 +14,14 @@ function Services() {
   const { services } = useServices()
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [sectionRef, inView] = useInView()
 
   useEffect(() => {
     if (active >= services.length) setActive(0)
   }, [services, active])
 
   useEffect(() => {
-    if (services.length < 2 || paused) return undefined
+    if (services.length < 2 || paused || !inView) return undefined
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) return undefined
@@ -29,14 +31,14 @@ function Services() {
     }, SLIDE_DURATION)
 
     return () => clearInterval(timer)
-  }, [services, paused])
+  }, [services, paused, inView])
 
   const service = services[active]
 
   if (!service) return null
 
   return (
-    <section id="services" className="section services">
+    <section id="services" className="section services" ref={sectionRef}>
       <div className="container">
         <Reveal className="section-head">
           <p className="eyebrow">

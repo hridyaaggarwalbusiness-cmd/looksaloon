@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const HeroScene = lazy(() => import('./HeroScene'))
 
@@ -11,23 +12,25 @@ function supportsWebGL() {
   }
 }
 
-function HeroSceneGate() {
+function HeroSceneGate({ active = true }) {
   const [enabled, setEnabled] = useState(false)
+  const [wrapRef, inView] = useInView()
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!active) return
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion || !supportsWebGL()) return
 
     setEnabled(true)
-  }, [])
+  }, [active])
 
   if (!enabled) return null
 
   return (
-    <div className="hero-scene-3d">
+    <div className="hero-scene-3d" ref={wrapRef}>
       <Suspense fallback={null}>
-        <HeroScene />
+        <HeroScene frameloop={inView ? 'always' : 'never'} />
       </Suspense>
     </div>
   )

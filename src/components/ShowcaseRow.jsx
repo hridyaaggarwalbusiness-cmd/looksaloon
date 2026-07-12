@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
+import { useInView } from '../hooks/useInView'
 
 const EASE = [0.16, 1, 0.3, 1]
 
 function ShowcaseRow({ items, index, reverse }) {
   const [active, setActive] = useState(0)
+  const [rowRef, inView] = useInView()
 
   useEffect(() => {
-    if (!items || items.length < 2) return undefined
+    if (!items || items.length < 2 || !inView) return undefined
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) return undefined
@@ -19,14 +21,14 @@ function ShowcaseRow({ items, index, reverse }) {
     }, 3000)
 
     return () => clearInterval(timer)
-  }, [items])
+  }, [items, inView])
 
   if (!items || items.length === 0) return null
 
   const item = items[active] || items[0]
 
   return (
-    <div className={`showcase-row ${reverse ? 'showcase-row-reverse' : ''}`}>
+    <div className={`showcase-row ${reverse ? 'showcase-row-reverse' : ''}`} ref={rowRef}>
       <Reveal className="showcase-visual" as="div" variant="3d">
         <div className="showcase-frame-wrap">
           <AnimatePresence mode="wait">

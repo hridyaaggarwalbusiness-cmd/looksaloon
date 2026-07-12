@@ -21,6 +21,7 @@ function CustomCursor() {
     let targetX = 0
     let targetY = 0
     let frame = null
+    let lastHovered = null
 
     const animateRing = () => {
       ringX += (targetX - ringX) * 0.18
@@ -42,12 +43,15 @@ function CustomCursor() {
       }
 
       const hovered = event.target.closest('[data-cursor]')
-      if (hovered) {
-        setActive(true)
-        setLabel(hovered.getAttribute('data-cursor') || '')
-      } else {
-        setActive(false)
-        setLabel('')
+      if (hovered !== lastHovered) {
+        lastHovered = hovered
+        if (hovered) {
+          setActive(true)
+          setLabel(hovered.getAttribute('data-cursor') || '')
+        } else {
+          setActive(false)
+          setLabel('')
+        }
       }
     }
 

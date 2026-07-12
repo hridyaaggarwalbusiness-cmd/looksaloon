@@ -116,7 +116,7 @@ function Hero({ revealed }) {
           />
         ))}
       </div>
-      <HeroSceneGate />
+      <HeroSceneGate active={revealed} />
 
       <div className="container hero-inner">
         <div className="hero-copy" ref={copyRef}>
