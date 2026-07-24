@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom'
 import ShadowScope from '../components/visualEditor/ShadowScope'
-import { HeroPreview, ShowcaseSection, AboutPreview, GalleryPreview } from '../components/visualEditor/EditableSections'
+import {
+  HeroPreview,
+  ServicesPreview,
+  ShowcaseSection,
+  AboutPreview,
+  GalleryPreview,
+} from '../components/visualEditor/EditableSections'
 import {
   MarqueePreview,
   CraftPreview,
-  ServicesPreview,
   WhyUsPreview,
   TestimonialsPreview,
   FAQPreview,

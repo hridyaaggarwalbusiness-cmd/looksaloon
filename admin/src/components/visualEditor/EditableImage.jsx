@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import ImagePicker from './ImagePicker'
+import { useOverlayMount } from './OverlayMountContext'
 
 function BrandMark() {
   return (
@@ -28,9 +30,10 @@ function EditIcon() {
 
 function EditableImage({ src, alt, label, className = '', frameClassName = '', onChange, children }) {
   const [open, setOpen] = useState(false)
+  const overlayMount = useOverlayMount()
 
   return (
-    <div className={`photo-frame ve-editable-frame ${frameClassName}`}>
+    <div className={`photo-frame ve-editable-frame ${open ? 've-editable-frame-active' : ''} ${frameClassName}`}>
       <BrandMark />
       {src && (
         <img src={src} alt={alt} className={`photo-img photo-img-loaded ${className}`} loading="lazy" />
@@ -42,17 +45,19 @@ function EditableImage({ src, alt, label, className = '', frameClassName = '', o
         <span>Change Photo</span>
       </button>
 
-      {open && (
-        <ImagePicker
-          currentUrl={src}
-          label={label || alt}
-          onClose={() => setOpen(false)}
-          onSelect={(url) => {
-            onChange(url)
-            setOpen(false)
-          }}
-        />
-      )}
+      {open && overlayMount &&
+        createPortal(
+          <ImagePicker
+            currentUrl={src}
+            label={label || alt}
+            onClose={() => setOpen(false)}
+            onSelect={(url) => {
+              onChange(url)
+              setOpen(false)
+            }}
+          />,
+          overlayMount,
+        )}
     </div>
   )
 }

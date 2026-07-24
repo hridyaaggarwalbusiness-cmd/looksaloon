@@ -2,6 +2,22 @@
   cursor: default;
 }
 
+.ve-editable-frame-active {
+  outline: 3px solid var(--gold, #c9a15a);
+  outline-offset: -3px;
+  animation: veActiveFramePulse 1.6s ease-in-out infinite;
+}
+
+@keyframes veActiveFramePulse {
+  0%,
+  100% {
+    outline-color: var(--gold, #c9a15a);
+  }
+  50% {
+    outline-color: var(--gold-bright, #f3dda4);
+  }
+}
+
 .ve-edit-btn {
   position: absolute;
   z-index: 3;
@@ -33,6 +49,12 @@
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+.ve-services-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 /* ---------- Modal ---------- */

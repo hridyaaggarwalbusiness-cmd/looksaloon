@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import OverlayMountContext from './OverlayMountContext'
 
 function ShadowScope({ css, children }) {
   const hostRef = useRef(null)
   const [mountNode, setMountNode] = useState(null)
+  const [overlayMountNode, setOverlayMountNode] = useState(null)
 
   useEffect(() => {
     const host = hostRef.current
@@ -26,10 +28,23 @@ function ShadowScope({ css, children }) {
       root.appendChild(container)
     }
     setMountNode(container)
+
+    // A top-level sibling mount, outside any transformed/animated ancestor,
+    // so position: fixed overlays (the image editor) always resolve against
+    // the real viewport instead of getting trapped inside a tilted card.
+    let overlayContainer = root.querySelector('div[data-scope="site-preview-overlay"]')
+    if (!overlayContainer) {
+      overlayContainer = document.createElement('div')
+      overlayContainer.setAttribute('data-scope', 'site-preview-overlay')
+      root.appendChild(overlayContainer)
+    }
+    setOverlayMountNode(overlayContainer)
   }, [css])
 
   return (
-    <div ref={hostRef}>{mountNode ? createPortal(children, mountNode) : null}</div>
+    <div ref={hostRef}>
+      {mountNode ? createPortal(<OverlayMountContext.Provider value={overlayMountNode}>{children}</OverlayMountContext.Provider>, mountNode) : null}
+    </div>
   )
 }
 

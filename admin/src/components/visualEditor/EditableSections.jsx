@@ -3,6 +3,8 @@ import TiltCard from './TiltCard'
 import CountUp from './CountUp'
 import EditableImage from './EditableImage'
 import ShowcaseGrid from './ShowcaseGrid'
+import { SERVICE_ICONS } from './serviceIcons'
+import { useServices, updateService } from '../../hooks/useServices'
 
 const DUST = [
   { top: '18%', left: '8%', size: 3, delay: '0s', duration: '9s' },
@@ -108,6 +110,65 @@ export function HeroPreview({ hero }) {
               <p className="hero-badge-craft-text">Hair &bull; Skin &bull; Bridal Studio</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export function ServicesPreview() {
+  const { services } = useServices()
+
+  if (!services || services.length === 0) return null
+
+  return (
+    <section className="section services">
+      <div className="container">
+        <Reveal className="section-head">
+          <p className="eyebrow">
+            <span className="eyebrow-line" /> What We Offer
+          </p>
+          <h2 className="section-title">Services, priced with total transparency.</h2>
+          <p className="section-sub">
+            Every treatment is performed by a certified specialist using premium, salon-grade products.
+          </p>
+        </Reveal>
+
+        <div className="ve-services-stack">
+          {services.map((service, index) => (
+            <Reveal key={service.id} className="service-showcase" variant="3d" delay={index * 70}>
+              <div className="service-showcase-visual">
+                <EditableImage
+                  src={service.imageUrl}
+                  alt={service.name}
+                  label={`Service — ${service.name}`}
+                  frameClassName="service-showcase-frame"
+                  onChange={(url) => updateService(service.id, { imageUrl: url })}
+                />
+              </div>
+
+              <div className="service-showcase-copy">
+                {service.popular && <span className="service-tag service-showcase-tag">Most Popular</span>}
+                <div className="service-icon service-showcase-icon">
+                  {SERVICE_ICONS[service.icon] || SERVICE_ICONS.sparkle}
+                </div>
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <div className="service-footer">
+                  <span className="service-price">{service.price}</span>
+                  <div className="service-footer-actions">
+                    <span className="service-link service-link-ghost">Details</span>
+                    <span className="service-link">
+                      Book
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
