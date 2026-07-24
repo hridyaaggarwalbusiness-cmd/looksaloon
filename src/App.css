@@ -2212,7 +2212,38 @@
   }
 
   .hero {
-    padding: 150px 0 90px;
+    padding: 82px 0 28px;
+  }
+
+  .hero-headline {
+    margin-top: 10px;
+    font-size: clamp(32px, 9.5vw, 56px);
+  }
+
+  .hero-sub {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    margin-top: 20px;
+    gap: 14px;
+  }
+
+  .hero-actions .btn-lg {
+    padding: 16px 30px;
+    font-size: 14.5px;
+  }
+
+  .hero-stats {
+    gap: 28px;
+    margin-top: 22px;
+    padding-top: 18px;
+  }
+
+  .hero-stats strong {
+    font-size: 26px;
   }
 
   .hero-visual {
