@@ -459,6 +459,7 @@
 .hero-visual {
   position: relative;
   z-index: 2;
+  width: 100%;
   perspective: 1400px;
   min-height: 560px;
 }
@@ -741,6 +742,7 @@
 
 .about-visual {
   position: relative;
+  width: 100%;
 }
 
 .about-photo-frame {
