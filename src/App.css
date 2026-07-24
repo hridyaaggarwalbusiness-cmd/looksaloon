@@ -195,11 +195,11 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
-  padding: 0;
+  padding: 6px;
 }
 
 .nav-toggle span {
@@ -242,6 +242,8 @@
 
   .nav-toggle {
     display: flex;
+    position: relative;
+    z-index: 95;
   }
 
   .nav-drawer {
@@ -899,23 +901,28 @@
 .service-showcase-dots {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 34px;
+  gap: 2px;
+  margin-top: 20px;
+  margin-left: -6px;
 }
 
 .service-showcase-dot {
+  display: flex;
+  align-items: center;
+  padding: 14px 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.service-showcase-dot-track {
   position: relative;
   width: 34px;
   height: 4px;
   border-radius: 999px;
   background: var(--line);
   overflow: hidden;
-  cursor: pointer;
   transition: background 0.3s ease;
-}
-
-.service-showcase-dot.is-active {
-  background: var(--line);
 }
 
 .service-showcase-dot-fill {
@@ -1333,15 +1340,16 @@
 
 .testimonial-dots {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
 .testimonial-dots button {
-  width: 8px;
-  height: 8px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: rgba(251, 246, 240, 0.25);
-  padding: 0;
+  background-clip: content-box;
+  padding: 8px;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
@@ -1393,7 +1401,7 @@
 .review-form input,
 .review-form textarea {
   font-family: var(--font-body);
-  font-size: 14.5px;
+  font-size: 16px;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(251, 246, 240, 0.18);
@@ -1701,7 +1709,7 @@
 .contact-form select,
 .contact-form textarea {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   padding: 13px 16px;
   border-radius: var(--radius-sm);
@@ -2061,17 +2069,16 @@
 
 @media (max-width: 720px) {
   .whatsapp-fab {
-    right: 16px;
-    bottom: 88px;
-    width: 50px;
-    height: 50px;
+    /* Already reachable via the WhatsApp button in the bottom action bar;
+       the floating copy was crowding other controls (e.g. the hero CTA). */
+    display: none;
   }
 
   .back-to-top {
     right: 16px;
-    bottom: 148px;
-    width: 40px;
-    height: 40px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    width: 44px;
+    height: 44px;
   }
 
   .mobile-action-bar {
@@ -2109,7 +2116,7 @@
   }
 
   body {
-    padding-bottom: 74px;
+    padding-bottom: calc(74px + env(safe-area-inset-bottom));
   }
 }
 

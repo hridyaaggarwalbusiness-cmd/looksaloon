@@ -115,19 +115,21 @@ function Services() {
                   <button
                     key={item.id}
                     type="button"
-                    className={`service-showcase-dot ${i === active ? 'is-active' : ''}`}
+                    className="service-showcase-dot"
                     aria-label={`Show ${item.name}`}
                     onClick={() => setActive(i)}
                   >
-                    {i === active && (
-                      <motion.span
-                        key={`${item.id}-progress`}
-                        className="service-showcase-dot-fill"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: paused ? 0 : 1 }}
-                        transition={{ duration: paused ? 0 : SLIDE_DURATION / 1000, ease: 'linear' }}
-                      />
-                    )}
+                    <span className={`service-showcase-dot-track ${i === active ? 'is-active' : ''}`}>
+                      {i === active && (
+                        <motion.span
+                          key={`${item.id}-progress`}
+                          className="service-showcase-dot-fill"
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: paused ? 0 : 1 }}
+                          transition={{ duration: paused ? 0 : SLIDE_DURATION / 1000, ease: 'linear' }}
+                        />
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
