@@ -1,7 +1,14 @@
 import { useState } from 'react'
 
+function isCached(src) {
+  if (!src) return false
+  const img = new Image()
+  img.src = src
+  return img.complete
+}
+
 function Photo({ src, alt, className = '' }) {
-  const [status, setStatus] = useState('loading')
+  const [status, setStatus] = useState(() => (isCached(src) ? 'loaded' : 'loading'))
 
   if (status === 'failed' || !src) return null
 
