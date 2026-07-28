@@ -173,14 +173,14 @@ function Contact() {
               <div className="form-row">
                 <label>
                   <span>Full Name</span>
-                  <input type="text" name="name" placeholder="Priya Sharma" required />
+                  <input type="text" name="name" placeholder="Your Name" required />
                 </label>
                 <label>
                   <span>Mobile Number</span>
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="+91 98765 43210"
+                    placeholder="Your Mobile Number"
                     pattern="(\+91[\s-]?)?[6-9]\d{9}"
                     title="Enter a valid 10-digit Indian mobile number"
                     required
@@ -189,7 +189,7 @@ function Contact() {
               </div>
               <label>
                 <span>Email Address</span>
-                <input type="email" name="email" placeholder="priya@example.com" required />
+                <input type="email" name="email" placeholder="Your Email Address" required />
               </label>
               <label>
                 <span>Service Interested In</span>
