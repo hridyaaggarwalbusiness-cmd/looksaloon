@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
 import PhotoFrame from './PhotoFrame'
 import { useInView } from '../hooks/useInView'
+import { preloadImage } from '../imageCache'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -12,9 +13,7 @@ function ShowcaseRow({ items, index, reverse }) {
 
   useEffect(() => {
     if (!items) return
-    items.forEach((item) => {
-      if (item.imageUrl) new Image().src = item.imageUrl
-    })
+    items.forEach((item) => preloadImage(item.imageUrl))
   }, [items])
 
   useEffect(() => {

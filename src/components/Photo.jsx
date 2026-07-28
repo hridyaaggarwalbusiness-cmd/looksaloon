@@ -1,14 +1,8 @@
 import { useState } from 'react'
-
-function isCached(src) {
-  if (!src) return false
-  const img = new Image()
-  img.src = src
-  return img.complete
-}
+import { isImageLoaded, markImageLoaded } from '../imageCache'
 
 function Photo({ src, alt, className = '' }) {
-  const [status, setStatus] = useState(() => (isCached(src) ? 'loaded' : 'loading'))
+  const [status, setStatus] = useState(() => (isImageLoaded(src) ? 'loaded' : 'loading'))
 
   if (status === 'failed' || !src) return null
 
@@ -20,7 +14,10 @@ function Photo({ src, alt, className = '' }) {
       loading="lazy"
       decoding="async"
       referrerPolicy="no-referrer"
-      onLoad={() => setStatus('loaded')}
+      onLoad={() => {
+        markImageLoaded(src)
+        setStatus('loaded')
+      }}
       onError={() => setStatus('failed')}
     />
   )

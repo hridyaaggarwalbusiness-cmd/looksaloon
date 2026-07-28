@@ -7,6 +7,7 @@ import { useServices } from '../hooks/useServices'
 import { useInView } from '../hooks/useInView'
 import { SERVICE_ICONS } from './serviceIcons'
 import { BOOKING_SERVICE_EVENT, BOOKING_SERVICE_STORAGE_KEY } from '../bookingService'
+import { preloadImage } from '../imageCache'
 
 const EASE = [0.16, 1, 0.3, 1]
 const SLIDE_DURATION = 3000
@@ -22,9 +23,7 @@ function Services() {
   }, [services, active])
 
   useEffect(() => {
-    services.forEach((item) => {
-      if (item.imageUrl) new Image().src = item.imageUrl
-    })
+    services.forEach((item) => preloadImage(item.imageUrl))
   }, [services])
 
   useEffect(() => {
