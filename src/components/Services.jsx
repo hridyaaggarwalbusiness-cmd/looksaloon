@@ -8,7 +8,7 @@ import { useInView } from '../hooks/useInView'
 import { SERVICE_ICONS } from './serviceIcons'
 
 const EASE = [0.16, 1, 0.3, 1]
-const SLIDE_DURATION = 5000
+const SLIDE_DURATION = 3000
 
 function Services() {
   const { services } = useServices()
