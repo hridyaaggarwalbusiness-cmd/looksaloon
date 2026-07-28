@@ -1,23 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import Reveal from './Reveal'
 import { db } from '../firebase'
 import { useSettings } from '../hooks/useSettings'
-
-const SERVICE_OPTIONS = [
-  'Haircut & Styling',
-  'Color & Balayage',
-  'Facial & Skin Therapy',
-  'Manicure & Pedicure',
-  'Bridal & Occasion',
-  'Spa & Body Ritual',
-]
+import { useServices } from '../hooks/useServices'
+import { BOOKING_SERVICE_EVENT, BOOKING_SERVICE_STORAGE_KEY } from '../bookingService'
 
 function Contact() {
   const settings = useSettings()
+  const { services } = useServices()
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [selectedService, setSelectedService] = useState('')
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem(BOOKING_SERVICE_STORAGE_KEY)
+    if (stored) {
+      setSelectedService(stored)
+      sessionStorage.removeItem(BOOKING_SERVICE_STORAGE_KEY)
+    }
+
+    const handleServiceChange = (event) => setSelectedService(event.detail || '')
+    window.addEventListener(BOOKING_SERVICE_EVENT, handleServiceChange)
+    return () => window.removeEventListener(BOOKING_SERVICE_EVENT, handleServiceChange)
+  }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -46,6 +53,7 @@ function Contact() {
       await addDoc(collection(db, 'bookings'), booking)
       setSubmitted(true)
       form.reset()
+      setSelectedService('')
     } catch {
       setError('Something went wrong sending your request. Please call or WhatsApp us instead.')
     } finally {
@@ -165,26 +173,37 @@ function Contact() {
               <div className="form-row">
                 <label>
                   <span>Full Name</span>
-                  <input type="text" name="name" placeholder="Jane Doe" required />
+                  <input type="text" name="name" placeholder="Priya Sharma" required />
                 </label>
                 <label>
-                  <span>Phone Number</span>
-                  <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required />
+                  <span>Mobile Number</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 98765 43210"
+                    pattern="(\+91[\s-]?)?[6-9]\d{9}"
+                    title="Enter a valid 10-digit Indian mobile number"
+                    required
+                  />
                 </label>
               </div>
               <label>
                 <span>Email Address</span>
-                <input type="email" name="email" placeholder="jane@example.com" required />
+                <input type="email" name="email" placeholder="priya@example.com" required />
               </label>
               <label>
                 <span>Service Interested In</span>
-                <select name="service" defaultValue="">
+                <select
+                  name="service"
+                  value={selectedService}
+                  onChange={(event) => setSelectedService(event.target.value)}
+                >
                   <option value="" disabled>
                     Select a service
                   </option>
-                  {SERVICE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                  {services.map((option) => (
+                    <option key={option.id} value={option.name}>
+                      {option.name}
                     </option>
                   ))}
                 </select>

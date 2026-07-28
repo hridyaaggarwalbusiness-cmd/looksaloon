@@ -6,6 +6,7 @@ import PhotoFrame from './PhotoFrame'
 import { useServices } from '../hooks/useServices'
 import { useInView } from '../hooks/useInView'
 import { SERVICE_ICONS } from './serviceIcons'
+import { BOOKING_SERVICE_EVENT, BOOKING_SERVICE_STORAGE_KEY } from '../bookingService'
 
 const EASE = [0.16, 1, 0.3, 1]
 const SLIDE_DURATION = 3000
@@ -98,7 +99,14 @@ function Services() {
                     <Link to={`/services/${service.id}`} className="service-link service-link-ghost">
                       Details
                     </Link>
-                    <a href="#contact" className="service-link">
+                    <a
+                      href="#contact"
+                      className="service-link"
+                      onClick={() => {
+                        sessionStorage.setItem(BOOKING_SERVICE_STORAGE_KEY, service.name)
+                        window.dispatchEvent(new CustomEvent(BOOKING_SERVICE_EVENT, { detail: service.name }))
+                      }}
+                    >
                       Book
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                         <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

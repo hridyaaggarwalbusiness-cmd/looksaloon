@@ -3,6 +3,7 @@ import Reveal from '../components/Reveal'
 import PhotoFrame from '../components/PhotoFrame'
 import { SERVICE_ICONS } from '../components/serviceIcons'
 import { useServices } from '../hooks/useServices'
+import { BOOKING_SERVICE_STORAGE_KEY } from '../bookingService'
 
 function ServiceDetail() {
   const { id } = useParams()
@@ -54,7 +55,11 @@ function ServiceDetail() {
             <p className="service-detail-description">{service.description}</p>
 
             <div className="service-detail-actions">
-              <a href="/#contact" className="btn btn-primary btn-lg">
+              <a
+                href="/#contact"
+                className="btn btn-primary btn-lg"
+                onClick={() => sessionStorage.setItem(BOOKING_SERVICE_STORAGE_KEY, service.name)}
+              >
                 Book This Service
               </a>
               <a href="/#services" className="btn btn-ghost btn-lg">
