@@ -11,6 +11,13 @@ function ShowcaseRow({ items, index, reverse }) {
   const [rowRef, inView] = useInView()
 
   useEffect(() => {
+    if (!items) return
+    items.forEach((item) => {
+      if (item.imageUrl) new Image().src = item.imageUrl
+    })
+  }, [items])
+
+  useEffect(() => {
     if (!items || items.length < 2 || !inView) return undefined
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches

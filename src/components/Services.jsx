@@ -22,6 +22,12 @@ function Services() {
   }, [services, active])
 
   useEffect(() => {
+    services.forEach((item) => {
+      if (item.imageUrl) new Image().src = item.imageUrl
+    })
+  }, [services])
+
+  useEffect(() => {
     if (services.length < 2 || paused || !inView) return undefined
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
