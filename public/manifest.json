@@ -8,9 +8,16 @@
   "theme_color": "#17110d",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "https://imagur.org/wp-content/uploads/2026/07/ChatGPT-Image-Jul-12-2026-12_53_01-PM-1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://imagur.org/wp-content/uploads/2026/07/ChatGPT-Image-Jul-12-2026-12_53_01-PM-1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
